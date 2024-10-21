@@ -95,9 +95,136 @@ function drawPiePerformanceChart() {
 // ============= crtl + / short cut key for the search box
 
 document.addEventListener('keydown', (e) => {
- if (e.ctrlKey & e.key === '/') {
+ if (e.ctrlKey && e.key === '/') {
   e.preventDefault();
   document.getElementById('search').focus();
  }
 });
+document.addEventListener('keydown', (e) => {
+ if (e.ctrlKey && e.key === '/') {
+  e.preventDefault();
+  document.getElementById('teacher_search').focus();
+ }
+});
+document.addEventListener('keydown', (e) => {
+ if (e.ctrlKey && e.key === '/') {
+  e.preventDefault();
+  document.getElementById('administrator_search').focus();
+ }
+});
  
+// adding the functionality of the all check box
+// student all check box
+function studentToggleDeleteButton() {
+  const deleteButton = document.querySelector('.delete_btn');
+  const studentCheckboxes = document.querySelectorAll('.student-checkbox');
+  const anyChecked = Array.from(studentCheckboxes).some(checkbox => checkbox.checked);
+
+  deleteButton.style.display = anyChecked ? 'inline-block' : 'none'; // Toggle button
+}
+
+// Function to toggle delete button for instructors
+function teacherToggleDeleteButton() {
+  const deleteButton = document.querySelector('.instructor_delete_btn');
+  const instructorCheckboxes = document.querySelectorAll('.instructor-checkbox');
+  const anyChecked = Array.from(instructorCheckboxes).some(checkbox => checkbox.checked);
+
+  deleteButton.style.display = anyChecked ? 'inline-block' : 'none'; // Toggle button
+}
+
+// Function to toggle delete button for administrators
+function administratorToggleDeleteButton() {
+  const deleteButton = document.querySelector('.administrator_delete_btn');
+  const administratorCheckboxes = document.querySelectorAll('.administrator-checkbox');
+  const anyChecked = Array.from(administratorCheckboxes).some(checkbox => checkbox.checked);
+
+  deleteButton.style.display = anyChecked ? 'inline-block' : 'none'; // Toggle button
+}
+
+// Students "check all" checkbox event listener
+document.getElementById('checkAllStudents').addEventListener('change', function () {
+  let checkboxes = document.querySelectorAll('#students .student-checkbox');
+  checkboxes.forEach(checkbox => checkbox.checked = this.checked);
+  studentToggleDeleteButton(); // Call toggle function for students
+});
+
+// Teachers "check all" checkbox event listener
+document.getElementById('checkAllInstructors').addEventListener('change', function () {
+  let checkboxes = document.querySelectorAll('#instructors .instructor-checkbox');
+  checkboxes.forEach(checkbox => checkbox.checked = this.checked);
+  teacherToggleDeleteButton(); // Call toggle function for instructors
+});
+
+// Administrators "check all" checkbox event listener
+document.getElementById('checkAllAdministrators').addEventListener('change', function () {
+  let checkboxes = document.querySelectorAll('#administrators .administrator-checkbox');
+  checkboxes.forEach(checkbox => checkbox.checked = this.checked);
+  administratorToggleDeleteButton(); // Call toggle function for administrators
+});
+
+// Add event listeners to individual student checkboxes
+document.querySelectorAll('.student-checkbox').forEach(function (checkbox) {
+  checkbox.addEventListener('change', studentToggleDeleteButton);
+});
+
+// Add event listeners to individual instructor checkboxes
+document.querySelectorAll('.instructor-checkbox').forEach(function (checkbox) {
+  checkbox.addEventListener('change', teacherToggleDeleteButton);
+});
+
+// Add event listeners to individual administrator checkboxes
+document.querySelectorAll('.administrator-checkbox').forEach(function (checkbox) {
+  checkbox.addEventListener('change', administratorToggleDeleteButton);
+});
+
+// Function to filter table rows based on search input
+function filterTable(searchInput, tableBody) {
+  const filter = searchInput.value.toLowerCase();
+  const rows = tableBody.getElementsByTagName('tr');
+  
+  Array.from(rows).forEach(row => {
+    const cells = row.getElementsByTagName('td');
+    let match = false;
+
+    // Loop through each cell in the row
+    Array.from(cells).forEach(cell => {
+      if (cell.textContent.toLowerCase().includes(filter)) {
+        match = true;
+      }
+    });
+
+    // Toggle the display of the row based on match
+    row.style.display = match ? '' : 'none';
+  });
+}
+
+// Students Tab
+const studentSearchInput = document.getElementById('search');
+const studentTableBody = document.querySelector('#students tbody');
+studentSearchInput.addEventListener('input', () => filterTable(studentSearchInput, studentTableBody));
+
+// Instructors Tab
+const instructorSearchInput = document.getElementById('teacher_search');
+const instructorTableBody = document.querySelector('#instructors tbody');
+instructorSearchInput.addEventListener('input', () => filterTable(instructorSearchInput, instructorTableBody));
+
+// Administrators Tab
+const adminSearchInput = document.getElementById('administrator_search');
+const adminTableBody = document.querySelector('#administrators tbody');
+adminSearchInput.addEventListener('input', () => filterTable(adminSearchInput, adminTableBody));
+
+// Keyboard Shortcut (Ctrl + /) for focusing search inputs
+document.addEventListener('keydown', (e) => {
+  if (e.ctrlKey && e.key === '/') {
+    e.preventDefault();
+
+    // Find the active tab and focus its search input
+    if (document.getElementById('students-tab').classList.contains('active')) {
+      studentSearchInput.focus();
+    } else if (document.getElementById('instructors-tab').classList.contains('active')) {
+      instructorSearchInput.focus();
+    } else if (document.getElementById('administrators-tab').classList.contains('active')) {
+      adminSearchInput.focus();
+    }
+  }
+});

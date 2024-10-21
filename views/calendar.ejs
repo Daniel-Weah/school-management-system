@@ -1,34 +1,129 @@
-    <div class="content-wrapper">
-        <div id="calendar" class="shadow-sm"></div>
-       </div>
-       
+<div class="content-wrapper p-4">
+    <div id="calendar" class="shadow-sm"></div>
+</div>
 
-    <!-- FullCalendar JS -->
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth', // Monthly grid view
-                // events: [
-                //     {
-                //         title: '',
-                //         start: ''
-                //     },
-                //     {
-                //         title: 'First Sem. Exam',
-                //         start: '2024-10-07',
-                //         end: '2024-10-10',
-                //         color: '#ff9f89'
-                //     },
-                //     {
-                //         title: 'Class Game',
-                //         start: '2024-10-20',
-                //         color: 'lightblue' // Custom color for this event
-                //     }
-                // ]
-            });
-            calendar.render();
+<!-- FullCalendar CSS (Optional: Add some Google Fonts for modern typography) -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
+
+<!-- FullCalendar JS -->
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+
+<!-- Custom CSS for the calendar -->
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #fff;
+    }
+
+    .content-wrapper {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        width: 75%;
+        margin-bottom: 2pc;
+    }
+
+    #calendar {
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 15px;
+        background-color: #ffffff;
+        border-radius: 10px;
+    }
+
+    .fc-toolbar {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        background-color: #ffffff;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .fc-toolbar h2 {
+        font-size: 20px;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .fc-button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+        font-size: 14px;
+        transition: background-color 0.3s;
+    }
+
+    .fc-button:hover {
+        background-color: #0056b3;
+    }
+
+    .fc-button:focus {
+        box-shadow: none;
+    }
+
+    .fc-daygrid-day {
+        border: 1px solid #dee2e6;
+    }
+
+    .fc-daygrid-day-number {
+        font-size: 14px;
+        color: #007bff;
+        padding: 5px;
+        border-radius: 50%;
+        transition: background-color 0.2s;
+    }
+
+    .fc-daygrid-day-number:hover {
+        background-color: #e9ecef;
+        color: #0056b3;
+    }
+
+    .fc-event {
+        background-color: #17a2b8 !important;
+        color: #fff !important;
+        border: none;
+        padding: 2px 5px;
+        border-radius: 5px;
+        font-size: 12px;
+    }
+</style>
+
+<!-- FullCalendar JS -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            themeSystem: 'standard',
+            buttonText: {
+                today: 'Today',
+                month: 'Month',
+                week: 'Week',
+                day: 'Day'
+            },
+            events: [
+                {
+                    title: 'First Sem. Exam',
+                    start: '2024-10-07',
+                    end: '2024-10-10',
+                    color: '#ff9f89'
+                },
+                {
+                    title: 'Class Game',
+                    start: '2024-10-20',
+                    color: 'lightblue'
+                }
+            ],
+            dayMaxEventRows: true, // allow "more" link when too many events
         });
-    </script>
-
+        calendar.render();
+    });
+</script>

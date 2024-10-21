@@ -27,16 +27,19 @@
           </select>
           <div class="search mb-2" style="width: 50%;">
             <input class="search_input" type="text" id="search" placeholder="Search (Ctrl + '/' to focus)">
-                  <a href="#" class="search_icon"><i class="fa fa-search"></i></a>
-           </div>
-           
-          <span>All</span> <input type="checkbox" />
+            <a href="#" class="search_icon"><i class="fa fa-search"></i></a>
+          </div>
+
+          <!-- 'All' Checkbox -->
+          <span>All</span> <input type="checkbox" id="checkAllStudents" />
+
           <!-- Students Table -->
           <table class="table align-middle mb-0 bg-white">
             <thead>
               <tr>
                 <th></th>
                 <th>Name</th>
+                <th>ID</th>
                 <th>Class & Type</th>
                 <th>Status</th>
                 <th>Phone</th>
@@ -45,7 +48,7 @@
             </thead>
             <tbody>
               <tr>
-                <td><input type="checkbox" /></td>
+                <td><input type="checkbox" class="student-checkbox" /></td>
                 <td>
                   <div class="d-flex align-items-center">
                     <img src="https://mdbootstrap.com/img/new/avatars/8.jpg" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
@@ -55,18 +58,19 @@
                     </div>
                   </div>
                 </td>
+                <td>rass12484</td>
                 <td>Grade 12 - Science</td>
                 <td><span class="badge bg-success">Active</span></td>
                 <td>0771894241</td>
                 <td><button class="btn btn-link btn-sm">
                   <span>
                     <i class="fa fa-pen"></i>
-                   </span>
-                  Edit</button>
-                  <span class="delete_btn" style="color: red; cursor: pointer;"><i class="fa fa-trash"></i></span>
-
+                   </span> &nbsp;
+                   <span class="delete_btn" style="color: red; cursor: pointer;"><i class="fa fa-trash"></i></span>
+                  </button>
                 </td>
               </tr>
+              <!-- More student rows here -->
             </tbody>
           </table>
         </div>
@@ -81,12 +85,13 @@
             <option value="rass">Rosa Allen School System</option>
             <option value="jcmi">John Christian Memorial Institute</option>
           </select>
-
           <div class="search mb-2" style="width: 50%;">
-            <input class="search_input" type="text" id="search" placeholder="Search (Ctrl + '/' to focus)">
-                  <a href="#" class="search_icon"><i class="fa fa-search"></i></a>
-           </div>
-           <span>All</span> <input type="checkbox" />
+            <input class="search_input" type="text" id="teacher_search" placeholder="Search (Ctrl + '/' to focus)">
+            <a href="#" class="search_icon"><i class="fa fa-search"></i></a>
+          </div>
+
+          <!-- 'All' Checkbox -->
+          <span>All</span> <input type="checkbox" id="checkAllInstructors" />
 
           <!-- Instructors Table -->
           <table class="table align-middle mb-0 bg-white">
@@ -102,7 +107,7 @@
             </thead>
             <tbody>
               <tr>
-                <td><input type="checkbox" /></td>
+                <td><input type="checkbox" class="instructor-checkbox" /></td>
                 <td>
                   <div class="d-flex align-items-center">
                     <img src="https://mdbootstrap.com/img/new/avatars/6.jpg" class="rounded-circle" alt="" style="width: 45px; height: 45px" />
@@ -118,13 +123,12 @@
                 <td><button class="btn btn-link btn-sm">
                   <span>
                     <i class="fa fa-pen"></i>
-                   </span>
-                  Edit</button>
-                  <span class="delete_btn" style="color: red; cursor: pointer;"><i class="fa fa-trash"></i></span>
-
-                </td>
+                   </span> &nbsp;
+                   <span class="instructor_delete_btn" style="color: red; cursor: pointer;"><i class="fa fa-trash"></i></span>
+                  </button>
+                </td>              
               </tr>
-              <!-- More Instructor Rows -->
+              <!-- More instructor rows here -->
             </tbody>
           </table>
         </div>
@@ -139,12 +143,13 @@
             <option value="rass">Rosa Allen School System</option>
             <option value="jcmi">John Christian Memorial Institute</option>
           </select>
-
           <div class="search mb-2" style="width: 50%;">
-            <input class="search_input" type="text" id="search" placeholder="Search (Ctrl + '/' to focus)">
-                  <a href="#" class="search_icon"><i class="fa fa-search"></i></a>
-           </div>
-           <span>All</span> <input type="checkbox" />
+            <input class="search_input" type="text" id="administrator_search" placeholder="Search (Ctrl + '/' to focus)">
+            <a href="#" class="search_icon"><i class="fa fa-search"></i></a>
+          </div>
+
+          <!-- 'All' Checkbox -->
+          <span>All</span> <input type="checkbox" id="checkAllAdministrators" />
 
           <!-- Administrators Table -->
           <table class="table align-middle mb-0 bg-white">
@@ -160,7 +165,7 @@
             </thead>
             <tbody>
               <tr>
-                <td><input type="checkbox" /></td>
+                <td><input type="checkbox" class="administrator-checkbox" /></td>
                 <td>
                   <div class="d-flex align-items-center">
                     <img src="https://mdbootstrap.com/img/new/avatars/7.jpg" class="rounded-circle" alt="" style="width: 45px; height: 45px" />
@@ -176,12 +181,12 @@
                 <td><button class="btn btn-link btn-sm">
                   <span>
                     <i class="fa fa-pen"></i>
-                   </span>
-                  Edit</button>
-                <span class="delete_btn" style="color: red; cursor: pointer;"><i class="fa fa-trash"></i></span>
-                </td>
+                   </span> &nbsp;
+                   <span class="administrator_delete_btn" style="color: red; cursor: pointer;"><i class="fa fa-trash"></i></span>
+                  </button>
+                </td>              
               </tr>
-              <!-- More Administrator Rows -->
+              <!-- More administrator rows here -->
             </tbody>
           </table>
         </div>

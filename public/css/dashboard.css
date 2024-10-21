@@ -387,23 +387,25 @@ input[type='checkbox'] {
  width: 250px;
  caret-color:#dd3675;
  transition: width 0.4s linear;
+
  }
  
  .search:hover > .search_icon{
- background: #dd3675;
- color: #fff;
- }
+   background: #dd3675;
+   color: #fff;
+  }
 
  .search_icon{
- height: 40px;
- width: 40px;
- float: right;
+   height: 40px;
+   width: 40px;
+   float: right;
  display: flex;
  justify-content: center;
  align-items: center;
  border-radius: 50%;
  color:white;
  background-color:black;
+ display: none;
  }
  
 a:link{
@@ -411,6 +413,12 @@ a:link{
 }  
 
 .delete_btn{
+  display: none;
+}
+.instructor_delete_btn{
+  display: none;
+}
+.administrator_delete_btn{
   display: none;
 }
 
