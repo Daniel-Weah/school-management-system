@@ -1,0 +1,416 @@
+body {
+ background-color: #fbfbfb;
+}
+@media (min-width: 991.98px) {
+ main {
+   padding-left: 240px;
+ }
+}
+
+/* Sidebar */
+.sidebar {
+ position: fixed;
+ top: 0;
+ bottom: 0;
+ left: 0;
+ padding: 58px 0 0; /* Height of navbar */
+ box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+ width: 200px;
+ z-index: 600;
+}
+
+@media (max-width: 991.98px) {
+ .sidebar {
+   width: 100%;
+ }
+}
+.sidebar .active {
+ border-radius: 5px;
+ box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+}
+
+.sidebar-sticky {
+ position: relative;
+ top: 0;
+ height: calc(100vh - 48px);
+ padding-top: 0.5rem;
+ overflow-x: hidden;
+ overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+.notice_board {
+ display: flex;
+ flex-direction: column;
+ align-items: center; /* Center horizontally */
+ justify-content: center; /* Center vertically if needed */
+ width: 100%; /* Make sure it takes full width */
+ margin: 20px 0; /* Add some vertical spacing */
+}
+
+.slider-container {
+ overflow: hidden; /* Hide overflow to prevent scrolling */
+ width: 100%; /* Ensure it takes the full width of the parent */
+ display: flex; /* Use flexbox for layout */
+ justify-content: center; /* Center the slider */
+}
+
+.slider {
+ display: flex; /* Use flexbox for horizontal sliding */
+ transition: transform 0.5s ease; /* Smooth transition */
+}
+
+.card {
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+ margin: 10px; /* Space between cards */
+ width: 200px; /* Fixed width for cards */
+ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ border-radius: 10px;
+}
+
+.card img {
+ width: 100%; /* Responsive images */
+ border-radius: 10px 10px 0 0; /* Round top corners */
+}
+
+.card-text {
+ padding: 10px; /* Space for text */
+}
+/* Notice Bar */
+.notice {
+ width: 200px;
+ position: fixed;
+ right: 0;
+ top: 70px;
+ height: calc(100vh - 70px);
+ overflow-y: auto;
+ background-color: #f9f9f9;
+ box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+ padding: 10px;
+}
+
+/* Notice Details */
+.notice_details {
+ display: flex;
+ align-items: center;
+ margin-bottom: 20px;
+ padding: 10px;
+ background-color: #fff;
+ border-radius: 8px;
+ box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Image inside Notice */
+.notice_details img {
+ width: 60px;
+ height: 60px;
+ border-radius: 20%;
+ margin-right: 10px;
+}
+
+/* Text inside Notice */
+.notice_text {
+ display: flex;
+ flex-direction: column;
+}
+
+.notice_text h4 {
+ margin: 0;
+ font-size: 16px;
+ color: #333;
+}
+
+.notice_text h6 {
+ margin-top: 5px;
+ font-size: 14px;
+ color: #888;
+}
+
+/* Custom Scrollbar for Notice */
+.notice::-webkit-scrollbar {
+ width: 8px;
+}
+
+.notice::-webkit-scrollbar-thumb {
+ background-color: #ccc;
+ border-radius: 4px;
+}
+
+
+/* Feed container */
+.feed {
+ display: flex;
+ margin-top: 20px; 
+ padding: 10px;
+ gap: 3px;
+ width: 70%;
+background-color: #fff;
+}
+
+/* Card styles */
+.feed .card {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ width: 150px;
+ height: 150px;
+ background-color: #fff;
+ border-radius: 10px;
+ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ transition: transform 0.3s ease;
+}
+
+.feed .card:hover {
+ transform: translateY(-5px);
+}
+
+/* Icon styles */
+.feed .card i {
+ font-size: 40px;
+ color: #dd3675; 
+ margin-bottom: 10px;
+}
+
+/* Title styles */
+.feed .card h5 {
+ font-size: 18px;
+ color: #333;
+ margin-bottom: 5px;
+}
+
+/* Subtitle styles */
+.feed .card h6 {
+ font-size: 16px;
+ color: #777;
+}
+/* Card Styles */
+.card {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ width: 200px;
+ height: 200px;
+ background-color: #f5f5f5;
+ border-radius: 15px;
+ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ transition: transform 0.3s ease;
+ padding: 20px;
+}
+
+.card:hover {
+ transform: translateY(-5px);
+}
+
+
+
+/* Title styles */
+.card h5 {
+ color: #333;
+ margin-bottom: 10px;
+
+}
+
+/* records */
+.records{
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ margin: 0 auto;
+}
+.type_taps{
+ display: flex;
+ margin-right: 20pc;
+ gap: 20px;
+ padding: 0.5rem;
+ border-radius: 20px;
+}
+.type_taps h6{
+ background-color: #ecebeb;
+ border-radius: 20px;
+ padding: 0.5rem;
+ cursor: pointer;
+ transition: 0.5s ease;
+}
+.type_taps h6:hover{
+ background-color: #ccc;
+
+}
+.breadcrumb a{
+ color: #888;
+ text-decoration: none;
+ transition: all 0.5s ease-in-out;
+}
+.breadcrumb a:hover{
+ text-decoration: underline;
+ color: #888;
+}
+.breadcrumb{
+ background-color: #fff;
+ margin-bottom: -5px;
+ margin-top: -10px;
+}
+
+/* calendar styling */
+#calendar {
+ padding: 20px;
+ background-color: #fff;
+ border-radius: 10px;
+ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ width: 700px;
+ /* height: 100vh; */
+
+}
+
+/* Calendar Heading */
+.fc-toolbar-title {
+ font-weight: 600;
+ color: #444;
+}
+#fc-dom-1{
+ font-size: 20px;
+}
+
+
+
+/* Button Styling */
+.fc-button {
+ background-color: #007bff;
+ color: #fff;
+ border: none;
+ border-radius: 4px;
+ padding: 5px 10px;
+ font-size: 0.9rem;
+}
+
+.fc-button:hover {
+ background-color: #0056b3;
+}
+
+/* Event Styling */
+.fc-event {
+ font-size: 0.9rem;
+ font-weight: 500;
+ border: none;
+ border-radius: 5px;
+ padding: 5px;
+}
+
+/* Event Color */
+.fc-event .fc-event-title {
+ color: #fff;
+}
+
+/* Improve spacing and header/footer alignment */
+.content-wrapper {
+ padding: 30px 15px;
+}
+
+/* charts design */
+.charts{
+ display: flex;
+ justify-content: space-between;
+ margin: 0 auto;
+ width: 100%;
+ margin-left: -15px;
+ gap: 20px;
+}
+#piechart{
+ margin-right: 5pc;
+}
+#columnchart_grades{
+ padding: 1rem;
+}
+.select_items{
+ display: flex;
+ gap: 10px;
+ margin-bottom: 20px;
+}
+
+.select_items_moderator{
+ display: flex;
+ gap: 10px;
+ margin-bottom: 20px;
+ display: none; /*  will be remove when working with the backend */
+}
+select{
+ cursor: pointer;
+}
+
+.moderator{
+ display: flex;
+ justify-content: space-between;
+ margin: 0 auto;
+ width: 100%;
+ margin-left: -15px;
+ gap: 20px;
+ display: none; /*  will be remove when working with the backend */
+}
+#piechart_performance{
+ margin-right: 5pc;
+}
+/* ============ table styles =========== */
+table thead{
+ color: #666;
+}
+
+input[type='checkbox'] {
+ cursor: pointer;
+}
+
+/* search  css */
+.search{
+ margin-bottom: auto;
+ margin-top: auto;
+ height: 50px;
+ background-color: #f5f5f5;
+ border-radius: 40px;
+ padding: 5px;
+ }
+
+ .search_input{
+ color: rgb(26, 26, 26);
+ border: 0;
+ outline: 0;
+ background: none;
+ width: 0;
+ margin-top: -2px;
+ caret-color:transparent;
+ line-height: 40px;
+ transition: width 0.4s linear;
+ }
+
+ .search .search_input{
+ padding: 0 10px;
+ width: 250px;
+ caret-color:#dd3675;
+ transition: width 0.4s linear;
+ }
+ 
+ .search:hover > .search_icon{
+ background: #dd3675;
+ color: #fff;
+ }
+
+ .search_icon{
+ height: 40px;
+ width: 40px;
+ float: right;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ border-radius: 50%;
+ color:white;
+ background-color:black;
+ }
+ 
+a:link{
+ text-decoration:none;
+}  
+
+.delete_btn{
+  display: none;
+}
+

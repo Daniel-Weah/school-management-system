@@ -19,6 +19,12 @@ db.serialize(() => {
         location TEXT NOT NULL,
         DOB INTEGER NOT NULL,
         role_id INTEGER NOT NULL,
+        school_id INTEGER NOT NULL,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  )`)
+ db.run(`CREATE TABLE IF NOT EXISTS schools(
+        school_id TEXT PRIMARY KEY,
+        school_name TEXT NOT NULL,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   )`)
  db.run(`CREATE TABLE IF NOT EXISTS subjects(

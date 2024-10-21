@@ -1,0 +1,61 @@
+<%- include('layouts/header')%>
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+ <!-- Login form template in Bootstrap 5 -->
+ <section class="h-100" style="background-color: #eee;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div class="col-lg-6">
+              <div class="card-body p-md-5 mx-md-4">
+
+                <div class="text-center">
+                  <img src="/images/BrainWave-logo.png"
+                    style="width: 250px;" alt="logo">
+                  <h4 class="mt-1 mb-3 pb-1">Welcome to BrainWave </h4>
+                </div>
+
+                <form>
+                  <p>Please login to your account</p>
+
+                  <div class="mb-4">
+                    <label class="form-label" for="username">Username</label>
+                    <input type="text" id="username" name="username" class="form-control" placeholder="Username e.g. johndoe" />
+                  </div>
+
+                  <div class="mb-4">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" id="password" name="password"  placeholder="password" class="form-control" />
+                  </div>
+
+                  <div class="text-center pt-1 ">
+                    <button class="btn btn-primary btn-lg btn-block mb-3" type="button" style="width: 100%;">Log in</button>
+                   </div>
+                   <a class="text-muted" href="">Forgot password?</a>
+
+                 
+
+                </form>
+
+              </div>
+            </div>
+            <div class="col-lg-6 d-flex align-items-center" style="background: linear-gradient(45deg, #ff416c, #ff4b2b);">
+              <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                <h4 class="mb-4">Welcome to BrainWave School Management System</h4>
+                <p class="small mb-0">At BrainWave, we are more than just a platform. We empower schools to achieve excellence through seamless management solutions.
+                 Our system ensures that students, teachers, and administrators stay connected effortlessly, enabling enhanced learning and efficient school operations.
+                 Join us on a journey of innovation in education, where every task is simplified, and every student thrives.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+
+<%- include('layouts/footer')%>

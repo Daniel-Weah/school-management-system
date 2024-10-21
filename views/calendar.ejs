@@ -1,0 +1,34 @@
+    <div class="content-wrapper">
+        <div id="calendar" class="shadow-sm"></div>
+       </div>
+       
+
+    <!-- FullCalendar JS -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth', // Monthly grid view
+                // events: [
+                //     {
+                //         title: '',
+                //         start: ''
+                //     },
+                //     {
+                //         title: 'First Sem. Exam',
+                //         start: '2024-10-07',
+                //         end: '2024-10-10',
+                //         color: '#ff9f89'
+                //     },
+                //     {
+                //         title: 'Class Game',
+                //         start: '2024-10-20',
+                //         color: 'lightblue' // Custom color for this event
+                //     }
+                // ]
+            });
+            calendar.render();
+        });
+    </script>
+
