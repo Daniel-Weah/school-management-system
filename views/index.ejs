@@ -1,61 +1,275 @@
-<%- include('layouts/header')%>
-<link rel="stylesheet" href="/css/style.css" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+      rel="icon" type="image/x-icon"
+      href="/images/BrainWave-logo.png"
+    />
+    <meta http-equiv="Content-Language" content="en" />
+<meta
+  name="keywords"
+  content="school management system, student management, school administration, attendance tracking, grading system, parent-teacher communication, education management"
+/>
+<meta
+  name="title"
+  property="og:title"
+  content="MySchool Manager | Efficient School Management System"
+/>
+<meta property="og:type" content="website" />
+<meta
+  name="description"
+  property="og:description"
+  content="Discover MySchool Manager, an efficient school management system that simplifies student attendance tracking, grade analysis, and parent-teacher communication."
+/>
+<meta
+  name="image"
+  property="og:image"
+  content="https://example.com/path-to-school-management-image.jpg"
+/>
+<meta name="twitter:card" content="summary" />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&family=Poppins:wght@300&display=swap"
+/>
+<meta name="robots" content="all" />
+<meta http-equiv="content-language" content="en" />
+<meta name="next-head-count" content="17" />
+    <script src="https://kit.fontawesome.com/818d3fc4f8.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="/css/index.css">
+<title>BrainWave School Management System</title>
 </head>
 <body>
- <!-- Login form template in Bootstrap 5 -->
- <section class="h-100" style="background-color: #eee;">
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-xl-10">
-        <div class="card rounded-3 text-black">
-          <div class="row g-0">
-            <div class="col-lg-6">
-              <div class="card-body p-md-5 mx-md-4">
-
-                <div class="text-center">
-                  <img src="/images/BrainWave-logo.png"
-                    style="width: 250px;" alt="logo">
-                  <h4 class="mt-1 mb-3 pb-1">Welcome to BrainWave </h4>
+    <div class="wrapper"> 
+        
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light shadow-sm">
+                <div class="container-fluid">
+                    <a href="/" class="navbar-brand">
+                        <img src="/images/BrainWave-logo.png" width="60" alt="Logo" id="logo">
+                    </a>
+                    <h4 style="color: rgb(232, 9, 46); font-weight: 700;letter-spacing: 2px;">BWSMS</h4>
+                    &nbsp;&nbsp;
+                    <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <div class="navbar-nav" style="margin-top: -10px;">
+                            <a href="/" class="nav-item nav-link active">Home</a>
+                            <a href="#feedback" class="nav-item nav-link active">Feedback</a>
+                           
+                        </div>
+                        <div class="navbar-nav ms-auto">
+                         <div class="nav-item dropdown">
+                             <a href="#" class="nav-link dropdown-toggle" id="loginDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                 Login
+                             </a>
+                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="loginDropdown">
+                                 <li><a class="dropdown-item" href="/student-login">Student</a></li>
+                                 <li><a class="dropdown-item" href="/login">Instructor</a></li>
+                             </ul>
+                         </div>
+                     </div>
+                     
+                    </div>
                 </div>
-
-                <form>
-                  <p>Please login to your account</p>
-
-                  <div class="mb-4">
-                    <label class="form-label" for="username">Username</label>
-                    <input type="text" id="username" name="username" class="form-control" placeholder="Username e.g. johndoe" />
-                  </div>
-
-                  <div class="mb-4">
-                    <label class="form-label" for="password">Password</label>
-                    <input type="password" id="password" name="password"  placeholder="password" class="form-control" />
-                  </div>
-
-                  <div class="text-center pt-1 ">
-                    <button class="btn btn-primary btn-lg btn-block mb-3" type="button" style="width: 100%;">Log in</button>
-                   </div>
-                   <a class="text-muted" href="">Forgot password?</a>
-
-                 
-
-                </form>
-
-              </div>
+            </nav>
+      
+      
+         <!-- start video background -->
+         <div class="container-fluid remove-vid-marg">
+            <div class="vid-parent">
+                <video  autoplay muted loop>
+                    <source src="/images/banvid.mp4">
+                </video>
+                <div class="vid-overlay">
+                </div>
             </div>
-            <div class="col-lg-6 d-flex align-items-center" style="background: linear-gradient(45deg, #ff416c, #ff4b2b);">
-              <div class="text-white px-3 py-4 p-md-5 mx-md-4">
-                <h4 class="mb-4">Welcome to BrainWave School Management System</h4>
-                <p class="small mb-0">At BrainWave, we are more than just a platform. We empower schools to achieve excellence through seamless management solutions.
-                 Our system ensures that students, teachers, and administrators stay connected effortlessly, enabling enhanced learning and efficient school operations.
-                 Join us on a journey of innovation in education, where every task is simplified, and every student thrives.</p>
-              </div>
+            <div class="vid-content">
+                <h1 class="my-content">
+                    Welcome To<br> BrainWave School Management System 
+                </h1>
+                <small class="my-content">
+                    Manage your student's records & student keep track of your performances
+                </small> <br>
+                <button class="btn btn-danger mt-3" style="font-weight: bold;font-size: 2rem;">BWSMS</button>
             </div>
+         </div>
+         <!-- start text banner  -->
+<div class="container-fluid bg-danger txt-banner">
+ <div class="row bottom-banner">
+     <div class="col-sm">
+         <h5><i class="fas fa-user-check fa-fw"></i>
+         Student Attendance
+         </h5>
+     </div>
+     <div class="col-sm">
+         <h5><i class="fas fa-chart-bar fa-fw"></i>
+         Student Grades Analysis
+         </h5>
+     </div>
+     <div class="col-sm">
+         <h5><i class="fas fa-comments fa-fw"></i>
+         Efficient Communication
+         </h5>
+     </div>
+     <div class="col-sm">
+         <h5><i class="fas fa-file-alt fa-fw"></i>
+         Request Transcript
+         </h5>
+     </div>
+ </div>
+</div>
+
+      
+
+         <!-- start most popular features -->
+         <h2 style="text-align: center;padding: 2rem;">Awesome Features</h2>
+         <div class="d-flex justify-content-center">
+          <!-- Student Attendance -->
+          <div class="card" style="width: 18rem;">
+              <img src="/images/studentAttendance.png" class="card-img-top" alt="student-attendance" />
+              <div class="card-body">
+                  <h5 class="card-title">Track Student Attendance</h5>
+                  <p class="card-text">Easily manage and monitor student attendance with our real-time tracking system, ensuring accurate records for every class.</p>
+              </div>
           </div>
-        </div>
+      
+          <!-- Academic Performance -->
+          <div class="card" style="width: 18rem;">
+              <img src="/images/studentPerformance.png" class="card-img-top" alt="academic-performance" />
+              <div class="card-body">
+                  <h5 class="card-title">Analyze Academic Performance</h5>
+                  <p class="card-text">Our system provides comprehensive insights into students' grades and progress, helping teachers and parents track academic performance effectively.</p>
+              </div>
+          </div>
+      
+          <!-- Request Transcripts -->
+          <div class="card" style="width: 18rem;">
+              <img src="/images/requestTranscript.png" class="card-img-top" alt="request-transcript" />
+              <div class="card-body">
+                  <h5 class="card-title">Request Student Transcripts</h5>
+                  <p class="card-text">Seamlessly request and manage student transcripts with ease, ensuring quick and reliable access to academic records when needed.</p>
+              </div>
+          </div>
       </div>
-    </div>
-  </div>
-</section>
-</body>
+      
+          <!-- End of popular features -->
 
-<%- include('layouts/footer')%>
+          <!-- start of contact us -->
+          <div class="container mt-4" id="feedback">
+            <h2 class="text-center mb-4">Feedback</h2>
+            <div class="row">
+                <div class="col-md-8">
+                    <form action="/feedback" method="post">
+                        <input type="text" class="form-control" name="name" placeholder="Name" required><br>
+
+                        <input type="email" class="form-control" name="email" placeholder="E-mail" required><br>
+
+                        <textarea  class="form-control" name="message" id="message" cols="30" rows="10" placeholder="How can we help you?" style="height: 150px;" required></textarea><br>
+
+                        <input type="submit" class="btn btn-primary" value="Send" name="submit"><br><br>
+                    </form>
+                </div>
+                <div class="col-md-4 stripe text-white text-center">
+                 <h4>Parent & Teacher Feedback</h4>
+                 <p>We value your input! Use the form to share your thoughts and help us improve the school management experience.</p>
+             </div>
+             
+            </div>
+        </div>
+        
+        <div class="container-fluid mt-5" style="background-color: #4b7289;" id="feedback">
+         <h1 class="text-center testyheading p-4" style="color: #fff;">Parent & Teacher Feedback</h1>
+         <div class="row">
+             <div class="col-md-12">
+                 <div id="testimonial-slider" class="owl-carousel">
+                     <div class="testimonial">
+                         <p class="description">
+                             “The school management system has made keeping track of my child's attendance and grades so easy. I can stay up-to-date with their progress in real-time.”
+                         </p>
+                         <div class="pic">
+                             <img src="/images/Sam.jpeg" alt="testimonial-img">
+                         </div>
+                         <div class="testimonial-prof">
+                             <h4>Sam White</h4>
+                             <small>Parent</small>
+                         </div>
+                     </div>
+                     <div class="testimonial">
+                         <p class="description">
+                             “This platform has transformed how I manage my classroom. From grade analysis to communication with parents, everything is efficient and smooth.”
+                         </p>
+                         <div class="pic">
+                             <img src="/images/Denice.jpeg" alt="testimonial-img">
+                         </div>
+                         <div class="testimonial-prof">
+                             <h4>Denise Williams</h4>
+                             <small>Teacher</small>
+                         </div>
+                     </div>
+                     <div class="testimonial">
+                         <p class="description">
+                             “The system's user-friendly interface has streamlined many administrative tasks. It allows me to focus more on teaching and less on paperwork.”
+                         </p>
+                         <div class="pic">
+                             <img src="/images/Mark.jpeg" alt="testimonial-img">
+                         </div>
+                         <div class="testimonial-prof">
+                             <h4>Mark Brown</h4>
+                             <small>School Administrator</small>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+     
+
+     <div class="container-fluid" style="background-color: #2C3E50; padding: 20px;">
+      <div class="row bottom-banner text-center">
+          <div class="col-sm">
+              <a href="#" style="color: #fff; text-decoration: none;">
+                  <h5><i class="fab fa-facebook mr-3" style="font-size: 2rem;"></i>
+
+                  Facebook
+                  </h5>
+              </a>
+          </div>
+          <div class="col-sm">
+              <a href="#" style="color: #fff; text-decoration: none;">
+                  <h5><i class="fab fa-instagram mr-3" style="font-size: 2rem;"></i>
+                  Instagram
+                  </h5>
+              </a>
+          </div>
+          <div class="col-sm">
+              <a href="#" style="color: #fff; text-decoration: none;">
+                  <h5><i class="fab fa-linkedin mr-3" style="font-size: 2rem;"></i>
+                  LinkedIn
+                  </h5>
+              </a>
+          </div>
+      </div>
+      <p id="footer-txt" style="text-align: center; color: #fff; margin-top: 20px;"><cite>&copy;BrainWave school management system <span id="year"></span>. All Rights Reserved</cite></p>
+  </div>
+  
+  
+    </div>
+   
+    <script>
+     let year = document.getElementById('year');
+
+     let currentYear = new Date().getFullYear();
+     
+     year.textContent = currentYear;
+
+    </script>
+</body>
+</html>

@@ -6,8 +6,15 @@ const db = require('./model/db');
 
 // calling all of my routes
 const indexRouter = require('./routes/indexRouter');
+const studentLogin = require('./routes/studentLogin');
+const loginRouter = require('./routes/login');
 const dashboardRouter = require('./routes/dashboardRoute');
 const calendarRouter = require('./routes/calendarRoute');
+const studentRegistration = require('./routes/studentRegistrationRoute');
+const instructorRegistration = require('./routes/instructorRegistration');
+const administratorRegistration = require('./routes/administratorRegistration');
+const feedbackRouter = require('./routes/feedbackRoute');
+
 
 const app = express();
 
@@ -29,6 +36,12 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.use(indexRouter);
 app.use(dashboardRouter);
 app.use(calendarRouter);
+app.use(studentRegistration);
+app.use(instructorRegistration);
+app.use(administratorRegistration);
+app.use(studentLogin);
+app.use(loginRouter);
+app.use(feedbackRouter);
 
 app.listen(5000, () => {
  console.log('Server is running on http://localhost:5000');

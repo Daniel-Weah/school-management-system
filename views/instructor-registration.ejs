@@ -1,0 +1,163 @@
+<%- include('layouts/header')%>
+<link rel="stylesheet" href="/css/student.css" />
+</head>
+<body>
+ <header>
+  <%- include('layouts/sidebar')%>
+ </header>
+ <section class="h-100" style="background-color: #fff;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div class="col-lg-6">
+              <div class="card-body p-md-5 mx-md-4">
+
+                <div class="text-center">
+                  <img src="/images/newInstructorRegistration.png"
+                    style="width: 250px; border-radius: 50px" alt="logo">
+                  <h4 class="mt-1 mb-3 pb-1">INSTRUCTOR'S REGISTRATION</h4>
+                </div>
+
+                <form>
+                 
+                 <div class="mb-4">
+                   <label class="form-label" for="full name">Full Name</label>
+                   <input type="text" id="full_name" name="fullname" class="form-control" placeholder="e.g. John Doe" />
+                 </div>
+
+                 <div class="mb-4">
+                   <label class="form-label" for="email">Email</label>
+                   <input type="email" id="email" name="email" class="form-control" placeholder="e.g. johndoe@example.com" />
+                 </div>
+
+                 <div class="mb-4">
+                   <label class="form-label" for="phone">Phone</label>
+                   <input type="tel" id="phone" name="phone" class="form-control" placeholder="e.g. 077XXXXXXX / 088XXXXXXX" />
+                 </div>
+
+                 <div class="mb-4">
+                   <label class="form-label" for="location">Location</label>
+                   <input type="tel" id="location" name="location" class="form-control" placeholder="e.g. 12th street sinkor" />
+                 </div>
+
+                 <div class="mb-4">
+                   <label class="form-label" for="dob">DOB</label>
+                   <input type="date" id="dob" name="dob" class="form-control" placeholder="date of birth" />
+                 </div>
+
+                 <div class="mb-4">
+                  <label class="form-label" for="division">Division</label>
+                  <select name="division" id="division" class="form-control">
+                   <option value="v1">Junior High Level</option>
+                   <option value="v2">Senior High Level</option>
+                  </select>
+               </div>
+
+               <div class="mb-4">
+                <label class="form-label" for="class">Junior High Classes</label>
+                <select name="class" id="class" class="form-control">
+                 <option value="v1">7th Grade</option>
+                 <option value="v2">8th Grade</option>
+                 <option value="v2">9th Grade</option>
+                </select>
+             </div>
+
+               <div class="mb-4">
+                <label class="form-label" for="class">Senior High Classes</label>
+                <select name="class" id="class" class="form-control">
+                 <option value="v1">10th Grade</option>
+                 <option value="v2">11th Grade</option>
+                 <option value="v2">12th Grade</option>
+                </select>
+             </div>
+               <div class="mb-4">
+                <label class="form-label" for="class">Subject</label>
+                <select name="subject" id="subject" class="form-control">
+                 <option value="v1">English Language</option>
+                 <option value="v2">Mathematics</option>
+                 <option value="v2">none</option>
+                </select>
+             </div>
+
+                 <div class="mb-4">
+                  <label class="form-label" for="role">Role</label>
+                   <select name="role" id="role" class="form-control">
+                    <option value="v1">Instructor</option>
+                    <option value="v1">Administrator</option>
+                   </select>
+                </div>
+
+                 <div class="mb-4">
+                  <label class="form-label" for="position">Position</label>
+                   <select name="position" id="position" class="form-control">
+                    <option value="v1">Principal</option>
+                    <option value="v1">Vice Principal-Instruction.</option>
+                    <option value="v1">Vice Principal Administration.</option>
+                    <option value="v1">Dean of Students</option>
+                   </select>
+                </div>
+
+                 <div class="mb-4">
+                  <label class="form-label" for="school">School</label>
+                   <select name="school" id="school" class="form-control">
+                    <option value="v1">Rosa Allen School System</option>
+                    <option value="v2">John Christian Memorial Institute</option>
+                   </select>
+                </div>
+
+<hr>
+<!-- ==================== EMERGENCY INFO =============== -->
+<cite>Emergency Contact Information</cite>
+<hr>
+                 <div class="mb-4">
+                   <label class="form-label" for="emergency name">Full Name</label>
+                   <input type="tel" id="emergency_name" name="emergency_name" class="form-control" placeholder="Emergency Name" />
+                 </div>
+
+                 <div class="mb-4">
+                   <label class="form-label" for="emergency phone">Phone</label>
+                   <input type="tel" id="emergency_phone" name="emergency_phone" class="form-control" placeholder="Phone" />
+                 </div>
+
+                 <div class="mb-4">
+                   <label class="form-label" for="emergency relationship">Relationship</label>
+                   <input type="tel" id="emergency_relationship" name="emergency_relationship" class="form-control" placeholder="Relationship" />
+                 </div>
+<!-- ==================== EMERGENCY INFO ENDS =============== -->
+<hr>
+
+<div class="mb-4">
+ <label class="form-label" for="username">Username</label>
+ <input type="text" id="username" name="username" class="form-control" placeholder="Username e.g. johndoe" />
+</div>
+                
+                  <div class="mb-4">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" id="password" name="password"  placeholder="password" class="form-control" />
+                  </div>
+
+                  <div class="text-center pt-1 ">
+                    <button class="btn btn-primary btn-lg btn-block mb-3" type="button" style="width: 100%;" id="student_btn">Register Instructor <i class="fa fa-arrow-right" id="right-arrow"></i></button>
+                   </div>
+
+                 
+
+                </form>
+
+              </div>
+            </div>
+            <div class="col-lg-6 d-flex align-items-center" style="background: linear-gradient(45deg, #ff416c, #ff4b2b);">
+              <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                <h4 class="mb-4">INSTRUCTOR'S REGISTRATION </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('layouts/footer')%>
