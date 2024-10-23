@@ -14,6 +14,10 @@ const studentRegistration = require('./routes/studentRegistrationRoute');
 const instructorRegistration = require('./routes/instructorRegistration');
 const administratorRegistration = require('./routes/administratorRegistration');
 const feedbackRouter = require('./routes/feedbackRoute');
+const roleRouter = require('./routes/roleRoute');
+const positionRouter = require('./routes/positionRoute');
+const schoolRouter = require('./routes/schoolRoute');
+const requestTranscript = require('./routes/transcriptRoute');
 
 
 const app = express();
@@ -42,6 +46,10 @@ app.use(administratorRegistration);
 app.use(studentLogin);
 app.use(loginRouter);
 app.use(feedbackRouter);
+app.use(roleRouter);
+app.use(positionRouter);
+app.use(schoolRouter);
+app.use(requestTranscript);
 
 app.listen(5000, () => {
  console.log('Server is running on http://localhost:5000');

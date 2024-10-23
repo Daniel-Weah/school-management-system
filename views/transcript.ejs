@@ -13,117 +13,50 @@
           <div class="row g-0">
             <div class="col-lg-6">
               <div class="card-body p-md-5 mx-md-4">
-
+                <nav aria-label="breadcrumb" class="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                     <a href="/">Home</a>
+                    </li> 
+                    <li class="breadcrumb-item">
+                     <a href="/dashboard">Dashboard</a>
+                    </li> 
+                    <li class="breadcrumb-item active" aria-current="page">Transcript</li>
+                  </ol>
+                </nav>
                 <div class="text-center">
-                  <img src="/images/newStudentRegistration.png"
-                    style="width: 250px;" alt="logo">
-                  <h4 class="mt-1 mb-3 pb-1">STUDENT'S REGISTRATION</h4>
+                  <h4 class="mt-1 mb-3 pb-1">REQUEST TRANSCRIPT</h4>
                 </div>
 
-                <form>
+                <form action="/request-transcript" method="post" id="transcriptForm" autocomplete="off">
                  
-                 <div class="mb-4">
-                   <label class="form-label" for="full name">Full Name</label>
-                   <input type="text" id="full_name" name="fullname" class="form-control" placeholder="e.g. John Doe" />
-                 </div>
-
-                 <div class="mb-4">
-                   <label class="form-label" for="email">Email</label>
-                   <input type="email" id="email" name="email" class="form-control" placeholder="e.g. johndoe@example.com" />
-                 </div>
-
-                 <div class="mb-4">
-                   <label class="form-label" for="phone">Phone</label>
-                   <input type="tel" id="phone" name="phone" class="form-control" placeholder="e.g. 077XXXXXXX / 088XXXXXXX" />
-                 </div>
-
-                 <div class="mb-4">
-                   <label class="form-label" for="location">Location</label>
-                   <input type="tel" id="location" name="location" class="form-control" placeholder="e.g. 12th street sinkor" />
-                 </div>
-
-                 <div class="mb-4">
-                   <label class="form-label" for="dob">DOB</label>
-                   <input type="date" id="dob" name="dob" class="form-control" placeholder="date of birth" />
-                 </div>
-
-                 <div class="mb-4">
-                  <label class="form-label" for="division">Division</label>
-                  <select name="division" id="division" class="form-control">
-                   <option value="v1">Junior High Level</option>
-                   <option value="v2">Senior High Level</option>
-                  </select>
-               </div>
-
-               <div class="mb-4">
-                <label class="form-label" for="class">Junior High Classes</label>
-                <select name="class" id="class" class="form-control">
-                 <option value="v1">7th Grade</option>
-                 <option value="v2">8th Grade</option>
-                 <option value="v2">9th Grade</option>
-                </select>
-             </div>
-
-               <div class="mb-4">
-                <label class="form-label" for="class">Senior High Classes</label>
-                <select name="class" id="class" class="form-control">
-                 <option value="v1">10th Grade</option>
-                 <option value="v2">11th Grade</option>
-                 <option value="v2">12th Grade</option>
-                </select>
-             </div>
-
-                 <div class="mb-4">
-                  <label class="form-label" for="role">Role</label>
-                   <select name="role" id="role" class="form-control">
-                    <option value="v1">Student</option>
-                   </select>
-                </div>
-
-                 <div class="mb-4">
-                  <label class="form-label" for="school">School</label>
-                   <select name="school" id="school" class="form-control">
-                    <option value="v1">Rosa Allen School System</option>
-                    <option value="v2">John Christian Memorial Institute</option>
-                   </select>
-                </div>
-
-<hr>
-<!-- ==================== EMERGENCY INFO =============== -->
-<cite>Emergency Contact Information</cite>
-<hr>
-                 <div class="mb-4">
-                   <label class="form-label" for="emergency name">Full Name</label>
-                   <input type="tel" id="emergency_name" name="emergency_name" class="form-control" placeholder="Emergency Name" />
-                 </div>
-
-                 <div class="mb-4">
-                   <label class="form-label" for="emergency phone">Phone</label>
-                   <input type="tel" id="emergency_phone" name="emergency_phone" class="form-control" placeholder="Phone" />
-                 </div>
-
-                 <div class="mb-4">
-                   <label class="form-label" for="emergency relationship">Relationship</label>
-                   <input type="tel" id="emergency_relationship" name="emergency_relationship" class="form-control" placeholder="Relationship" />
-                 </div>
-<!-- ==================== EMERGENCY INFO ENDS =============== -->
-<hr>
-
-<div class="mb-4">
- <label class="form-label" for="studentID">Student ID</label>
- <input type="text" id="studentID" name="studentID" class="form-control" placeholder="studentID e.g. @johndoe123" />
-</div>
-                
+                  
                   <div class="mb-4">
-                    <label class="form-label" for="password">Password</label>
-                    <input type="password" id="password" name="password"  placeholder="password" class="form-control" />
+                    <label class="form-label" for="fullname">Full Name</label>
+                    <input type="text" id="name" name="name" class="form-control" autocomplete="off" placeholder="e.g. provide your name for clearification" />
                   </div>
 
-                  <div class="text-center pt-1 ">
-                    <button class="btn btn-primary btn-lg btn-block mb-3" type="button" style="width: 100%;" id="student_btn">Request Transcript <i class="fa fa-arrow-right" id="right-arrow"></i></button>
-                   </div>
+                  <div class="mb-4">
+                    <label class="form-label" for="email">Email</label>
+                    <input type="text" id="email" name="email" class="form-control" autocomplete="off" placeholder="e.g. provide your email for communication" />
+                  </div>
 
-                 
+                  <div class="mb-4">
+                    <label class="form-label" for="schoolname">School Name</label>
+                    <input type="text" id="school" name="school" class="form-control" autocomplete="off" placeholder="e.g. Rosa Allen School System" />
+                  </div>
+
+                  <div class="mb-4">
+                    <label class="form-label" for="year">Year of Graduation</label>
+                     <select name="year" id="year" class="form-control">
+                     </select>
+                  </div>
+
+                  <textarea class="form-control" name="message" id="message" cols="30" rows="10" placeholder="Why are you requesting a transcript?" style="height: 150px;" required></textarea>
+
+                  <div class="text-center pt-1 ">
+                    <button class="btn btn-primary btn-lg btn-block mb-3" type="submit" style="width: 100%;" id="student_btn">Send Request <i class="fa fa-arrow-right" id="right-arrow"></i></button>
+                   </div>
 
                 </form>
 
@@ -140,5 +73,65 @@
     </div>
   </div>
 </section>
+
+<script>
+  const selectElement = document.getElementById('year');
+  const currentYear = new Date().getFullYear();
+  const startYear = 1990;
+
+  for(let year = startYear; year <= currentYear; year++ ) {
+    let option = document.createElement('option');
+    option.value = year;
+    option.text = year;
+    selectElement.appendChild(option);
+  }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.getElementById('transcriptForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(e.target); 
+
+        fetch('/request-transcript', {
+            method: 'POST',
+            body: formData 
+        })
+        .then(response => response.json()) 
+        .then(data => {
+            if (data.ok) {
+                Swal.fire({
+                    title: 'Success!',
+                    text: data.message,
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 2000
+                }).then(() => {
+                    document.getElementById('transcriptForm').reset(); 
+                });
+            } else {
+                Swal.fire({
+                    title: 'Error',
+                    text: data.message,
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            }
+        })
+        .catch(error => {
+            Swal.fire({
+                title: 'Error',
+                text: 'There was a problem sending your request. Please try again later.',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2000
+            });
+            console.error('Error:', error);
+        });
+    });
+
+   
+</script>
 
 <%- include('layouts/footer')%>
