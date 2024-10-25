@@ -1,0 +1,83 @@
+<%- include('layouts/header') %>
+<link rel="stylesheet" href="/css/student.css" />
+</head>
+<body>
+  <header>
+    <%- include('layouts/sidebar') %>
+  </header>
+  <section class="h-100" style="background-color: #fff;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-xl-10">
+          <div class="card rounded-3 text-black">
+            <div class="row g-0">
+              <div class="col-lg-6">
+                <div class="card-body p-md-5 mx-md-4">
+                  <nav aria-label="breadcrumb" class="breadcrumb mt-2">
+                    <ol class="breadcrumb">
+                      <li class="breadcrumb-item">
+                        <a href="/">Home</a>
+                      </li> 
+                      <li class="breadcrumb-item">
+                        <a href="/dashboard">Dashboard</a>
+                      </li> 
+                      <li class="breadcrumb-item active" aria-current="page">Class</li>
+                    </ol>
+                  </nav>
+                  <div class="text-center">
+                    <h4 class="mt-1 mb-3 pb-1">CLASS REGISTRATION</h4>
+                  </div>
+
+                  <!-- Bootstrap tabs -->
+                  <ul class="nav nav-tabs" id="classTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link active" id="junior-high-tab" data-bs-toggle="tab" href="#junior-high" role="tab" aria-controls="junior-high" aria-selected="true">Junior High</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" id="senior-high-tab" data-bs-toggle="tab" href="#senior-high" role="tab" aria-controls="senior-high" aria-selected="false">Senior High</a>
+                    </li>
+                  </ul>
+
+                  <!-- Tab content -->
+                  <div class="tab-content" id="classTabContent">
+                    <!-- Junior High Form -->
+                    <div class="tab-pane fade show active" id="junior-high" role="tabpanel" aria-labelledby="junior-high-tab">
+                      <form action="/juniorhighclass-registration" method="post" autocomplete="off">
+                        <div class="mb-4 mt-4">
+                          <label class="form-label" for="classname">Class Name</label>
+                          <input type="text" id="className" name="className" class="form-control" placeholder="e.g. 8th Grade" />
+                        </div>
+                        <div class="text-center pt-1">
+                          <button class="btn btn-primary btn-lg btn-block mb-3" type="submit" style="width: 100%;" id="junior_class_btn">Create Junior High Class <i class="fa fa-arrow-right" id="right-arrow"></i></button>
+                        </div>
+                      </form>
+                    </div>
+
+                    <!-- Senior High Form -->
+                    <div class="tab-pane fade" id="senior-high" role="tabpanel" aria-labelledby="senior-high-tab">
+                      <form action="/seniorhighclass-registration" method="post" autocomplete="off">
+                        <div class="mb-4 mt-4">
+                          <label class="form-label" for="classname">Class Name</label>
+                          <input type="text" id="className" name="className" class="form-control" placeholder="e.g. 12th Grade" />
+                        </div>
+                        <div class="text-center pt-1">
+                          <button class="btn btn-primary btn-lg btn-block mb-3" type="submit" style="width: 100%;" id="senior_class_btn">Create Senior High Class <i class="fa fa-arrow-right" id="right-arrow"></i></button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 d-flex align-items-center" style="background: linear-gradient(45deg, #ff416c, #ff4b2b);">
+                <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                  <h4 class="mb-4">CLASS CREATION</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<%- include('layouts/footer') %>

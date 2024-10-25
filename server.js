@@ -18,6 +18,9 @@ const roleRouter = require('./routes/roleRoute');
 const positionRouter = require('./routes/positionRoute');
 const schoolRouter = require('./routes/schoolRoute');
 const requestTranscript = require('./routes/transcriptRoute');
+const sponsorRoute = require('./routes/sponsor-registration');
+const noticeRoute = require('./routes/createNotice');
+const classRegistration = require('./routes/class-registration');
 
 
 const app = express();
@@ -50,6 +53,9 @@ app.use(roleRouter);
 app.use(positionRouter);
 app.use(schoolRouter);
 app.use(requestTranscript);
+app.use(sponsorRoute)
+app.use(noticeRoute);
+app.use(classRegistration);
 
 app.listen(5000, () => {
  console.log('Server is running on http://localhost:5000');

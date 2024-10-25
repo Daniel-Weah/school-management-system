@@ -6,7 +6,7 @@ const { v4: uuidv4 } = require('uuid');
 db.serialize(() => {
   db.run(`CREATE TABLE IF NOT EXISTS auth(
     auth_id TEXT PRIMARY KEY,
-    username TEXT NOT NULL,
+    studentID TEXT NOT NULL,
     password TEXT NOT NULL,
     student_id TEXT NOT NULL,
     FOREIGN KEY (student_id) REFERENCES students(student_id)
@@ -36,8 +36,7 @@ db.serialize(() => {
     emergency_name TEXT NOT NULL,
     emergency_phone TEXT NOT NULL,
     emergency_relationship TEXT NOT NULL,
-    studentID TEXT NOT NULL,
-    password TEXT NOT NULL,
+    profile_picture BLOB,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   )`);
 
@@ -59,6 +58,7 @@ db.serialize(() => {
     emergency_relationship TEXT NOT NULL,
     username TEXT NOT NULL,
     password TEXT NOT NULL,
+    profile_picture BLOB,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (subject_id) REFERENCES subjects(subject_id)
   )`);
@@ -67,8 +67,11 @@ db.serialize(() => {
 
   db.run(`CREATE TABLE IF NOT EXISTS sponsor(
     sponsor_id TEXT PRIMARY KEY,
+    school_id INTEGER,
     instructor_id TEXT,
+    class_id INTEGER,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (school_id) REFERENCES schools(school_id),
     FOREIGN KEY (instructor_id) REFERENCES instructors(instructor_id)
   )`);
 
@@ -160,7 +163,23 @@ db.serialize(() => {
 
   db.run(`CREATE TABLE IF NOT EXISTS roles(
     role_id TEXT PRIMARY KEY,
-    role TEXT NOT NULL
+    role TEXT NOT NULL,
+    school_id INTEGER NOT NULL
+  )`);
+  db.run(`CREATE TABLE IF NOT EXISTS positions(
+    position_id TEXT PRIMARY KEY,
+    position TEXT NOT NULL,
+    school_id INTEGER NOT NULL
+  )`);
+  db.run(`CREATE TABLE IF NOT EXISTS juniorHighClasses(
+    class_id TEXT PRIMARY KEY,
+    class_name TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  )`);
+  db.run(`CREATE TABLE IF NOT EXISTS seniorHighClasses(
+    class_id TEXT PRIMARY KEY,
+    class_name TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   )`);
 });
 

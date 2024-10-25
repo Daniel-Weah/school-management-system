@@ -25,32 +25,38 @@
    <h1>My Dashboard</h1>
 
    <div class="feed shadow-sm" style="text-align: center;">
+   
     <!-- Card 1: Level -->
     <div class="card">
-      <i class="fa fa-graduation-cap"></i> 
+      <!-- <i class="fa fa-flask"></i>  -->
+      <h5 style="font-size: 15px;">Division</h5>
+      <h4 style="text-transform: capitalize;"> <%= students.division %></h4>
+    </div>
+
+    <div class="card">
+      <!-- <i class="fa fa-graduation-cap"></i>  -->
       <h5 style="font-size: 15px;">Level</h5>
-      <h4>10th</h4>
+      <% if (juniorClassName) { %>
+        <h5><%= juniorClassName.junior_class_name %></h5>
+      <% } else if (seniorClassName) { %>
+        <h5><%= seniorClassName.senior_class_name %></h5>
+      <% } else { %>
+        <p>No class</p>
+      <% } %>
     </div>
   
-    <!-- Card 2: Student Type -->
+    
     <div class="card">
-      <i class="fa fa-flask"></i> 
-      <h5 style="font-size: 15px;">Student Type</h5>
-      <h4>Science</h4>
-    </div>
-  
-    <!-- Card 3: Total Subjects -->
-    <div class="card">
-     <i class="fas fa-book fa-fw"></i> 
-      <h5 style="font-size: 15px;">Subjects</h5>
-      <h4>09</h4>
+     <!-- <i class="fas fa-book fa-fw"></i>  -->
+      <h5 style="font-size: 15px;">Role</h5>
+      <h4><%= students.role %></h4>
     </div>
     <div class="card">
-     <i class="fa fa-dumbbell" style="font-size: 40px; color: #FF6A88;"></i> <!-- Updated icon for strength -->
-     <h5 style="font-size: 15px;">Strength</h5>
+     <!-- <i class="fa fa-dumbbell" style="font-size: 40px; color: #FF6A88;"></i> Updated icon for strength -->
+     <h5 style="font-size: 15px;">Sponsor</h5>
    
      <div class="progress-circle">
-       <h4 class="progress-text">75%</h4>
+       <h4 class="progress-text">Mr. James Brown</h4>
      </div>
    </div>
    

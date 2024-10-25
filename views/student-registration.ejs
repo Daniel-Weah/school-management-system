@@ -31,7 +31,7 @@
                   <h4 class="mt-1 mb-3 pb-1">STUDENT'S REGISTRATION</h4>
                 </div>
 
-                <form>
+                <form action="/student-registration" method="post" autocomplete="off">
                  
                  <div class="mb-4">
                    <label class="form-label" for="full name">Full Name</label>
@@ -61,41 +61,44 @@
                  <div class="mb-4">
                   <label class="form-label" for="division">Division</label>
                   <select name="division" id="division" class="form-control">
-                   <option value="v1">Junior High Level</option>
-                   <option value="v2">Senior High Level</option>
+                    <option value="select-division">Select Division</option>
+                    <option value="junior-high">Junior High Level</option>
+                    <option value="senior-high">Senior High Level</option>
                   </select>
-               </div>
-
-               <div class="mb-4">
-                <label class="form-label" for="class">Junior High Classes</label>
-                <select name="class" id="class" class="form-control">
-                 <option value="v1">7th Grade</option>
-                 <option value="v2">8th Grade</option>
-                 <option value="v2">9th Grade</option>
-                </select>
-             </div>
-
-               <div class="mb-4">
-                <label class="form-label" for="class">Senior High Classes</label>
-                <select name="class" id="class" class="form-control">
-                 <option value="v1">10th Grade</option>
-                 <option value="v2">11th Grade</option>
-                 <option value="v2">12th Grade</option>
-                </select>
-             </div>
+                </div>
+                
+                <div class="mb-4" id="junior-high-classes" style="display: none;">
+                  <label class="form-label" for="junior-class">Junior High Classes</label>
+                  <select name="level1" id="junior-class" class="form-control">
+                    <% juniors.forEach(junior => { %>
+                      <option value="<%= junior.class_id %>"><%= junior.class_name %></option>
+                      <% }) %>
+                  </select>
+                </div>
+                
+                <div class="mb-4" id="senior-high-classes" style="display: none;">
+                  <label class="form-label" for="senior-class">Senior High Classes</label>
+                  <select name="level" id="senior-class" class="form-control">
+                    <% seniors.forEach(senior => { %>
+                      <option value="<%= senior.class_id %>"><%= senior.class_name %></option>
+                      <% }) %>
+                  </select>
+                </div>
+                
 
                  <div class="mb-4">
                   <label class="form-label" for="role">Role</label>
                    <select name="role" id="role" class="form-control">
-                    <option value="v1">Student</option>
+                    <option value="student">Student</option>
                    </select>
                 </div>
 
                  <div class="mb-4">
                   <label class="form-label" for="school">School</label>
                    <select name="school" id="school" class="form-control">
-                    <option value="v1">Rosa Allen School System</option>
-                    <option value="v2">John Christian Memorial Institute</option>
+                    <% schools.forEach(school => { %> 
+                    <option value="<%= school.school_id%>"><%= school.school_name %> </option>
+                    <% }) %>
                    </select>
                 </div>
 
@@ -131,7 +134,7 @@
                   </div>
 
                   <div class="text-center pt-1 ">
-                    <button class="btn btn-primary btn-lg btn-block mb-3" type="button" style="width: 100%;" id="student_btn">Register Student <i class="fa fa-arrow-right" id="right-arrow"></i></button>
+                    <button class="btn btn-primary btn-lg btn-block mb-3" type="submit" style="width: 100%;" id="student_btn">Register Student <i class="fa fa-arrow-right" id="right-arrow"></i></button>
                    </div>
 
                  
@@ -151,5 +154,24 @@
     </div>
   </div>
 </section>
+<script>
+  document.getElementById('division').addEventListener('change', function () {
+  const division = this.value;
+  const juniorHighClasses = document.getElementById('junior-high-classes');
+  const seniorHighClasses = document.getElementById('senior-high-classes');
 
+  if(division === 'select-division') {
+    juniorHighClasses.style.display = 'none';
+    seniorHighClasses.style.display = 'none';
+  }
+ else if (division === 'junior-high') {
+    juniorHighClasses.style.display = 'block';
+    seniorHighClasses.style.display = 'none';
+  } else if (division === 'senior-high') {
+    juniorHighClasses.style.display = 'none';
+    seniorHighClasses.style.display = 'block';
+  }
+});
+
+</script>
 <%- include('layouts/footer')%>

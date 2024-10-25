@@ -60,60 +60,56 @@
                  <div class="mb-4">
                   <label class="form-label" for="division">Division</label>
                   <select name="division" id="division" class="form-control">
-                   <option value="v1">Junior High Level</option>
-                   <option value="v2">Senior High Level</option>
+                    <option value="select-division">Select Division</option>
+                    <option value="junior-high">Junior High Level</option>
+                    <option value="senior-high">Senior High Level</option>
                   </select>
-               </div>
-
-               <div class="mb-4">
-                <label class="form-label" for="class">Junior High Classes</label>
-                <select name="class" id="class" class="form-control">
-                 <option value="v1">7th Grade</option>
-                 <option value="v2">8th Grade</option>
-                 <option value="v2">9th Grade</option>
-                </select>
-             </div>
-
-               <div class="mb-4">
-                <label class="form-label" for="class">Senior High Classes</label>
-                <select name="class" id="class" class="form-control">
-                 <option value="v1">10th Grade</option>
-                 <option value="v2">11th Grade</option>
-                 <option value="v2">12th Grade</option>
-                </select>
-             </div>
-               <div class="mb-4">
-                <label class="form-label" for="class">Subject</label>
-                <select name="subject" id="subject" class="form-control">
-                 <option value="v1">English Language</option>
-                 <option value="v2">Mathematics</option>
-                 <option value="v2">none</option>
-                </select>
-             </div>
+                </div>
+                
+                <div class="mb-4" id="junior-high-classes" style="display: none;">
+                  <label class="form-label" for="junior-class">Junior High Classes</label>
+                  <select name="level1" id="junior-class" class="form-control">
+                    <option value="7th">7th Grade</option>
+                    <option value="8th">8th Grade</option>
+                    <option value="9th">9th Grade</option>
+                  </select>
+                </div>
+                
+                <div class="mb-4" id="senior-high-classes" style="display: none;">
+                  <label class="form-label" for="senior-class">Senior High Classes</label>
+                  <select name="level" id="senior-class" class="form-control">
+                    <option value="10th">10th Grade</option>
+                    <option value="11th">11th Grade</option>
+                    <option value="12th">12th Grade</option>
+                  </select>
+                </div>
+                
 
                  <div class="mb-4">
                   <label class="form-label" for="role">Role</label>
                    <select name="role" id="role" class="form-control">
-                    <option value="v1">Instructor</option>
-                    <option value="v1">Administrator</option>
+                    <% roles.forEach(role => { %> 
+                    <option value="<%= role.role_id %>"><%= role.role %></option>
+                    <% }) %>
                    </select>
                 </div>
 
-                 <div class="mb-4">
+                <div class="mb-4">
+                  <label class="form-label" for="school">School</label>
+                   <select name="school" id="school" class="form-control">
+                    <% schools.forEach(school => { %> 
+                    <option value="<%= school.school_id%>"><%= school.school_name %> </option>
+                    <% }) %>
+                   </select>
+                </div>
+
+                <div class="mb-4">
                   <label class="form-label" for="position">Position</label>
                    <select name="position" id="position" class="form-control">
                     <option value="v1">Principal</option>
                     <option value="v1">Vice Principal-Instruction.</option>
                     <option value="v1">Vice Principal Administration.</option>
                     <option value="v1">Dean of Students</option>
-                   </select>
-                </div>
-
-                 <div class="mb-4">
-                  <label class="form-label" for="school">School</label>
-                   <select name="school" id="school" class="form-control">
-                    <option value="v1">Rosa Allen School System</option>
-                    <option value="v2">John Christian Memorial Institute</option>
                    </select>
                 </div>
 
@@ -169,5 +165,26 @@
     </div>
   </div>
 </section>
+
+<script>
+  document.getElementById('division').addEventListener('change', function () {
+  const division = this.value;
+  const juniorHighClasses = document.getElementById('junior-high-classes');
+  const seniorHighClasses = document.getElementById('senior-high-classes');
+
+  if(division === 'select-division') {
+    juniorHighClasses.style.display = 'none';
+    seniorHighClasses.style.display = 'none';
+  }
+ else if (division === 'junior-high') {
+    juniorHighClasses.style.display = 'block';
+    seniorHighClasses.style.display = 'none';
+  } else if (division === 'senior-high') {
+    juniorHighClasses.style.display = 'none';
+    seniorHighClasses.style.display = 'block';
+  }
+});
+
+</script>
 
 <%- include('layouts/footer')%>

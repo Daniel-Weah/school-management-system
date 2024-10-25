@@ -28,14 +28,14 @@
                   <h4 class="mt-1 mb-3 pb-1">POSITION REGISTRATION</h4>
                 </div>
 
-                <form>
+                <form action="/position-registration" method="post" autocomplete="off">
                  <div class="mb-4">
                   <label class="form-label" for="school">School</label>
                    <select name="school" id="school" class="form-control">
-                    <option value="v1">Rosa Allen School System</option>
-                    <option value="v1">John Christian Memorial School System</option>
-                    <option value="v1">Lott Carey Baptism Mission</option>
-                    <option value="v1">Liberia Institute of Standard Education</option>
+                    <% schools.forEach(school => { %> 
+                    <option value="<%= school.school_id %>"><%= school.school_name %>
+                     </option>
+                    <% }) %>
                    </select>
                 </div>
                  
@@ -46,7 +46,7 @@
 
 
                   <div class="text-center pt-1 ">
-                    <button class="btn btn-primary btn-lg btn-block mb-3" type="button" style="width: 100%;" id="student_btn">Add Position <i class="fa fa-arrow-right" id="right-arrow"></i></button>
+                    <button class="btn btn-primary btn-lg btn-block mb-3" type="submit" style="width: 100%;" id="student_btn">Add Position <i class="fa fa-arrow-right" id="right-arrow"></i></button>
                    </div>
 
                  

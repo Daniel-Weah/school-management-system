@@ -21,39 +21,46 @@
                     <li class="breadcrumb-item">
                      <a href="/dashboard">Dashboard</a>
                     </li> 
-                    <li class="breadcrumb-item active" aria-current="page">Role</li>
+                    <li class="breadcrumb-item active" aria-current="page">Notice</li>
                   </ol>
                 </nav>
                 <div class="text-center">
-                  <h4 class="mt-1 mb-3 pb-1">ROLE REGISTRATION</h4>
+                  <h4 class="mt-1 mb-3 pb-1">CREATE NOTICE</h4>
                 </div>
 
-                <form action="/role-registration" method="post" autocomplete="off">
-                 <div class="mb-4">
-                     <label class="form-label" for="school">School</label>
+                <form action="" method="post" autocomplete="off">
+
+                  <div class="mb-4">
+                    <label class="form-label" for="school">School</label>
                      <select name="school" id="school" class="form-control">
-                         <% schools.forEach(school => { %>
-                             <option value="<%= school.school_id %>"><%= school.school_name %></option>
-                         <% }) %>
+                      <% schools.forEach(school => { %> 
+                      <option value="<%= school.school_id%>"><%= school.school_name %> </option>
+                      <% }) %>
                      </select>
-                 </div>
-             
+                  </div>
+                 
                  <div class="mb-4">
-                     <label class="form-label" for="role">Role</label>
-                     <input type="text" id="role" name="role" class="form-control" placeholder="e.g. Instructor" required />
+                   <label class="form-label" for="title">Title</label>
+                   <input type="text" id="title" name="title" class="form-control" placeholder="e.g. Notice Title" />
                  </div>
-             
-                 <div class="text-center pt-1">
-                     <button class="btn btn-primary btn-lg btn-block mb-3" type="submit" style="width: 100%;" id="student_btn">Add Role <i class="fa fa-arrow-right" id="right-arrow"></i></button>
+
+                 <div class="mb-4">
+                   <label class="form-label" for="title">Description</label>
+                   <textarea name="description" class="form-control" id="description" cols="30" rows="10"></textarea>
                  </div>
-             </form>
-             
+
+
+                  <div class="text-center pt-1 ">
+                    <button class="btn btn-primary btn-lg btn-block mb-3" type="submit" style="width: 100%;" id="student_btn">Send Notice <i class="fa fa-arrow-right" id="right-arrow"></i></button>
+                   </div>
+
+                </form>
 
               </div>
             </div>
             <div class="col-lg-6 d-flex align-items-center" style="background: linear-gradient(45deg, #ff416c, #ff4b2b);">
               <div class="text-white px-3 py-4 p-md-5 mx-md-4">
-                <h4 class="mb-4">ROLE REGISTRATION </h4>
+                <h4 class="mb-4">SCHOOL REGISTRATION </h4>
               </div>
             </div>
           </div>
