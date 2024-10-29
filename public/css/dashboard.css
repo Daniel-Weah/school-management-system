@@ -40,10 +40,10 @@ body {
 .notice_board {
  display: flex;
  flex-direction: column;
- align-items: center; /* Center horizontally */
- justify-content: center; /* Center vertically if needed */
- width: 100%; /* Make sure it takes full width */
- margin: 20px 0; /* Add some vertical spacing */
+ align-items: center; 
+ justify-content: center; 
+ width: 100%; 
+ margin: 20px 0; 
 }
 
 .slider-container {
@@ -82,8 +82,8 @@ body {
  width: 200px;
  position: fixed;
  right: 0;
- top: 70px;
- height: calc(100vh - 70px);
+ top: 50px;
+ height: calc(100vh - 50px);
  overflow-y: auto;
  background-color: #f9f9f9;
  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);

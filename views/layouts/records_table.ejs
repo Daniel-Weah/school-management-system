@@ -21,9 +21,9 @@
         <div class="records_container">
           <h5>Students Records</h5>
           <select name="select_school" id="select_school" class="form-select mb-3">
-            <option value="" disabled>Select School</option>
-            <option value="rass">Rosa Allen School System</option>
-            <option value="jcmi">John Christian Memorial Institute</option>
+            <% schools.forEach(school => { %> 
+              <option value="<%= school.school_id %>"><%= school.school_name %></option>
+              <% }) %>
           </select>
           <div class="search mb-2" style="width: 50%;">
             <input class="search_input" type="text" id="search" placeholder="Search (Ctrl + '/' to focus)">
@@ -81,9 +81,9 @@
         <div class="records_container">
           <h5>Instructors Records</h5>
           <select name="select_school" id="select_school_instructors" class="form-select mb-3">
-            <option value="" disabled>Select School</option>
-            <option value="rass">Rosa Allen School System</option>
-            <option value="jcmi">John Christian Memorial Institute</option>
+           <% schools.forEach(school => { %> 
+            <option value="<%= school.school_id %>"><%= school.school_name %></option>
+            <% }) %>
           </select>
           <div class="search mb-2" style="width: 50%;">
             <input class="search_input" type="text" id="teacher_search" placeholder="Search (Ctrl + '/' to focus)">
@@ -139,9 +139,9 @@
         <div class="records_container">
           <h5>Administrators Records</h5>
           <select name="select_school" id="select_school_administrators" class="form-select mb-3">
-            <option value="" disabled>Select School</option>
-            <option value="rass">Rosa Allen School System</option>
-            <option value="jcmi">John Christian Memorial Institute</option>
+            <% schools.forEach(school => { %> 
+              <option value="<%= school.school_id %>"><%= school.school_name %></option>
+              <% }) %>
           </select>
           <div class="search mb-2" style="width: 50%;">
             <input class="search_input" type="text" id="administrator_search" placeholder="Search (Ctrl + '/' to focus)">

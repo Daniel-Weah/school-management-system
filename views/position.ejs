@@ -67,4 +67,51 @@
   </div>
 </section>
 
+<div class="" id="positions">
+  <div class="records_container">
+    <h5 style="text-align: center;">Position Records</h5>
+
+    <div class="search mb-2" style="width: 50%; margin: 0 auto;" >
+      <input class="search_input" type="text" id="" placeholder="Search (Ctrl + '/' to focus)">
+    </div>
+    <div style="text-align: center;">
+    <span>All</span> <input type="checkbox" id="checkAllRoles" >
+  </div>
+
+    
+    <table class="table align-middle mb-0 bg-white" style="width: 70%; margin: 0 15pc; ">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Position ID</th>
+          <th>Position</th>
+          <th>School Name</th>
+          <th>Created</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="checkbox" class="student-checkbox" /></td>
+          <td>
+            686b671c-50b6-4fb7-b349-fe94ba80b892
+          </td>
+          <td>Principal</td>
+          <td>Rosa Allen School System </td>
+          <td>10-29-2024</td>
+          
+          <td><button class="btn btn-link btn-sm">
+            <span>
+              <i class="fa fa-pen"></i>
+             </span> &nbsp;
+             <span class="delete_btn" style="color: red; cursor: pointer;"><i class="fa fa-trash"></i></span>
+            </button>
+          </td>
+        </tr>
+        <!-- More student rows here -->
+      </tbody>
+    </table>
+  </div>
+</div>
+
 <%- include('layouts/footer')%>

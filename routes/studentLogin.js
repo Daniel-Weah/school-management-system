@@ -22,18 +22,28 @@ router.get('/student-login', (req, res) => {
 });
 
 router.post('/student-login', (req, res) => {
-  const { studentID, password } = req.body;
+  const { studentID, password, school } = req.body;
 
   db.get('SELECT * FROM auth WHERE studentID = ?', [studentID], (err, student) => {
     if (err) {
       return res.send('There was an error retrieving student data');
     }
+    const student_id = student.student_id;
 
     if (!student) {
       return res.send('Invalid student ID or password');
     }
+    db.get('SELECT * FROM students WHERE student_id = ?', [student_id], (err, checkRecord) => {
+      if (err) {
+        return res.send('There was an error getting school data');
+      }
+      const compareData = checkRecord.school_id;
 
-    bcrypt.compare(password, student.password, (err, isMatch) => {
+      if (compareData !== school) {
+        return res.send('You are not eligible for this school');
+      }
+      
+      bcrypt.compare(password, student.password, (err, isMatch) => {
       if (err) {
         return res.send('Error comparing passwords');
       }
@@ -47,6 +57,7 @@ router.post('/student-login', (req, res) => {
       } else {
         res.send('Invalid student ID or password');
       }
+    });
     });
   });
 });

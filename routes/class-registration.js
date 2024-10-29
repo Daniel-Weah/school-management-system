@@ -31,7 +31,7 @@ router.get('/class-registration', (req, res) => {
   }
 
    
-   res.render('Class', { students, studentID: authRows});
+   res.render('class', { students, studentID: authRows});
   })
  })
  })

@@ -181,6 +181,14 @@ db.serialize(() => {
     class_name TEXT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   )`);
+  db.run(`CREATE TABLE IF NOT EXISTS notice(
+    notice_id TEXT PRIMARY KEY,
+    school_id TEXT NOT NULL,
+    title TEXT NOT NULL,
+    description TEXT NOT NULL,
+    image BLOB,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  )`);
 });
 
 module.exports = db;

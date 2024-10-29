@@ -38,15 +38,33 @@
                       <% }) %>
                      </select>
                   </div>
-                 
                   <div class="mb-4">
-                    <label class="form-label" for="school">School</label>
-                     <select name="school" id="school" class="form-control">
-                      <% classes.forEach(class => { %> 
-                      <option value="<%= class.class_id%>"><%= class.class_name %> </option>
-                      <% }) %>
-                     </select>
+                    <label class="form-label" for="division">Division</label>
+                    <select name="division" id="division" class="form-control">
+                      <option value="select-division">Select Division</option>
+                      <option value="junior-high">Junior High Level</option>
+                      <option value="senior-high">Senior High Level</option>
+                    </select>
                   </div>
+                 
+                  <div class="mb-4" id="junior-high-classes" style="display: none;">
+                    <label class="form-label" for="junior-class">Junior High Classes</label>
+                    <select name="level1" id="junior-class" class="form-control">
+                      <% juniors.forEach(junior => { %>
+                        <option value="<%= junior.class_id %>"><%= junior.class_name %></option>
+                        <% }) %>
+                    </select>
+                  </div>
+                  
+                  <div class="mb-4" id="senior-high-classes" style="display: none;">
+                    <label class="form-label" for="senior-class">Senior High Classes</label>
+                    <select name="level" id="senior-class" class="form-control">
+                      <% seniors.forEach(senior => { %>
+                        <option value="<%= senior.class_id %>"><%= senior.class_name %></option>
+                        <% }) %>
+                    </select>
+                  </div>
+                  
 
 
                   <div class="text-center pt-1 ">
@@ -68,5 +86,24 @@
     </div>
   </div>
 </section>
+<script>
+  document.getElementById('division').addEventListener('change', function () {
+  const division = this.value;
+  const juniorHighClasses = document.getElementById('junior-high-classes');
+  const seniorHighClasses = document.getElementById('senior-high-classes');
 
+  if(division === 'select-division') {
+    juniorHighClasses.style.display = 'none';
+    seniorHighClasses.style.display = 'none';
+  }
+ else if (division === 'junior-high') {
+    juniorHighClasses.style.display = 'block';
+    seniorHighClasses.style.display = 'none';
+  } else if (division === 'senior-high') {
+    juniorHighClasses.style.display = 'none';
+    seniorHighClasses.style.display = 'block';
+  }
+});
+
+</script>
 <%- include('layouts/footer')%>

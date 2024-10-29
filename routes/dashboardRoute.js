@@ -20,6 +20,7 @@ router.get('/dashboard', (req, res) => {
     if (err) {
       return res.status(500).send("Error fetching student's record");
     }
+    const studentSchoolID = students.school_id;
 
     db.get('SELECT * FROM auth WHERE student_id = ?', [req.session.sid], (err, authRows) => {
       if (err) {
@@ -48,11 +49,34 @@ router.get('/dashboard', (req, res) => {
                 return res.status(500).send('Error fetching Senior High class name');
               }
 
-              res.render('Dashboard', {
+              // get and display the notice board info
+              db.all('SELECT * FROM notice WHERE school_id = ?', [studentSchoolID], (err, notices) => {
+                if (err) {
+                  return res.send('There was an error getting notice data');
+                }
+
+                const noticeIMG = notices.map(notice => {
+                  if (notice.image) {
+                    notice.image = notice.image.toString('base64');
+                  }
+                  return notice;
+                });
+
+            db.all('SELECT *  FROM schools', (err, schools) => {
+              if (err) {
+                return res.status(500).send('There was an error getting schools data')
+              }
+              
+              res.render('dashboard', {
                 students,
                 studentID: authRows,
                 juniorClassName,
-                seniorClassName
+                seniorClassName,
+                notices,
+                schools,
+                noticeIMG
+              });
+              });
               });
             }
           );
