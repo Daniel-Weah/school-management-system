@@ -1,0 +1,93 @@
+<%- include('layouts/header')%>
+<link rel="stylesheet" href="/css/student.css" />
+</head>
+<body>
+ <header>
+  <%- include('layouts/sidebar')%>
+ </header>
+ <section class="h-100" style="background-color: #fff;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div class="col-lg-6">
+              <div class="card-body p-md-5 mx-md-4">
+                <nav aria-label="breadcrumb" class="breadcrumb mt-2">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                     <a href="/">Home</a>
+                    </li> 
+                    <li class="breadcrumb-item">
+                     <a href="/dashboard">Dashboard</a>
+                    </li> 
+                    <li class="breadcrumb-item active" aria-current="page">Period</li>
+                  </ol>
+                </nav>
+                <div class="text-center">
+                  <h4 class="mt-1 mb-3 pb-1">CREATE PERIOD</h4>
+                </div>
+
+                <form action="/create-period" method="post" autocomplete="off">
+
+                 
+                 
+                 <div class="mb-4">
+                   <label class="form-label" for="period">Period</label>
+                   <input type="text" id="period" name="period" class="form-control" placeholder="1st Period" required/>
+                 </div>
+
+                  <div class="text-center pt-1 ">
+                    <button class="btn btn-primary btn-lg btn-block mb-3" type="submit" style="width: 100%;" id="student_btn">Create Period <i class="fa fa-arrow-right" id="right-arrow"></i></button>
+                   </div>
+
+                </form>
+
+              </div>
+            </div>
+            <div class="col-lg-6 d-flex align-items-center" style="background: linear-gradient(45deg, #ff416c, #ff4b2b);">
+              <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                <h4 class="mb-4">CREATE PERIOD </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh; margin-left: 250px;">
+ <table class="table align-middle mb-0 bg-white" style="width: 100%;">
+   <thead>
+     <tr>
+       <th>No</th>
+       <th>Period</th>
+       <th>Created</th>
+       <th>Actions</th>
+     </tr>
+   </thead>
+   <tbody>
+     <% periods.forEach((period, index) => { %>
+       <tr>
+         <td><%= index + 1 %></td>
+         <td><%= period.period %></td>
+         <td><%= period.created_at %></td>
+         <td>
+          <button class="btn btn-link btn-sm">
+            <i class="fa fa-pen"></i> &nbsp;&nbsp;&nbsp;
+            <span style="color: red; cursor: pointer;">
+              <i class="fa fa-trash"></i>
+            </span>
+          </button>
+        </td>
+        
+       </tr>
+     <% }) %>
+   </tbody>
+ </table>
+</div>
+
+
+<%- include('layouts/footer')%>

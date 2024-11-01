@@ -21,58 +21,66 @@
         <div class="records_container">
           <h5>Students Records</h5>
           <select name="select_school" id="select_school" class="form-select mb-3">
+            <option value="">Select School</option>
             <% schools.forEach(school => { %> 
               <option value="<%= school.school_id %>"><%= school.school_name %></option>
-              <% }) %>
+            <% }) %>
           </select>
           <div class="search mb-2" style="width: 50%;">
             <input class="search_input" type="text" id="search" placeholder="Search (Ctrl + '/' to focus)">
             <a href="#" class="search_icon"><i class="fa fa-search"></i></a>
           </div>
 
-          <!-- 'All' Checkbox -->
-          <span>All</span> <input type="checkbox" id="checkAllStudents" />
+      
 
           <!-- Students Table -->
           <table class="table align-middle mb-0 bg-white">
             <thead>
               <tr>
-                <th></th>
+                <th>No</th>
                 <th>Name</th>
                 <th>ID</th>
-                <th>Class & Type</th>
-                <th>Status</th>
+                <th>Class</th>
                 <th>Phone</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><input type="checkbox" class="student-checkbox" /></td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <img src="https://mdbootstrap.com/img/new/avatars/8.jpg" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
-                    <div class="ms-3">
-                      <p class="fw-bold mb-1">John Doe</p>
-                      <p class="text-muted mb-0">john.doe@gmail.com</p>
+              <% allStudents.forEach((student, index) => { %>
+                <tr>
+                  <td><%= index + 1 %></td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <% if (student.profile_picture && student.profile_picture.length === 2) { %>
+                        <div class="initials-avatar rounded-circle bg-secondary text-white d-flex justify-content-center align-items-center" style="width: 45px; height: 45px; font-weight: bold;">
+                          <%= student.profile_picture %>
+                        </div>
+                      <% } else { %>
+                        <img src="data:image/jpeg;base64,<%= student.profile_picture %>" alt="Profile Picture" style="width: 45px; height: 45px" class="rounded-circle" />
+                      <% } %>
+                  
+                      <div class="ms-3">
+                        <p class="fw-bold mb-1"><%= student.fullName %></p>
+                        <p class="text-muted mb-0"><%= student.email ? student.email : 'No email available' %></p>
+                      </div>
                     </div>
-                  </div>
-                </td>
-                <td>rass12484</td>
-                <td>Grade 12 - Science</td>
-                <td><span class="badge bg-success">Active</span></td>
-                <td>0771894241</td>
-                <td><button class="btn btn-link btn-sm">
-                  <span>
-                    <i class="fa fa-pen"></i>
-                   </span> &nbsp;
-                   <span class="delete_btn" style="color: red; cursor: pointer;"><i class="fa fa-trash"></i></span>
-                  </button>
-                </td>
-              </tr>
-              <!-- More student rows here -->
+                  </td>
+                  
+                  <td><%= student.student_id %></td>
+                  <td><%= student.class_name %></td>
+                  <td><%= student.phone %></td>
+                  <td>
+                    <button class="btn btn-link btn-sm">
+                      <i class="fa fa-pen"></i> &nbsp;
+                      <span class="" style="color: red; cursor: pointer;"><i class="fa fa-trash"></i></span>
+                    </button>
+                  </td>
+                </tr>
+              <% }) %>
             </tbody>
           </table>
+          
+          
         </div>
       </div>
 
@@ -155,7 +163,7 @@
           <table class="table align-middle mb-0 bg-white">
             <thead>
               <tr>
-                <th></th>
+                <th>No</th>
                 <th>Name</th>
                 <th>Position</th>
                 <th>Status</th>
@@ -194,3 +202,15 @@
     </div>
   </div>
 </div>
+
+<script>
+  // getting only selected school data
+  document.getElementById("select_school").addEventListener("change", function() {
+    const schoolId = this.value;
+    if (schoolId) {
+      window.location.href = `/dashboard?school_id=${schoolId}`;
+    } else {
+      window.location.href = '/dashboard';
+    }
+  })
+</script>

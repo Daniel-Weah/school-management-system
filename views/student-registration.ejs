@@ -89,7 +89,9 @@
                  <div class="mb-4">
                   <label class="form-label" for="role">Role</label>
                    <select name="role" id="role" class="form-control">
-                    <option value="student">Student</option>
+                    <% roles.forEach(role => { %>
+                    <option value="<%= role.role_id %>"><%= role.role %></option>
+                    <% }) %>
                    </select>
                 </div>
 

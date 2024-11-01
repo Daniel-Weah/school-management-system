@@ -163,8 +163,7 @@ db.serialize(() => {
 
   db.run(`CREATE TABLE IF NOT EXISTS roles(
     role_id TEXT PRIMARY KEY,
-    role TEXT NOT NULL,
-    school_id INTEGER NOT NULL
+    role TEXT NOT NULL
   )`);
   db.run(`CREATE TABLE IF NOT EXISTS positions(
     position_id TEXT PRIMARY KEY,
@@ -187,6 +186,11 @@ db.serialize(() => {
     title TEXT NOT NULL,
     description TEXT NOT NULL,
     image BLOB,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  )`);
+  db.run(`CREATE TABLE IF NOT EXISTS periods(
+    period_id TEXT PRIMARY KEY,
+    period TEXT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   )`);
 });

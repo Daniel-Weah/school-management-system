@@ -48,9 +48,14 @@ router.get('/student-registration', (req, res) => {
       if (err) {
        return res.status(500).send("Error fetching junior high record");
       }
-
-      res.render('student-registration', { schools, students, studentID: authRows, juniors, seniors  });
-     })
+      db.all('SELECT * FROM roles', (err, roles) => {
+        if (err) {
+          return res.status(500).send("Error fetching roles record");
+        }
+        
+        res.render('student-registration', { schools, students, studentID: authRows, juniors, seniors, roles });
+      });
+     });
   });
   });
   });

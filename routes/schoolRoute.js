@@ -20,9 +20,18 @@ router.get('/school-registration', (req, res) => {
       if (err) {
         return res.status(500).send("Error fetching auth record");
       }
+
+      db.all(`SELECT * FROM schools
+        ORDER BY schools.school_name ASC
+        `,
+         (err, schools) => {
+        if (err) {
+          return res.status(500).send('There was an error getting positions data');
+        }
       
   res.render('school', { students,
-    studentID: authRows,});
+    studentID: authRows, schools});
+});
 });
 });
 });

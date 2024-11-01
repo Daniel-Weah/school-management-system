@@ -12,7 +12,7 @@
 
 <main style="margin-top: 58px;">
 
- <div class="container pt-5">
+ <div class="container pt-4">
    <nav aria-label="breadcrumb" class="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
@@ -22,7 +22,7 @@
     </ol>
   </nav>
 
-   <h1>My Dashboard</h1>
+   <h1 class="pt-4">My Dashboard</h1>
 
    <div class="feed shadow-sm" style="text-align: center;">
    
@@ -30,7 +30,7 @@
     <div class="card">
       <!-- <i class="fa fa-flask"></i>  -->
       <h5 style="font-size: 15px;">Division</h5>
-      <h4 style="text-transform: capitalize;"> <%= students.division %></h4>
+      <h5 style="text-transform: capitalize;"> <%= students.division %></h5>
     </div>
 
     <div class="card">
@@ -49,14 +49,14 @@
     <div class="card">
      <!-- <i class="fas fa-book fa-fw"></i>  -->
       <h5 style="font-size: 15px;">Role</h5>
-      <h4><%= students.role %></h4>
+      <h5><%= students.student_role %></h5>
     </div>
     <div class="card">
      <!-- <i class="fa fa-dumbbell" style="font-size: 40px; color: #FF6A88;"></i> Updated icon for strength -->
      <h5 style="font-size: 15px;">Sponsor</h5>
    
      <div class="progress-circle">
-       <h4 class="progress-text">Mr. James Brown</h4>
+       <h5 class="progress-text">Mr. James Brown </h5>
      </div>
    </div>
    
@@ -114,14 +114,9 @@
  <div class="select_items">
   <select class="form-select" name="period" id="period" style="width: 25%">
    <option value="" disabled>Select Period</option>
-  <option value="1st pd">1st Period</option>
-  <option value="2nd pd">2nd Period</option>
-  <option value="3rd pd">3rd Period</option>
-  <option value="1st-sem-exam">1st Sem. Exam</option>
-  <option value="4th pd">4th Period</option>
-  <option value="5th pd">5th Period</option>
-  <option value="6th pd">6th Period</option>
-  <option value="2nd-sem-exam">2nd Sem. Exam</option>
+   <% periods.forEach(period => { %>
+    <option value="<%= period.period_id %>"><%= period.period %></option>
+    <% }) %>
 </select>
 
 <select class="form-select" name="period" id="period" style="width: 25%">
@@ -169,10 +164,12 @@
 </div>
 <!-- ============== ADMIN AND ADMINISTRACTOR CHARTS ENDS-->
  <%- include('./calendar') %>
+ <br><br><br><br>
  <%- include('layouts/records_table')%>
+ <br><br><br><br>
+
  
- 
- <p style="color: #666;">&copy;BrainWave 2024. All Right Reserved.</p>
+ <p style="color: #666;flex-grow: 1;">&copy;BrainWave 2024. All Right Reserved.</p>
  <%- include('layouts/noticeboard')%>
 </div>
 </main>

@@ -21,6 +21,7 @@ const requestTranscript = require('./routes/transcriptRoute');
 const sponsorRoute = require('./routes/sponsor-registration');
 const noticeRoute = require('./routes/createNotice');
 const classRegistration = require('./routes/class-registration');
+const periodRouter = require('./routes/createPeriod');
 
 
 const app = express();
@@ -56,6 +57,7 @@ app.use(requestTranscript);
 app.use(sponsorRoute)
 app.use(noticeRoute);
 app.use(classRegistration);
+app.use(periodRouter);
 
 app.listen(5000, () => {
  console.log('Server is running on http://localhost:5000');

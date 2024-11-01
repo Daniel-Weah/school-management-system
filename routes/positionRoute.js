@@ -26,10 +26,20 @@ router.get('/position-registration', (req, res) => {
         if (err) {
             return res.status(500).send('There was an error getting schools data');
         }
+        db.all(`SELECT positions.*, schools.school_name AS school_name 
+          FROM positions 
+          JOIN schools ON positions.school_id = schools.school_id
+          ORDER BY positions.position ASC
+          `,
+           (err, positions) => {
+          if (err) {
+            return res.status(500).send('There was an error getting positions data');
+          }
 
         res.render('position', { schools, students,
-            studentID: authRows,  });
+            studentID: authRows, positions  });
     });
+});
 });
 });
 });

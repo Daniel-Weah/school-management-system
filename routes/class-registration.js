@@ -30,11 +30,21 @@ router.get('/class-registration', (req, res) => {
    return res.status(500).send("Error fetching auth record");
   }
 
+  db.all('SELECT * FROM juniorHighClasses', (err, juniors) => {
+    if (err) {
+      return res.status(500).send('There was an error getting junior High Data');
+    }
+  db.all('SELECT * FROM seniorHighClasses', (err, seniors) => {
+    if (err) {
+      return res.status(500).send('There was an error getting senior High Data');
+    }
    
-   res.render('class', { students, studentID: authRows});
-  })
- })
- })
+   res.render('class', { students, studentID: authRows, juniors, seniors});
+  });
+ });
+ });
+ });
+ });
 
  router.post('/juniorhighclass-registration', (req, res) => {
   
@@ -71,7 +81,7 @@ router.get('/class-registration', (req, res) => {
     res.send('Class Added Successfully');
    }
    )
- })
+ });
 
 
 
