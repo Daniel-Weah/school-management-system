@@ -1,6 +1,8 @@
 const express = require("express");
 const db = require("../model/db");
 const bodyParser = require("body-parser");
+const bcrypt = require("bcrypt"); // Add bcrypt import
+const { v4: uuidv4 } = require("uuid"); // Add uuid import for generating UUIDs
 
 const router = express.Router();
 
@@ -11,114 +13,129 @@ router.get("/registration", (req, res) => {
     return res.redirect("/");
   }
 
-  db.get(
-    "SELECT * FROM students WHERE student_id = ?",
-    [req.session.sid],
-    (err, students) => {
+  db.get("SELECT * FROM students WHERE student_id = ?", [req.session.sid], (err, students) => {
+    if (err) {
+      return res.status(500).send("Error fetching student's record");
+    }
+
+    db.get("SELECT * FROM auth WHERE student_id = ?", [req.session.sid], (err, authRows) => {
       if (err) {
-        return res.status(500).send("Error fetching student's record");
+        return res.status(500).send("Error fetching auth record");
       }
 
-      db.get(
-        "SELECT * FROM auth WHERE student_id = ?",
-        [req.session.sid],
-        (err, authRows) => {
+      db.all("SELECT * FROM schools", (err, schools) => {
+        if (err) {
+          return res.status(500).send("There was an error getting schools data");
+        }
+
+        db.all("SELECT * FROM roles", (err, roles) => {
           if (err) {
-            return res.status(500).send("Error fetching auth record");
+            return res.status(500).send("There was an error getting roles data");
           }
 
-          db.all("SELECT * FROM schools", (err, schools) => {
+          db.all("SELECT * FROM positions", (err, positions) => {
             if (err) {
-              res.send("There was an error getting schools data");
-              return;
+              return res.status(500).send("There was an error getting positions data");
             }
-            db.all("SELECT * FROM roles", (err, roles) => {
-              if (err) {
-                res.send("There was an error getting roles data");
-              }
 
-              db.all("SELECT * FROM positions", (err, positions) => {
-                if (err) {
-                  res.send("There was an error getting positions data");
-                }
-
-                console.log(schools);
-                console.log(roles);
-                console.log(positions);
-
-                res.render("instructor-registration", {
-                  schools,
-                  roles,
-                  positions,
-                  students,
-                  studentID: authRows,
-                });
-              });
+            res.render("instructor-registration", {
+              schools,
+              roles,
+              positions,
+              students,
+              studentID: authRows,
             });
           });
-        }
-      );
-    }
-  );
+        });
+      });
+    });
+  });
 });
 
-router.post('/registration', async (req, res) => {
-  const { fullname, email, phone, location, dob, division, level, role, school, emergency_name, emergency_phone, emergency_relationship, studentID, password, level1 } = req.body;
-  
-
-  const studentLevel = division === 'junior-high' ? level1 : level;
+router.post("/registration", async (req, res) => { 
+  const {
+    fullname,
+    email,
+    phone,
+    location,
+    dob,
+    division,
+    role,
+    school,
+    position,
+    emergency_name,
+    emergency_phone,
+    emergency_relationship,
+    username,
+    password,
+  } = req.body;
 
   try {
-    // Await bcrypt hash
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const studentUUID = uuidv4();
+    const hashedPassword = await bcrypt.hash(password, 10); // Hash password
+    const instructorID = uuidv4();
 
     // Split the fullname to extract initials
     const nameParts = fullname.trim().split(' ');
     const firstInitial = nameParts[0] ? nameParts[0][0].toUpperCase() : '';
     const lastInitial = nameParts[1] ? nameParts[1][0].toUpperCase() : '';
     const initials = firstInitial + lastInitial;
-
-    // Set initials as profile picture or a default
     const profilePicture = initials || 'Default Initials';
 
-    db.get('SELECT * FROM auth WHERE student_id = ?', [studentID], (err, existingStudent) => {
-      if (err) {
-        res.send('Error occurred while checking studentID');
-        return;
-      }
+    const juniorClasses = req.body['junior-classes'] || [];
+    const seniorClasses = req.body['senior-classes'] || [];
+    const juniorSubjects = req.body['junior-subjects'] || [];
+    const seniorSubjects = req.body['senior-subjects'] || [];
 
-      if (existingStudent) {
-        res.send('StudentID already exists');
-      } else {
-        db.run(
-          'INSERT INTO students (student_id, fullName, email, phone, location, DOB, division, class, role, school_id, emergency_name, emergency_phone, emergency_relationship, profile_picture) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
-          [studentUUID, fullname, email, phone, location, dob, division, studentLevel, role, school, emergency_name, emergency_phone, emergency_relationship, profilePicture], 
-          function (err) {
-            if (err) {
-              console.error('Error inserting into students table:', err.message);
-              res.send('There was an error inserting into the students table');
-              return;
-            }
-            db.run(
-              'INSERT INTO auth (auth_id, studentID, password, student_id) VALUES (?, ?, ?, ?)', 
-              [uuidv4(), studentID, hashedPassword, studentUUID], 
-              function (err) {
-                if (err) {
-                  console.error('Error inserting into auth table:', err.message);
-                  res.send('There was an error inserting into the auth table');
-                  return;
-                }
-                res.send('Student registration successful');
-              }
-            );
+    const selectedJuniorClasses = Array.isArray(juniorClasses) ? juniorClasses : [juniorClasses];
+    const selectedSeniorClasses = Array.isArray(seniorClasses) ? seniorClasses : [seniorClasses];
+    const selectedJuniorSubjects = Array.isArray(juniorSubjects) ? juniorSubjects : [juniorSubjects];
+    const selectedSeniorSubjects = Array.isArray(seniorSubjects) ? seniorSubjects : [seniorSubjects];
+
+    const juniorClassesString = selectedJuniorClasses.join(",");
+    const seniorClassesString = selectedSeniorClasses.join(",");
+    const juniorSubjectsString = selectedJuniorSubjects.join(",");
+    const seniorSubjectsString = selectedSeniorSubjects.join(",");
+
+  
+    db.run(
+      `INSERT INTO instructors (instructor_id, fullname, email, phone, location, DOB, division, role, position,  school_id, emergency_name, emergency_phone, emergency_relationship, junior_classes, senior_classes, junior_subjects, senior_subjects, profile_picture) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        instructorID,
+        fullname,
+        email,
+        phone,
+        location,
+        dob,
+        division,
+        role,
+        position,
+        school,
+        emergency_name,
+        emergency_phone,
+        emergency_relationship,
+        juniorClassesString,
+        seniorClassesString,
+        juniorSubjectsString,
+        seniorSubjectsString,
+        profilePicture
+      ],
+      function (err) {
+        if (err) {
+          console.error(err.message);
+          return res.status(500).send("Error registering instructor");
+        }
+        db.run('INSERT INTO instructorAuth (auth_id, username, password, instructor_id) VALUES (?, ?, ?, ?)', [uuidv4(), username, hashedPassword, instructorID], function (err) {
+          if (err) {
+            console.error(err.message);
+            return res.status(500).send("Error registering instructor into Auth");
           }
-        );
+        })
+        res.redirect("/dashboard");
       }
-    });
-  } catch (error) {
-    console.error('Error during registration:', error.message);
-    res.send('There was an error during registration.');
+    );
+  } catch (err) {
+    console.error("Error during registration:", err);
+    res.status(500).send("Internal Server Error");
   }
 });
 

@@ -48,19 +48,18 @@ db.serialize(() => {
     location TEXT NOT NULL,
     DOB TEXT NOT NULL,
     division TEXT NOT NULL,
-    subject_id TEXT,
-    class TEXT NOT NULL,
     role TEXT NOT NULL,
     position TEXT NOT NULL,
     school_id TEXT NOT NULL,
     emergency_name TEXT NOT NULL,
     emergency_phone TEXT NOT NULL,
     emergency_relationship TEXT NOT NULL,
-    username TEXT NOT NULL,
-    password TEXT NOT NULL,
+    junior_classes TEXT NOT NULL,
+    senior_classes TEXT NOT NULL,
+    junior_subjects TEXT NOT NULL,
+    senior_subjects TEXT NOT NULL,
     profile_picture BLOB,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (subject_id) REFERENCES subjects(subject_id)
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   )`);
 
  

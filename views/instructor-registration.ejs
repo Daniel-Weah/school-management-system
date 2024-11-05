@@ -21,15 +21,12 @@
                   </ol>
                 </nav>
                 <div class="text-center">
-                  <img src="/images/newInstructorRegistration.png" style="width: 250px; border-radius: 50px" alt="logo">
+                  <!-- <img src="/images/newInstructorRegistration.png" style="width: 250px; border-radius: 50px" alt="logo"> -->
                   <h4 class="mt-1 mb-3 pb-1">INSTRUCTOR'S REGISTRATION</h4>
                 </div>
 
-                <form>
-                  <div class="mb-4">
-                    <label class="form-label" for="full_name">Full Name</label>
-                    <input type="text" id="full_name" name="fullname" class="form-control" placeholder="e.g. John Doe" />
-                  </div>
+                <form action="/registration" method="POST">
+
 
                   <div class="mb-4">
                     <label class="form-label" for="full name">Full Name</label>
@@ -94,7 +91,6 @@
                       <input type="checkbox" name="junior-subjects" value="Math" id="math">
                       <label for="math">Math</label>
                     </div>
-                    <!-- Add more junior subjects as needed -->
                   </div>
 
                   <!-- Senior High Classes as checkboxes -->
@@ -108,7 +104,6 @@
                       <input type="checkbox" name="senior-classes" value="11th" id="11th-grade">
                       <label for="11th-grade">11th Grade</label>
                     </div>
-                    <!-- Add more senior classes as needed -->
                   </div>
 
                   <!-- Senior High Subjects as checkboxes -->
@@ -122,7 +117,6 @@
                       <input type="checkbox" name="senior-subjects" value="Chemistry" id="chemistry">
                       <label for="chemistry">Chemistry</label>
                     </div>
-                    <!-- Add more senior subjects as needed -->
                   </div>
 
                   <div class="mb-4">
@@ -146,10 +140,9 @@
                   <div class="mb-4">
                     <label class="form-label" for="position">Position</label>
                      <select name="position" id="position" class="form-control">
-                      <option value="v1">Principal</option>
-                      <option value="v1">Vice Principal-Instruction.</option>
-                      <option value="v1">Vice Principal Administration.</option>
-                      <option value="v1">Dean of Students</option>
+                      <% positions.forEach(position => { %> 
+                      <option value="<%= position.position_id%>"><%= position.position %> </option>
+                      <% }) %>
                      </select>
                   </div>
   
@@ -186,7 +179,7 @@
   
 
                   <div class="text-center pt-1">
-                    <button class="btn btn-primary btn-lg btn-block mb-3" type="button" style="width: 100%;" id="student_btn">
+                    <button class="btn btn-primary btn-lg btn-block mb-3" type="submit" style="width: 100%;" id="student_btn">
                       Register Instructor <i class="fa fa-arrow-right" id="right-arrow"></i>
                     </button>
                   </div>
