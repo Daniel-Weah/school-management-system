@@ -1,7 +1,11 @@
 <%- include('layouts/header')%>
 <link rel="stylesheet" href="/css/dashboard.css" />
 
-
+<style>
+  .breadcrumb-item + .breadcrumb-item::before {
+      content: " > ";
+    }
+</style>
 </head>
 
 <body>
@@ -24,17 +28,21 @@
 
    <h1 class="pt-4">My Dashboard</h1>
 
-   <div class="feed shadow-sm" style="text-align: center;">
+   <div class="feed shadow-sm" style="text-align: center; margin-top: -1pc;">
+
+    <% if (users.user_role == 'Student') { %>
+
+    
    
     <!-- Card 1: Level -->
     <div class="card">
-      <!-- <i class="fa fa-flask"></i>  -->
+      <i class="fas fa-home fa-fw" style="font-size: 30px; color: #007bff;"></i> 
       <h5 style="font-size: 15px;">Division</h5>
-      <h5 style="text-transform: capitalize;"> <%= students.division %></h5>
+      <h5 style="text-transform: capitalize;"> <%= users.division %></h5>
     </div>
 
     <div class="card">
-      <!-- <i class="fa fa-graduation-cap"></i>  -->
+      <i class="fa fa-graduation-cap" style="font-size: 30px; color: #007bff;"></i> 
       <h5 style="font-size: 15px;">Level</h5>
       <% if (juniorClassName) { %>
         <h5><%= juniorClassName.junior_class_name %></h5>
@@ -47,50 +55,60 @@
   
     
     <div class="card">
-     <!-- <i class="fas fa-book fa-fw"></i>  -->
+     <i class="fas fa-book fa-fw" style="font-size: 30px; color: #007bff;"></i> 
       <h5 style="font-size: 15px;">Role</h5>
-      <h5><%= students.student_role %></h5>
+      <h5><%= users.user_role%></h5>
     </div>
     <div class="card">
-     <!-- <i class="fa fa-dumbbell" style="font-size: 40px; color: #FF6A88;"></i> Updated icon for strength -->
+     <i class="fa fa-user" style="font-size: 30px; color: #007bff;"></i>
      <h5 style="font-size: 15px;">Sponsor</h5>
    
      <div class="progress-circle">
-       <h5 class="progress-text">Mr. James Brown </h5>
-     </div>
-   </div>
+      <% if (noSponsorFound) { %>
+        <h5 class="progress-text">No sponsor assigned to this class.</h5>
+      <% } else { %>
+        <h5 class="progress-text"><%= userSponsorData.fullName %></h5>
+      <% } %>
+    </div>
+    
+ <% } %>
    
   </div>
-  
-  <!-- ADMIN PART -->
-   <div class="feed shadow-sm" style="text-align: center;display: none;">
+
+  <% if (users.user_role == 'Instructor') { %>
+   <!-- Instructor and Student PART -->
+   <div class="feed shadow-sm" style="text-align: center; margin-top: -2pc;">
     <!-- Card 1: Level -->
     <div class="card">
-      <i class="fa fa-graduation-cap"></i> 
-      <h5 style="font-size: 15px;">Total Student</h5>
-      <h4>1000</h4>
+      <i class="fa fa-graduation-cap" style="font-size: 30px; color: #007bff;"></i> 
+      <h5 style="font-size: 15px;">Total Subject</h5>
+      <h5>2</h5>
     </div>
   
     <!-- Card 2: Student Type -->
     <div class="card">
-     <i class="fas fa-chalkboard-teacher fa-fw"></i>
-      <h5 style="font-size: 15px;">Total Instructor</h5>
-      <h4>60</h4>
+     <i class="fas fa-chalkboard-teacher fa-fw" style="font-size: 30px; color: #007bff;"></i>
+      <h5 style="font-size: 15px;">Position</h5>
+      <h5><%= users.position %></h5>
     </div>
   
     <!-- Card 3: Total Subjects -->
     <div class="card">
-     <i class="fas fa-book fa-fw"></i> 
-      <h5 style="font-size: 15px;">Total Subjects</h5>
-      <h4>25</h4>
-    </div>
+      <i class="fas fa-book fa-fw" style="font-size: 30px; color: #007bff;"></i> 
+       <h5 style="font-size: 15px;">Role</h5>
+       <h5><%= users.user_role%></h5>
+     </div>
+
     <div class="card">
-     <i class="fas fa-user fa-fw"></i> 
-      <h5 style="font-size: 15px;">Total Administrator</h5>
-      <h4>25</h4>
+     <i class="fas fa-user fa-fw" style="font-size: 30px; color: #007bff;"></i> 
+      <h5 style="font-size: 15px;">Sponsor Class</h5>
+      <h5>25</h5>
     </div>
    
-   
+  
+  <% } %>
+  
+
    </div>
    
   </div>
@@ -113,14 +131,14 @@
  <!-- VISUAL REPRESENTATIONAL OF STUDENT'S GRADES -->
  <div class="select_items">
   <select class="form-select" name="period" id="period" style="width: 25%">
-   <option value="" disabled>Select Period</option>
+   <option value="" disabled selected>Select Period</option>
    <% periods.forEach(period => { %>
     <option value="<%= period.period_id %>"><%= period.period %></option>
     <% }) %>
 </select>
 
 <select class="form-select" name="period" id="period" style="width: 25%">
- <option> ~~ Select Subject ~~</option>
+ <option value="" disabled selected> Select Subject </option>
  <option value="geography">Geography</option>
  <option value="history">History</option>
 </select>
@@ -138,7 +156,7 @@
  <!-- ============== ADMIN AND ADMINISTRACTOR CHARTS -->
 <div class="select_items_moderator">
  <select class="form-select" name="period" id="period" style="width: 25%">
-  <option value="" disabled>Select Period</option>
+  <option value="" disabled  selected>Select Period</option>
   <option value="1st pd">1st Period</option>
   <option value="2nd pd">2nd Period</option>
   <option value="3rd pd">3rd Period</option>

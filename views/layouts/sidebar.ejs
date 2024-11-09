@@ -24,12 +24,12 @@
           <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Dashboard</span>
         </a>
         <a href="/student-registration" class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-user-graduate fa-fw me-3"></i><span>Students</span>
+          <i class="fas fa-user-graduate fa-fw me-3"></i><span title="Student Registration"> Student</span>
         </a>
         <a href="/registration" class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-chalkboard-teacher fa-fw me-3"></i><span>Instructor</span>
+          <i class="fas fa-user-graduate fa-fw me-3"></i><span title="Instructor or Administrator Registration">Instructor</span>
         </a>
-        
+
         <a href="#" class="list-group-item list-group-item-action py-2 ripple">
           <i class="fas fa-book fa-fw me-3"></i><span>Subjects</span>
         </a>
@@ -110,25 +110,25 @@
        
        <li class="nav-item dropdown">
          <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          <% if (students.profile_picture.length === 2) { %>
+          <% if (users.profile_picture.length === 2) { %>
             <div class="initials-avatar">
-                <%= students.profile_picture %>
+                <%= users.profile_picture %>
             </div>
         <% } else { %>
-            <img src="data:image/png;base64,<%= students.profile_picture.toString('base64') %>" alt="Profile Picture" width="100" height="100">
+            <img src="data:image/png;base64,<%= users.profile_picture.toString('base64') %>" alt="Profile Picture" width="100" height="100">
         <% } %>
             
          </a>
          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
            <div class="profile_info" style="text-align: center;">
-            <% if (students.profile_picture.length === 2) { %>
+            <% if (users.profile_picture.length === 2) { %>
               <div class="initials-avatar" style="margin: 0 auto;">
-                  <%= students.profile_picture %>
+                  <%= users.profile_picture %>
               </div>
           <% } else { %>
-              <img src="data:image/png;base64,<%= students.profile_picture.toString('base64') %>" alt="Profile Picture" width="100" height="100">
+              <img src="data:image/png;base64,<%= users.profile_picture.toString('base64') %>" alt="Profile Picture" width="100" height="100">
           <% } %>           
-          <h6><%= studentID.studentID %> </h6>
+          <h6><%= userID.username %> </h6>
           </div>
            <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i>
            </i> My profile</a></li>

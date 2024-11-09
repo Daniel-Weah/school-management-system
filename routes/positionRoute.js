@@ -8,16 +8,18 @@ const router = express.Router();
 router.use(bodyParser.urlencoded({ extended: true }));
 
 router.get('/position-registration', (req, res) => {
-    if (!req.session.sid) {
+    if (!req.session.userID) {
         return res.redirect('/');
       }
     
-      db.get('SELECT * FROM students WHERE student_id = ?', [req.session.sid], (err, students) => {
+      db.get('SELECT * FROM users WHERE user_id = ?', [req.session.userID], (err, users) => {
         if (err) {
           return res.status(500).send("Error fetching student's record");
         }
     
-        db.get('SELECT * FROM auth WHERE student_id = ?', [req.session.sid], (err, authRows) => {
+        db.get('SELECT * FROM auth WHERE user_id = ?', [req.session.userID
+
+        ], (err, authRows) => {
           if (err) {
             return res.status(500).send("Error fetching auth record");
           }
@@ -26,9 +28,7 @@ router.get('/position-registration', (req, res) => {
         if (err) {
             return res.status(500).send('There was an error getting schools data');
         }
-        db.all(`SELECT positions.*, schools.school_name AS school_name 
-          FROM positions 
-          JOIN schools ON positions.school_id = schools.school_id
+        db.all(`SELECT * FROM positions 
           ORDER BY positions.position ASC
           `,
            (err, positions) => {
@@ -36,8 +36,8 @@ router.get('/position-registration', (req, res) => {
             return res.status(500).send('There was an error getting positions data');
           }
 
-        res.render('position', { schools, students,
-            studentID: authRows, positions  });
+        res.render('position', { schools, users,
+            userID: authRows, positions });
     });
 });
 });
@@ -45,16 +45,16 @@ router.get('/position-registration', (req, res) => {
 });
 
 router.post('/position-registration', (req, res) => {
-    const { school, position } = req.body; 
+    const {  position } = req.body; 
     
     const positionID = uuidv4();
 
-    const query = 'INSERT INTO positions (position_id, position, school_id) VALUES (?, ?, ?)';
-    db.run(query, [positionID, position, school], function(err) {
+    const query = 'INSERT INTO positions (position_id, position) VALUES (?, ?)';
+    db.run(query, [positionID, position], function(err) {
         if (err) {
             return res.status(500).send(`An error occurred while adding the position: ${err.message}`);
         }
-        res.send(`Position ${position} added successfully for school with ID ${school}`); 
+        res.send(`Position ${position} added successfully`); 
     });
 });
 

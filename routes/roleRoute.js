@@ -8,16 +8,16 @@ const router = express.Router();
 router.use(bodyParser.urlencoded({ extended: true }));
 
 router.get('/role-registration', (req, res) => {
-    if (!req.session.sid) {
+    if (!req.session.userID) {
         return res.redirect('/');
       }
     
-      db.get('SELECT * FROM students WHERE student_id = ?', [req.session.sid], (err, students) => {
+      db.get('SELECT * FROM users WHERE user_id = ?', [req.session.userID], (err, users) => {
         if (err) {
           return res.status(500).send("Error fetching student's record");
         }
     
-        db.get('SELECT * FROM auth WHERE student_id = ?', [req.session.sid], (err, authRows) => {
+        db.get('SELECT * FROM auth WHERE user_id = ?', [req.session.userID], (err, authRows) => {
           if (err) {
             return res.status(500).send("Error fetching auth record");
           }
@@ -28,8 +28,8 @@ router.get('/role-registration', (req, res) => {
             return res.status(500).send('There was an error getting roles data');
           }
           
-          res.render('role', { students,
-            studentID: authRows, roles });
+          res.render('role', { users,
+            userID: authRows, roles });
           });
         });
 });

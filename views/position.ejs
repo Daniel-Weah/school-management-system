@@ -29,15 +29,6 @@
                 </div>
 
                 <form action="/position-registration" method="post" autocomplete="off">
-                 <div class="mb-4">
-                  <label class="form-label" for="school">School</label>
-                   <select name="school" id="school" class="form-control">
-                    <% schools.forEach(school => { %> 
-                    <option value="<%= school.school_id %>"><%= school.school_name %>
-                     </option>
-                    <% }) %>
-                   </select>
-                </div>
                  
                  <div class="mb-4">
                    <label class="form-label" for="position">Position</label>
@@ -76,7 +67,6 @@
     </div>
 
 
-    
     <table class="table align-middle mb-0 bg-white" style="width: 70%; margin: 0 15pc; ">
       <thead>
 
@@ -84,7 +74,6 @@
           <th>No</th>
           <th>Position ID</th>
           <th>Position</th>
-          <th>School Name</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -96,7 +85,6 @@
             <%= position.position_id %>
           </td>
           <td><%= position.position %></td>
-          <td><%= position.school_name %></td>
           
           <td><button class="btn btn-link btn-sm">
             <span>
@@ -109,6 +97,7 @@
       <% }) %>
       </tbody>
     </table>
+   
   </div>
 </div>
 

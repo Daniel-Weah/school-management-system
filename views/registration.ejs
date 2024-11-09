@@ -1,7 +1,20 @@
 <%- include('layouts/header')%>
 <link rel="stylesheet" href="/css/student.css" />
 <style>
-  .breadcrumb-item + .breadcrumb-item::before {
+  /* Style checkboxes to appear vertically */
+#junior-classes input[type="checkbox"],
+#senior-classes input[type="checkbox"] {
+  display: block;
+  margin-bottom: 10px; /* Add spacing between checkboxes */
+}
+
+/* Optionally, adjust the labels for better alignment */
+#junior-classes label,
+#senior-classes label {
+  display: inline-block;
+  margin-left: 5px; /* Space between checkbox and label */
+}
+.breadcrumb-item + .breadcrumb-item::before {
       content: " > ";
     }
 </style>
@@ -11,7 +24,7 @@
   <%- include('layouts/sidebar')%>
  </header>
  <section class="h-100" style="background-color: #fff;">
-  <div class="container py-5 h-100" style="margin-top: -15px;">
+  <div class="container py-5 h-100" style="margin-top: -22px;">
     
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-xl-10">
@@ -20,23 +33,18 @@
             <div class="col-lg-6">
               <div class="card-body p-md-5 mx-md-4">
                 <nav aria-label="breadcrumb" class="breadcrumb">
-                  <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                     <a href="/">Home</a>
-                    </li> 
-                    <li class="breadcrumb-item">
-                     <a href="/dashboard">Dashboard</a>
-                    </li> 
-                    <li class="breadcrumb-item active" aria-current="page">Students</li>
+                  <ol class="breadcrumb" style="margin-top: -3px;">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Instructors</li>
                   </ol>
                 </nav>
-                <div class="text-center">
-                  <img src="/images/newStudentRegistration.png"
-                    style="width: 250px;" alt="logo">
-                  <h4 class="mt-1 mb-3 pb-1">STUDENT'S REGISTRATION</h4>
+                
+                <div class="text-center mt-3">
+                  <h4 class="mt-1 mb-3 pb-1"> REGISTRATION</h4>
                 </div>
 
-                <form action="/student-registration" method="post" autocomplete="off">
+                <form action="/registration" method="post" autocomplete="off">
                  
                  <div class="mb-4">
                    <label class="form-label" for="full name">Full Name</label>
@@ -72,23 +80,21 @@
                   </select>
                 </div>
                 
-                <div class="mb-4" id="junior-high-classes" style="display: none;">
-                  <label class="form-label" for="junior-class">Junior High Classes</label>
-                  <select name="level1" id="junior-class" class="form-control">
-                    <% juniors.forEach(junior => { %>
-                      <option value="<%= junior.class_id %>"><%= junior.class_name %></option>
-                      <% }) %>
-                  </select>
+                <div class="mb-4" id="junior-classes" style="display: none;">
+                  <label class="form-label">Junior High Classes</label>
+                  <input type="checkbox" name="junior-classes" value="7th" id="7th-grade"><label for="7th-grade">7th Grade</label>
+                  <input type="checkbox" name="junior-classes" value="8th" id="8th-grade"><label for="8th-grade">8th Grade</label>
+                  <input type="checkbox" name="junior-classes" value="9th" id="9th-grade"><label for="9th-grade">9th Grade</label>
                 </div>
                 
-                <div class="mb-4" id="senior-high-classes" style="display: none;">
-                  <label class="form-label" for="senior-class">Senior High Classes</label>
-                  <select name="level" id="senior-class" class="form-control">
-                    <% seniors.forEach(senior => { %>
-                      <option value="<%= senior.class_id %>"><%= senior.class_name %></option>
-                      <% }) %>
-                  </select>
+                <div class="mb-4" id="senior-classes" style="display: none;">
+                  <label class="form-label">Senior High Classes</label>
+                  <input type="checkbox" name="senior-classes" value="10th" id="10th-grade"><label for="10th-grade">10th Grade</label>
+                  <input type="checkbox" name="senior-classes" value="11th" id="11th-grade"><label for="11th-grade">11th Grade</label>
+                  <input type="checkbox" name="senior-classes" value="12th" id="12th-grade"><label for="12th-grade">12th Grade</label>
+
                 </div>
+                
                 
 
                  <div class="mb-4">
@@ -107,6 +113,16 @@
                     <option value="<%= school.school_id%>"><%= school.school_name %> </option>
                     <% }) %>
                    </select>
+                </div>
+
+                <div class="mb-4">
+                  <label class="form-label" for="position">Position</label>
+                  <select name="position" id="position" class="form-control">
+                    <option value="" disabled selected>Select Position</option>
+                    <% positions.forEach(position => { %> 
+                      <option value="<%= position.position_id %>"><%= position.position %></option>
+                    <% }) %>
+                  </select>
                 </div>
 
 <hr>
@@ -164,15 +180,15 @@
 <script>
   document.getElementById('division').addEventListener('change', function () {
   const division = this.value;
-  const juniorHighClasses = document.getElementById('junior-high-classes');
-  const seniorHighClasses = document.getElementById('senior-high-classes');
+  const juniorHighClasses = document.getElementById('junior-classes');
+  const seniorHighClasses = document.getElementById('senior-classes');
 
   if(division === 'select-division') {
     juniorHighClasses.style.display = 'none';
     seniorHighClasses.style.display = 'none';
   }
  else if (division === 'junior-high') {
-    juniorHighClasses.style.display = 'block';
+    juniorHighClasses.style.display = 'flex';
     seniorHighClasses.style.display = 'none';
   } else if (division === 'senior-high') {
     juniorHighClasses.style.display = 'none';
@@ -182,3 +198,14 @@
 
 </script>
 <%- include('layouts/footer')%>
+
+
+
+
+
+
+
+
+
+
+         

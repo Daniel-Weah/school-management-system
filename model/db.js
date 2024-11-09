@@ -6,72 +6,50 @@ const { v4: uuidv4 } = require('uuid');
 db.serialize(() => {
   db.run(`CREATE TABLE IF NOT EXISTS auth(
     auth_id TEXT PRIMARY KEY,
-    studentID TEXT NOT NULL,
-    password TEXT NOT NULL,
-    student_id TEXT NOT NULL,
-    FOREIGN KEY (student_id) REFERENCES students(student_id)
-  )`);
-
-  db.run(`CREATE TABLE IF NOT EXISTS instructorAuth(
-    auth_id TEXT PRIMARY KEY,
     username TEXT NOT NULL,
     password TEXT NOT NULL,
-    instructor_id TEXT NOT NULL,
-    FOREIGN KEY (instructor_id) REFERENCES instructors(instructor_id)
+    user_id TEXT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
   )`);
 
+  // db.run(`DELETE FROM auth WHERE username IN ('daniel');
+
+  // )`);
 
 
-  db.run(`CREATE TABLE IF NOT EXISTS students(
-    student_id TEXT PRIMARY KEY,
+
+  db.run(`CREATE TABLE IF NOT EXISTS users(
+    user_id TEXT PRIMARY KEY,
     fullName TEXT NOT NULL,
     email TEXT DEFAULT 'No email available',
     phone TEXT NOT NULL,
     location TEXT NOT NULL,
     DOB TEXT NOT NULL,
     division TEXT NOT NULL,
-    class TEXT NOT NULL,
+    class TEXT DEFAULT 'No class available',
     role TEXT NOT NULL,
+    position TEXT,
     school_id TEXT NOT NULL,
     emergency_name TEXT NOT NULL,
     emergency_phone TEXT NOT NULL,
     emergency_relationship TEXT NOT NULL,
+    junior_classes TEXT DEFAULT 'No class available',
+    senior_classes TEXT DEFAULT 'No class available',
+    junior_subjects TEXT DEFAULT 'No class available',
+    senior_subjects TEXT DEFAULT 'No class available',
     profile_picture BLOB,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   )`);
 
-  db.run(`CREATE TABLE IF NOT EXISTS instructors(
-    instructor_id TEXT PRIMARY KEY,
-    fullName TEXT NOT NULL,
-    email TEXT DEFAULT 'No email available',
-    phone TEXT NOT NULL,
-    location TEXT NOT NULL,
-    DOB TEXT NOT NULL,
-    division TEXT NOT NULL,
-    role TEXT NOT NULL,
-    position TEXT NOT NULL,
-    school_id TEXT NOT NULL,
-    emergency_name TEXT NOT NULL,
-    emergency_phone TEXT NOT NULL,
-    emergency_relationship TEXT NOT NULL,
-    junior_classes TEXT NOT NULL,
-    senior_classes TEXT NOT NULL,
-    junior_subjects TEXT NOT NULL,
-    senior_subjects TEXT NOT NULL,
-    profile_picture BLOB,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  )`);
-
- 
-
-  db.run(`CREATE TABLE IF NOT EXISTS sponsor(
+  db.run(`CREATE TABLE IF NOT EXISTS sponsors(
     sponsor_id TEXT PRIMARY KEY,
     school_id INTEGER,
-    instructor_id TEXT,
-    class_id INTEGER,
+    instructor_id TEXT NOT NULL,
+    division TEXT NOT NULL,
+    class TEXT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (school_id) REFERENCES schools(school_id),
-    FOREIGN KEY (instructor_id) REFERENCES instructors(instructor_id)
+    FOREIGN KEY (instructor_id) REFERENCES users(user_id)
   )`);
 
   db.run(`CREATE TABLE IF NOT EXISTS schools(
@@ -167,7 +145,8 @@ db.serialize(() => {
   db.run(`CREATE TABLE IF NOT EXISTS positions(
     position_id TEXT PRIMARY KEY,
     position TEXT NOT NULL,
-    school_id INTEGER NOT NULL
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+
   )`);
   db.run(`CREATE TABLE IF NOT EXISTS juniorHighClasses(
     class_id TEXT PRIMARY KEY,

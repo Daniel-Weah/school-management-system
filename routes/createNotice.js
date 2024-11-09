@@ -19,21 +19,21 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 router.get("/create-notice", (req, res) => {
-  if (!req.session.sid) {
+  if (!req.session.userID) {
     return res.redirect("/");
   }
 
   db.get(
-    "SELECT * FROM students WHERE student_id = ?",
-    [req.session.sid],
-    (err, students) => {
+    "SELECT * FROM users WHERE user_id = ?",
+    [req.session.userID],
+    (err, users) => {
       if (err) {
         return res.status(500).send("Error fetching student's record");
       }
 
       db.get(
-        "SELECT * FROM auth WHERE student_id = ?",
-        [req.session.sid],
+        "SELECT * FROM auth WHERE user_id = ?",
+        [req.session.userID],
         (err, authRows) => {
           if (err) {
             return res.status(500).send("Error fetching auth record");
@@ -46,7 +46,7 @@ router.get("/create-notice", (req, res) => {
                 .send("There was an error getting schools data");
             }
 
-            res.render("notice", { students, studentID: authRows, schools });
+            res.render("notice", { users, userID: authRows, schools });
           });
         }
       );

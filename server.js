@@ -11,7 +11,7 @@ const loginRouter = require('./routes/login');
 const dashboardRouter = require('./routes/dashboardRoute');
 const calendarRouter = require('./routes/calendarRoute');
 const studentRegistration = require('./routes/studentRegistrationRoute');
-const instructorRegistration = require('./routes/instructorRegistration');
+const registration = require('./routes/registration');
 const administratorRegistration = require('./routes/administratorRegistration');
 const feedbackRouter = require('./routes/feedbackRoute');
 const roleRouter = require('./routes/roleRoute');
@@ -23,6 +23,7 @@ const noticeRoute = require('./routes/createNotice');
 const classRegistration = require('./routes/class-registration');
 const periodRouter = require('./routes/createPeriod');
 const logout = require('./routes/logoutRoute');
+const instructordashboard = require('./routes/instructorDashboardRoute');
 
 
 const app = express();
@@ -46,7 +47,7 @@ app.use(indexRouter);
 app.use(dashboardRouter);
 app.use(calendarRouter);
 app.use(studentRegistration);
-app.use(instructorRegistration);
+app.use(registration);
 app.use(administratorRegistration);
 app.use(studentLogin);
 app.use(loginRouter);
@@ -60,6 +61,7 @@ app.use(noticeRoute);
 app.use(classRegistration);
 app.use(periodRouter);
 app.use(logout);
+app.use(instructordashboard);
 
 app.listen(5000, () => {
  console.log('Server is running on http://localhost:5000');

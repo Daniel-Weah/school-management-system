@@ -28,20 +28,29 @@
                   <h4 class="mt-1 mb-3 pb-1">SPONSOR REGISTRATION</h4>
                 </div>
 
-                <form action="" method="post" autocomplete="off">
+                <form action="/sponsor-registration" method="post" autocomplete="off">
                  
                   <div class="mb-4">
                     <label class="form-label" for="school">School</label>
                      <select name="school" id="school" class="form-control">
+                      <option value="" disabled selected> Select School</option>
                       <% schools.forEach(school => { %> 
-                      <option value="<%= school.school_id%>"><%= school.school_name %> </option>
+                      <option value="<%= school.school_id %>"><%= school.school_name %> </option>
                       <% }) %>
                      </select>
                   </div>
+
+                  <div class="mb-4">
+                    <label class="form-label" for="instructor">Instructor</label>
+                    <select name="instructor" id="instructor" class="form-control">
+                      <!-- Instructor options will be populated dynamically based on selected school -->
+                    </select>
+                  </div>
+
                   <div class="mb-4">
                     <label class="form-label" for="division">Division</label>
                     <select name="division" id="division" class="form-control">
-                      <option value="select-division">Select Division</option>
+                      <option value="" disabled selected>Select Division</option>
                       <option value="junior-high">Junior High Level</option>
                       <option value="senior-high">Senior High Level</option>
                     </select>
@@ -52,7 +61,7 @@
                     <select name="level1" id="junior-class" class="form-control">
                       <% juniors.forEach(junior => { %>
                         <option value="<%= junior.class_id %>"><%= junior.class_name %></option>
-                        <% }) %>
+                      <% }) %>
                     </select>
                   </div>
                   
@@ -61,11 +70,9 @@
                     <select name="level" id="senior-class" class="form-control">
                       <% seniors.forEach(senior => { %>
                         <option value="<%= senior.class_id %>"><%= senior.class_name %></option>
-                        <% }) %>
+                      <% }) %>
                     </select>
                   </div>
-                  
-
 
                   <div class="text-center pt-1 ">
                     <button class="btn btn-primary btn-lg btn-block mb-3" type="submit" style="width: 100%;" id="student_btn">Create Sponsor <i class="fa fa-arrow-right" id="right-arrow"></i></button>
@@ -86,24 +93,50 @@
     </div>
   </div>
 </section>
+
 <script>
   document.getElementById('division').addEventListener('change', function () {
-  const division = this.value;
-  const juniorHighClasses = document.getElementById('junior-high-classes');
-  const seniorHighClasses = document.getElementById('senior-high-classes');
+    const division = this.value;
+    const juniorHighClasses = document.getElementById('junior-high-classes');
+    const seniorHighClasses = document.getElementById('senior-high-classes');
 
-  if(division === 'select-division') {
-    juniorHighClasses.style.display = 'none';
-    seniorHighClasses.style.display = 'none';
-  }
- else if (division === 'junior-high') {
-    juniorHighClasses.style.display = 'block';
-    seniorHighClasses.style.display = 'none';
-  } else if (division === 'senior-high') {
-    juniorHighClasses.style.display = 'none';
-    seniorHighClasses.style.display = 'block';
-  }
-});
+    if(division === 'select-division') {
+      juniorHighClasses.style.display = 'none';
+      seniorHighClasses.style.display = 'none';
+    } else if (division === 'junior-high') {
+      juniorHighClasses.style.display = 'block';
+      seniorHighClasses.style.display = 'none';
+    } else if (division === 'senior-high') {
+      juniorHighClasses.style.display = 'none';
+      seniorHighClasses.style.display = 'block';
+    }
+  });
 
+  // Event listener to update instructor options based on selected school
+  document.getElementById('school').addEventListener('change', function () {
+    const schoolId = this.value;
+    fetch(`/get-instructors?school_id=${schoolId}`)
+      .then(response => response.json())
+      .then(instructors => {
+        const instructorSelect = document.getElementById('instructor');
+        instructorSelect.innerHTML = ''; // Clear current options
+
+        // Add default option
+        const defaultOption = document.createElement('option');
+        defaultOption.textContent = 'Select Instructor';
+        defaultOption.value = '';
+        instructorSelect.appendChild(defaultOption);
+
+        // Add new instructor options
+        instructors.forEach(instructor => {
+          const option = document.createElement('option');
+          option.value = instructor.user_id;
+          option.textContent = instructor.fullName;
+          instructorSelect.appendChild(option);
+        });
+      })
+      .catch(error => console.error('Error fetching instructors:', error));
+  });
 </script>
+
 <%- include('layouts/footer')%>

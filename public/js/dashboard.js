@@ -1,5 +1,5 @@
-// Load Google Charts
-google.charts.load('current', {'packages':['bar']});
+// Load Google Charts for line chart (corechart is still needed for LineChart)
+google.charts.load('current', { 'packages': ['corechart'] });
 
 // First chart: Grades report
 google.charts.setOnLoadCallback(drawGradesChart);
@@ -11,16 +11,24 @@ function drawGradesChart() {
   ]);
 
   var options = {
-    chart: {
-      title: 'My Grades Report',
-      subtitle: 'Representational of subject grades for each period'
+    title: 'My Grades Report',
+    colors: ['#3b5998', '#8b9dc3', '#f39c12', '#e74c3c', '#3498db', '#9b59b6', '#27ae60', '#f1c40f', '#2980b9'], 
+    curveType: 'function', // Smooth lines
+    legend: { position: 'bottom' },
+    hAxis: {
+      title: 'Period'
     },
-    colors: ['#3b5998', '#8b9dc3', '#f39c12', '#e74c3c', '#3498db', '#9b59b6', '#27ae60', '#f1c40f', '#2980b9'] // Darker color palette
+    vAxis: {
+      title: 'Grades'
+    }
   };
 
-  var chart = new google.charts.Bar(document.getElementById('columnchart_grades'));
-  chart.draw(data, google.charts.Bar.convertOptions(options));
+  // Create the chart as a LineChart (using corechart for line charts)
+  var chart = new google.visualization.LineChart(document.getElementById('columnchart_grades'));
+  chart.draw(data, options);
 }
+
+
 
 // Load Google Charts for pie chart
 google.charts.load('current', {'packages':['corechart']});
