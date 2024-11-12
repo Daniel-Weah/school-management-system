@@ -1,0 +1,358 @@
+<!-- User profile page -->
+<%- include('layouts/header') %>
+<link rel="stylesheet" href="/css/profile.css">
+</head>
+<body>
+  
+  <header>
+
+    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm" style="padding: 0;">
+        <div class="container-fluid">
+       
+           
+          <!-- Brand -->
+          <a class="navbar-brand" href="/" style="padding: 0.5rem;">       
+            <h4 style="letter-spacing: 5px;font-size: 1.5rem;color: #d8363a;font-weight: bold;">BWSMS</h4>
+           </a>
+           
+           <!-- Right links -->
+           <ul class="navbar-nav ms-auto d-flex flex-row">
+             <!-- Notification dropdown -->
+             <li class="nav-item">
+               <a class="nav-link me-3 me-lg-0" style="margin-top: 5px; font-size: 1.2rem;" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                 <i class="fas fa-bell"></i>
+                 <span class="badge rounded-pill bg-danger">1</span>
+               </a>
+               
+             </li>
+             
+             
+             
+            <!-- Icon -->
+            <li class="nav-item">
+              <a class="nav-link" href="#" style="margin-top: 5px; font-size: 1.2rem;">
+                <i class="fa fa-comment"></i>
+              </a>
+            </li>
+     
+           
+            
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+               <% if (users.profile_picture.length === 2) { %>
+                 <div class="initials-avatar">
+                     <%= users.profile_picture %>
+                 </div>
+             <% } else { %>
+                 <img src="data:image/png;base64,<%= users.profile_picture.toString('base64') %>" alt="Profile Picture" width="100" height="100">
+             <% } %>
+                 
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                <div class="profile_info" style="text-align: center;">
+                 <% if (users.profile_picture.length === 2) { %>
+                   <div class="initials-avatar" style="margin: 0 auto;">
+                       <%= users.profile_picture %>
+                   </div>
+               <% } else { %>
+                   <img src="data:image/png;base64,<%= users.profile_picture.toString('base64') %>" alt="Profile Picture" width="100" height="100">
+               <% } %>           
+               <h6><%= users.username %> </h6>
+               </div>
+                <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i>
+                </i> My profile</a></li>
+                <li><a class="dropdown-item" href="#"> <i class="fas fa-cogs fa-fw"></i>
+                </i> Settings</a></li>
+                <li><a class="dropdown-item" href="/logout">Logout</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <!-- Container wrapper -->
+      </nav>
+   
+  
+  </header>
+  
+  <main>  
+ <div class="wrapper">
+     <div class="header">
+         <div class="cover-picture">
+             <img src="/images/cover.png" alt="cover picture">
+             <div class="camera-icon cover-camera">
+                 <i class="fa fa-camera"></i>
+                 <!-- Hidden input field for cover picture upload -->
+                 <input type="file" id="cover-picture-upload" name="coverPicture" accept="image/*" style="display:none;" onchange="handleCoverPictureChange(event)">
+                </div>
+            </div>
+        </div>
+        <div class="contents">
+
+      <div class="profile-picture">
+        <% if (user.profile_picture && user.profile_picture.length === 2) { %>
+            <div class="initials-avatar rounded-circle bg-secondary text-white d-flex justify-content-center align-items-center" style=" width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid #fff;font-weight: bold; font-size: 3rem;">
+              <%= user.profile_picture %>
+            </div>
+          <% } else { %>
+            <img src="data:image/jpeg;base64,<%= user.profile_picture %>" alt="Profile Picture" style="width: 45px; height: 45px" class="rounded-circle" />
+          <% } %>
+        <div class="camera-icon profile-camera">
+          <i class="fa fa-camera"></i>
+          <!-- Hidden input field for profile picture upload -->
+          <input type="file" id="profile-picture-upload" name="profilePicture" accept="image/*" style="display:none;" onchange="handleProfilePictureChange(event)">
+          
+        </div>
+    </div>
+    <div class="info">
+     <h4><%= user.fullName %></h4>
+     <p id="bio" style="color: #666;">Trying to make everythig possible..[my BIO]</p>
+     <div class="classMates">
+       <span style="font-weight: 500;font-size: 1.2rem;color: #666;"></span>
+       <% allClassMates.forEach(classMate => { %> 
+        <% if (classMate.profile_picture && classMate.profile_picture.length === 2 ) { %> 
+            <span class="initials-avatar rounded-circle bg-secondary text-white d-flex justify-content-center align-items-center" style="width: 35px; height: 35px; font-weight: bold;" title="<%= classMate.fullName %>">
+                <%= classMate.profile_picture ? classMate.profile_picture : 'No Class mate Available' %>
+                
+            </span>
+       <%} else { %>
+        Class Mates
+        <img src="data:image/png;base64,<%= users.profile_picture.toString('base64') %>" alt="Profile Picture" width="100" height="100">
+    <% } %> 
+       <% }) %>
+       
+     </div>
+     
+   </div>
+
+</div>
+<div class="links_head shadow-sm">
+    <nav class="links">
+        <ul>
+            <li data-tab="subjects" class="active">Subjects</li>
+            <li data-tab="about">About</li>
+            <li data-tab="activities">Activities</li>
+        </ul>
+    </nav>
+</div>
+
+<div class="tabs-content">
+    <div id="subjects" class="tab-content active">
+        <h3 style="font-weight: bold;">Subjects</h3>
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        ENGLISH
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <p>English focuses on developing strong reading, writing, and critical thinking skills.</p>
+                        <ul>
+                            <li><a href="/grades/english" target="_blank">View Grades</a></li>
+                            <li><a href="/activities/english" target="_blank">View Activities</a></li>
+                            <li><a href="/instructors/english" target="_blank">View Instructor</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                        MATHEMATICS
+                    </button>
+                </h2>
+                <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <p>Mathematics covers areas such as algebra, geometry, and calculus, essential for logical reasoning.</p>
+                        <ul>
+                            <li><a href="/grades/mathematics" target="_blank">View Grades</a></li>
+                            <li><a href="/activities/mathematics" target="_blank">View Activities</a></li>
+                            <li><a href="/instructors/mathematics" target="_blank">View Instructor</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                        PHYSICS
+                    </button>
+                </h2>
+                <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <p>Physics explores the principles of motion, energy, and the fundamental forces of nature.</p>
+                        <ul>
+                            <li><a href="/grades/physics" target="_blank">View Grades</a></li>
+                            <li><a href="/activities/physics" target="_blank">View Activities</a></li>
+                            <li><a href="/instructors/physics" target="_blank">View Instructor</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="about" class="tab-content">
+        <h3>About</h3>
+        <button class="btn btn-primary">Add Bio</button>
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <ul class="list-unstyled" >
+                    <li><i class="fa fa-user" style="color: #666;"></i><span>Full Name</span> <strong><%= user.fullName %></strong></li>
+
+                    <li><i class="fa fa-envelope" style="color: #666;"></i><span>Contact @ </span> <strong><%= user.email %></strong> </li>
+
+                    <li><i class="fa fa-map-marker-alt" style="color: #666;"></i><span>Lives in</span> <strong><%= user.location %></strong> </li>
+
+                    <li><i class="fa fa-calendar-day" style="color: #666;"></i><span>Born on </span> <strong><%= user.DOB %></strong> </li>
+                    
+                </ul>
+            </div>
+           
+        </div>
+    </div>
+    
+
+    <div id="activities" class="tab-content">
+        <h3>Activities Content</h3>
+        <p>This is the content for the Activities tab.</p>
+    </div>
+</div>
+
+
+    
+    <hr>
+  </div>
+</main>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  const socket = io();
+
+// Listen for new notifications
+socket.on('new_notification', (data) => {
+   console.log('Received new notification:', data);
+
+   // Play notification sound
+   const audio = new Audio('/sounds/notification-sound.mp3');
+   audio.play().catch(err => {
+       console.log('Audio playback error:', err);
+   });
+
+   // Display notification message (this works even if you're on a different page)
+   if (Notification.permission === "granted") {
+       new Notification(`New Incident: ${data.incident_type}`, {
+           body: `${data.description}`,
+           icon: '/images/Logo.png'
+       });
+   } else {
+       // Request permission to show notifications
+       Notification.requestPermission().then(permission => {
+           if (permission === "granted") {
+               new Notification(`New Incident: ${data.incident_type}`, {
+                   body: `${data.description}`,
+                   icon: '/images/Logo.png'
+               });
+           }
+       });
+   }
+
+   // Optionally, show an alert as well (not as elegant, but useful)
+   alert(`You have a new notification: ${data.incident_type} - ${data.description}`);
+});
+
+ </script>
+<script>
+ document.querySelector('.cover-camera').addEventListener('click', () => {
+    document.getElementById('cover-picture-upload').click();
+  });
+
+  document.querySelector('.profile-camera').addEventListener('click', () => {
+    document.getElementById('profile-picture-upload').click();
+  });
+
+  function handleCoverPictureChange(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append('coverPicture', file);
+
+      fetch('/updateCoverPicture', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          document.querySelector('.cover-picture img').src = data.newCoverPictureUrl;
+        } else {
+          console.error('Error uploading cover picture:', data.error);
+        }
+      })
+      .catch(err => console.error('Upload error:', err));
+    }
+  }
+
+  function handleProfilePictureChange(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append('profilePicture', file);
+
+      fetch('/updateProfilePicture', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          document.querySelector('.profile-picture img').src = data.newProfilePictureUrl;
+        } else {
+          console.error('Error uploading profile picture:', data.error);
+        }
+      })
+      .catch(err => console.error('Upload error:', err));
+    }
+  }
+
+  function toggleDescription(incidentId) {
+    const shortDesc = document.getElementById(`description-${incidentId}`);
+    const fullDesc = document.getElementById(`full-description-${incidentId}`);
+    const readMore = document.getElementById(`read-more-${incidentId}`);
+    const readLess = document.getElementById(`read-less-${incidentId}`);
+
+    if (fullDesc.style.display === 'none' || fullDesc.style.display === '') {
+      fullDesc.style.display = 'block';
+      shortDesc.style.display = 'none';
+      readMore.style.display = 'none';
+      readLess.style.display = 'block';
+    } else {
+      fullDesc.style.display = 'none';
+      shortDesc.style.display = 'block';
+      readMore.style.display = 'block';
+      readLess.style.display = 'none';
+    }
+  };
+
+
+const tabLinks = document.querySelectorAll('.links li');
+const tabContents = document.querySelectorAll('.tab-content');
+
+tabLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        tabLinks.forEach(tab => tab.classList.remove('active'));
+        tabContents.forEach(content => content.classList.remove('active'));
+
+        link.classList.add('active');
+        const tabId = link.getAttribute('data-tab');
+        document.getElementById(tabId).classList.add('active');
+    });
+});
+
+
+  </script>
+
+<%- include('layouts/footer')%>

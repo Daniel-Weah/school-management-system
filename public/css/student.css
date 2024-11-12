@@ -28,6 +28,7 @@
     padding-left: 240px;
   }
  }
+
  
  /* Sidebar */
  .sidebar {
@@ -104,3 +105,10 @@ transition: all 0.5s ease-in-out;
  #student_btn:hover #right-arrow{
  transform: translateX(10px);
  }
+
+ .breadcrumb-item + .breadcrumb-item::before {
+  content: " > ";
+}
+.breadcrumb{
+  margin-top: -3pc;
+}

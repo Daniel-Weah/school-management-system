@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mark Attendance - School Management</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header>
+    <h1>School Management System</h1>
+    <nav>
+      <ul>
+        <li><a href="/subjects">Subjects</a></li>
+        <li><a href="/grades">Grades</a></li>
+        <li><a href="/attendance">Attendance</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <main>
+    <h2>Mark Student Attendance for Week Starting: <%= weekStartDate %></h2>
+    
+    <form action="/attendance" method="POST">
+      <table>
+        <thead>
+          <tr>
+            <th>Student</th>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% students.forEach(function(student) { %>
+            <tr>
+              <td><%= student.name %></td>
+              <td><input type="checkbox" name="monday" value="<%= student.id %>"></td>
+              <td><input type="checkbox" name="tuesday" value="<%= student.id %>"></td>
+              <td><input type="checkbox" name="wednesday" value="<%= student.id %>"></td>
+              <td><input type="checkbox" name="thursday" value="<%= student.id %>"></td>
+              <td><input type="checkbox" name="friday" value="<%= student.id %>"></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+      <button type="submit">Save Attendance</button>
+    </form>
+
+    <a href="/attendance">Back to Attendance List</a>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 School Management System</p>
+  </footer>
+</body>
+</html>

@@ -24,6 +24,8 @@ const classRegistration = require('./routes/class-registration');
 const periodRouter = require('./routes/createPeriod');
 const logout = require('./routes/logoutRoute');
 const instructordashboard = require('./routes/instructorDashboardRoute');
+const userDetailsRouter = require('./routes/userDetails');
+const attendanceRoute = require('./routes/attendanceRoute');
 
 
 const app = express();
@@ -62,6 +64,8 @@ app.use(classRegistration);
 app.use(periodRouter);
 app.use(logout);
 app.use(instructordashboard);
+app.use(userDetailsRouter);
+app.use(attendanceRoute);
 
 app.listen(5000, () => {
  console.log('Server is running on http://localhost:5000');

@@ -434,3 +434,11 @@ a:link{
   font-size: 16px;
   font-weight: bold;
 }
+.error-message {
+  background-color: #f44336;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  display: none;
+}

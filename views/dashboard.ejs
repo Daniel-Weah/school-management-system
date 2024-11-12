@@ -14,8 +14,10 @@
   <%- include('layouts/sidebar')%>
  </header>
 
+
 <main style="margin-top: 58px;">
 
+  
  <div class="container pt-4">
    <nav aria-label="breadcrumb" class="breadcrumb">
     <ol class="breadcrumb">
@@ -64,11 +66,7 @@
      <h5 style="font-size: 15px;">Sponsor</h5>
    
      <div class="progress-circle">
-      <% if (noSponsorFound) { %>
-        <h5 class="progress-text">No sponsor assigned to this class.</h5>
-      <% } else { %>
-        <h5 class="progress-text"><%= userSponsorData.fullName %></h5>
-      <% } %>
+        <h5 class="progress-text"><%= studentSponsor.instructor_name %></h5>
     </div>
     
  <% } %>
@@ -99,11 +97,27 @@
        <h5><%= users.user_role%></h5>
      </div>
 
-    <div class="card">
-     <i class="fas fa-user fa-fw" style="font-size: 30px; color: #007bff;"></i> 
+     <div class="card">
+      <i class="fas fa-user fa-fw" style="font-size: 30px; color: #007bff;"></i>
       <h5 style="font-size: 15px;">Sponsor Class</h5>
-      <h5>25</h5>
-    </div>
+      <% if (noSponsorFound) { %>
+          <h5>No sponsoring class assigned</h5>
+      <% } else { %>
+          <% if (userSponsorData.junior_class_name) { %>
+              <h5><%= userSponsorData.junior_class_name %></h5> 
+          <% } else if (userSponsorData.senior_class_name) { %>
+              <h5><%= userSponsorData.senior_class_name %></h5> 
+          <% } else { %>
+              <h5>No class available</h5> 
+          <% } %>
+      <% } %>
+  </div>
+  
+    
+  
+  
+  
+    
    
   
   <% } %>

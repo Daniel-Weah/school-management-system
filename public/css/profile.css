@@ -1,0 +1,215 @@
+body {
+    margin: 0; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    min-height: 100vh; 
+    background-color: #f3f3f3; 
+}
+
+main{
+    background-color: rgb(245, 246, 247) ;
+}
+.wrapper {
+    width: 100%;
+    max-width: 1200px; 
+    margin: 0 auto; 
+    padding: 20px; 
+}
+.initials-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: #f94b8e;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+
+  .contents {
+    margin: 0; 
+    display: flex; 
+    justify-content: left; 
+    align-items: center; 
+    min-height: 50vh; 
+    vertical-align: middle;
+    background-color: #f3f3f3; 
+    gap: 10px;
+}
+
+.cover-picture {
+    position: relative;
+    width: 100%;
+    max-width: 1200px; 
+    height: 100vh; 
+    background-color: #f3f3f3;
+    overflow: hidden;
+    margin-top: 2.2pc; 
+    border-radius: 15px; 
+}
+
+.cover-picture img {
+    width: 1000px;
+    height: 100%; 
+    object-fit: cover; 
+    border-radius: 15px; 
+}
+
+
+.profile-picture {
+    position: relative;
+    margin-top: -75px; 
+    display: inline-block;
+    z-index: 1; 
+}
+
+.profile-picture img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+  }
+  
+  .profile-camera {
+    bottom: 0;
+    right: 0;
+  }
+
+.camera-icon {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    line-height: 10px;
+    border-radius: 50%;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5); 
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 24px;
+  }
+
+.info {
+    text-align: left; 
+    margin-top: 20px;
+}
+
+.info h4 {
+    font-size: 2.5rem;
+    margin-bottom: 5px;
+    margin-top: -8pc;
+
+}
+
+/* Profile Name */
+#name {
+    color: #505050;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 1.3rem;
+    padding-left: 10px;
+}
+.classMates{
+    margin-top: -20px;
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+    gap: 10px;
+}
+
+#bio{
+    margin-top: -10px;
+    margin-bottom: 20px;
+}
+
+
+/* ============ */
+/* Basic Styling */
+.links ul {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+    padding: 1rem;
+    margin-top: -7pc;
+}
+
+.links li {
+    margin-right: 20px; 
+    background-color: #dbecfa;
+    padding: 0.5rem;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.links li.active {
+    background-color: #1169b1;
+    color: white;
+}
+
+.tab-content {
+    display: none;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    margin-top: 20px;
+}
+
+.tab-content.active {
+    display: block;
+}
+#about ul{
+    line-height: 3pc;
+}
+#about ul li i{
+    padding-right: 10px;
+}
+#about button{
+    width: 25%;
+}
+/* Small Screens */
+@media (max-width: 575.98px) {
+    .cover-picture {
+        height: 40vh;
+    }
+    
+    .profile-picture img {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .info h4 {
+        font-size: 2rem;
+    }
+    
+    .nav-tabs {
+        flex-direction: column;
+    }
+    
+    .card {
+        width: 90%; /* Make card width more fluid */
+    }
+}
+
+/* Large Screens */
+@media (min-width: 1200px) {
+    .cover-picture {
+        width: 100%;
+        height: 60vh;
+    }
+
+    .profile-picture img {
+        width: 180px;
+        height: 180px;
+    }
+
+    .info h4 {
+        font-size: 3rem;
+    }
+    
+    .card {
+        width: 80%; /* Make card wider */
+    }
+}

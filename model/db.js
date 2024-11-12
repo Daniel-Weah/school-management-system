@@ -44,9 +44,9 @@ db.serialize(() => {
   db.run(`CREATE TABLE IF NOT EXISTS sponsors(
     sponsor_id TEXT PRIMARY KEY,
     school_id INTEGER,
-    instructor_id TEXT NOT NULL,
+    instructor_id TEXT NOT NULL UNIQUE,
     division TEXT NOT NULL,
-    class TEXT NOT NULL,
+    class TEXT NOT NULL UNIQUE,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (school_id) REFERENCES schools(school_id),
     FOREIGN KEY (instructor_id) REFERENCES users(user_id)
@@ -170,6 +170,18 @@ db.serialize(() => {
     period_id TEXT PRIMARY KEY,
     period TEXT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  )`);
+
+  db.run(`CREATE TABLE IF NOT EXISTS attendance (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    student_id INTEGER,
+    week_start_date DATE,
+    monday BOOLEAN,
+    tuesday BOOLEAN,
+    wednesday BOOLEAN,
+    thursday BOOLEAN,
+    friday BOOLEAN,
+    FOREIGN KEY(student_id) REFERENCES students(id)
   )`);
 });
 

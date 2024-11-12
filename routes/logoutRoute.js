@@ -4,7 +4,7 @@ const session = require('express-session');
 const router = express.Router();
 
 router.get('/logout', (req, res) => {
-  if (!req.session.sid) {
+  if (!req.session.userID) {
     return res.redirect("/");
   }
   
@@ -13,7 +13,7 @@ router.get('/logout', (req, res) => {
       console.error("Session destruction error:", err);
       return res.status(500).send("Failed to log out. Please try again.");
     }
-    res.redirect('/'); 
+    res.redirect('/login'); 
   });
 });
 
