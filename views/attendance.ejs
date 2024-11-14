@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mark Attendance - School Management</title>
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
   <header>
@@ -21,39 +21,100 @@
   <main>
     <h2>Mark Student Attendance for Week Starting: <%= weekStartDate %></h2>
     
-    <form action="/attendance" method="POST">
-      <table>
-        <thead>
-          <tr>
-            <th>Student</th>
-            <th>Monday</th>
-            <th>Tuesday</th>
-            <th>Wednesday</th>
-            <th>Thursday</th>
-            <th>Friday</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% students.forEach(function(student) { %>
+    <form action="/attendance" method="post" id="attendanceForm">
+        
+        <label for="weekStart">Week Starting:</label>
+        <input type="date" id="weekStart" name="date" value="<%= weekStartDate %>" required>
+        
+        <table>
+          <thead>
             <tr>
-              <td><%= student.name %></td>
-              <td><input type="checkbox" name="monday" value="<%= student.id %>"></td>
-              <td><input type="checkbox" name="tuesday" value="<%= student.id %>"></td>
-              <td><input type="checkbox" name="wednesday" value="<%= student.id %>"></td>
-              <td><input type="checkbox" name="thursday" value="<%= student.id %>"></td>
-              <td><input type="checkbox" name="friday" value="<%= student.id %>"></td>
+              <th>Student</th>
+              <th>Monday</th>
+              <th>Tuesday</th>
+              <th>Wednesday</th>
+              <th>Thursday</th>
+              <th>Friday</th>
             </tr>
-          <% }); %>
-        </tbody>
-      </table>
-      <button type="submit">Save Attendance</button>
-    </form>
-
+          </thead>
+          <tbody>
+            <% students.forEach(function(student) { %>
+              <tr>
+                <td><%= student.fullName %></td>
+                <td>
+                  <select name="attendance[monday][<%= student.user_id %>]" class="attendance-day" data-day="monday">
+                    <option value="Present">Present</option>
+                    <option value="Absent">Absent</option>
+                    <option value="Late">Late</option>
+                  </select>
+                </td>
+                <td>
+                  <select name="attendance[tuesday][<%= student.user_id %>]" class="attendance-day" data-day="tuesday">
+                    <option value="Present">Present</option>
+                    <option value="Absent">Absent</option>
+                    <option value="Late">Late</option>
+                  </select>
+                </td>
+                <td>
+                  <select name="attendance[wednesday][<%= student.user_id %>]" class="attendance-day" data-day="wednesday">
+                    <option value="Present">Present</option>
+                    <option value="Absent">Absent</option>
+                    <option value="Late">Late</option>
+                  </select>
+                </td>
+                <td>
+                  <select name="attendance[thursday][<%= student.user_id %>]" class="attendance-day" data-day="thursday">
+                    <option value="Present">Present</option>
+                    <option value="Absent">Absent</option>
+                    <option value="Late">Late</option>
+                  </select>
+                </td>
+                <td>
+                  <select name="attendance[friday][<%= student.user_id %>]" class="attendance-day" data-day="friday">
+                    <option value="Present">Present</option>
+                    <option value="Absent">Absent</option>
+                    <option value="Late">Late</option>
+                  </select>
+                </td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+        
+        <button type="submit">Save Attendance</button>
+      </form>
+      
+    
     <a href="/attendance">Back to Attendance List</a>
   </main>
 
   <footer>
     <p>&copy; 2024 School Management System</p>
   </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get the current day based on the week start date
+      const weekStartDate = new Date('<%= weekStartDate %>');
+      const currentDate = new Date();
+      
+      // Determine the current day (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
+      const dayOfWeek = currentDate.getDay();
+      const daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
+      
+      // Disable all days first
+      document.querySelectorAll('.attendance-day').forEach(select => {
+        select.disabled = true;
+      });
+      
+      // Enable the current day (for comparison, the start of the week is Monday)
+      const currentDay = daysOfWeek[(dayOfWeek - 1 + 7) % 7]; // Adjust based on the start of the week (Monday)
+      const enabledSelects = document.querySelectorAll(`.attendance-day[data-day="${currentDay}"]`);
+      enabledSelects.forEach(select => {
+        select.disabled = false;
+      });
+    });
+  </script>
+  
 </body>
 </html>

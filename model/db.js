@@ -173,16 +173,25 @@ db.serialize(() => {
   )`);
 
   db.run(`CREATE TABLE IF NOT EXISTS attendance (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    student_id INTEGER,
-    week_start_date DATE,
-    monday BOOLEAN,
-    tuesday BOOLEAN,
-    wednesday BOOLEAN,
-    thursday BOOLEAN,
-    friday BOOLEAN,
-    FOREIGN KEY(student_id) REFERENCES students(id)
-  )`);
+  id TEXT PRIMARY KEY,
+  student_id TEXT,
+  week_start_date DATE,
+  monday BOOLEAN,
+  tuesday BOOLEAN,
+  wednesday BOOLEAN,
+  thursday BOOLEAN,
+  friday BOOLEAN,
+  FOREIGN KEY(student_id) REFERENCES users(user_id)
+)
+`);
+  db.run(`CREATE TABLE IF NOT EXISTS attendance_days (
+  id TEXT PRIMARY KEY,
+  attendance_id TEXT,
+  day TEXT,
+  status BOOLEAN,
+  FOREIGN KEY(attendance_id) REFERENCES attendance(id)
+)`);
+
 });
 
 module.exports = db;
