@@ -59,45 +59,63 @@ function drawChart() {
 
 // ================================================== TEACHERS AND ADMIN ===========================
 
-google.charts.setOnLoadCallback(drawPerformanceChart);
+// Load Google Charts for line and pie chart
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawCharts);
 
-function drawPerformanceChart() {
-  var data = google.visualization.arrayToDataTable([
-    ['Period', 'Passed', 'Failed'],
-    ['1st', 34, 12]
-  ]);
-
-  var options = {
-    chart: {
-      title: 'Student Performance',
-      subtitle: 'Student performance for each period.'
-    },
-    colors: ['#2ecc71', '#e74c3c'] // Darker green for passed, red for failed
-  };
-
-  var chart = new google.charts.Bar(document.getElementById('columnchart_performance'));
-  chart.draw(data, google.charts.Bar.convertOptions(options));
+function drawCharts() {
+    drawPieChart();
+    drawLineChart();
 }
 
-// Teachers and Admin pie chart
-google.charts.load('current', { 'packages': ['corechart'] });
-google.charts.setOnLoadCallback(drawPiePerformanceChart);
+// =================== PIE CHART ========================
 
-function drawPiePerformanceChart() {
+function drawPieChart() {
   var data = google.visualization.arrayToDataTable([
-    ['Result', 'Number of Students'],
-    ['Passed', 34],
-    ['Failed', 12]
+    ['Status', 'Number of Students'],
+    ['Passed', 35],  // Number of students who passed
+    ['Failed', 15]   // Number of students who failed
   ]);
 
   var options = {
-    title: 'Student Performance',
-    colors: ['#2ecc71', '#e74c3c'] // Consistent color scheme for pass/fail
+    title: 'Student Performance: Passed vs Failed',
+    colors: ['#27ae60', '#e74c3c'], // Green for Passed, Red for Failed
+    slices: {
+      0: { offset: 0.1 }, // Adds slight offset to the "Passed" slice
+      1: { offset: 0.1 }  // Adds slight offset to the "Failed" slice
+    }
   };
 
   var chart = new google.visualization.PieChart(document.getElementById('piechart_performance'));
   chart.draw(data, options);
 }
+
+// =================== LINE CHART ========================
+
+function drawLineChart() {
+  var data = google.visualization.arrayToDataTable([
+    ['Period', 'Passed', 'Failed'],
+    ['Period 1', 35, 15],  
+    
+  ]);
+
+  var options = {
+    title: 'Student Performance Over Time',
+    colors: ['#27ae60', '#e74c3c'], 
+    curveType: 'function', 
+    legend: { position: 'bottom' },
+    hAxis: {
+      title: 'Period'
+    },
+    vAxis: {
+      title: 'Number of Students'
+    }
+  };
+
+  var chart = new google.visualization.LineChart(document.getElementById('columnchart_performance'));
+  chart.draw(data, options);
+}
+
 
 
 // ============= crtl + / short cut key for the search box

@@ -333,7 +333,6 @@ background-color: #fff;
  display: flex;
  gap: 10px;
  margin-bottom: 20px;
- display: none; /*  will be remove when working with the backend */
 }
 select{
  cursor: pointer;
@@ -346,7 +345,6 @@ select{
  width: 100%;
  margin-left: -15px;
  gap: 20px;
- display: none; /*  will be remove when working with the backend */
 }
 #piechart_performance{
  margin-right: 5pc;

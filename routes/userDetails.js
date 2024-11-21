@@ -46,15 +46,15 @@ router.get("/user/:nameSlug", (req, res) => {
                         return res.status(404).send("User not found");
                     }
 
-                    // Fetch all class mates, excluding the current user
                     db.all(`SELECT * FROM users WHERE school_id = ? AND class = ? AND user_id != ?`, [user.school_id, user.class, user.user_id], (err, allClassMates) => {
                         if (err) {
                             return res.status(500).send('There was an error getting class mates data');
                         }
 
-                      console.log('All classmate excluding slug name user: ', allClassMates);
-
-                        
+                        console.log('Current login user: ', users);
+                        console.log('Current login user ID: ', users.user_id);
+                        console.log('user profile visited', user);
+                        console.log('user profile visited ID', user.user_id);
                         return res.render("user-details", {
                             user,
                             fullName: user.fullName,

@@ -17,7 +17,7 @@ router.get("/dashboard", (req, res) => {
   }
 
   const schoolId = req.query.school_id;
-  const searchQuery = req.query.search || ""; // Add search query
+  const searchQuery = req.query.search || ""; 
 
   db.get(
     `SELECT users.*, roles.role AS user_role, positions.position
@@ -37,7 +37,6 @@ router.get("/dashboard", (req, res) => {
 
       const schoolID = users.school_id;
 
-      // Get notices for the school
       db.all(
         "SELECT * FROM notice WHERE school_id = ?",
         [schoolID],
@@ -55,7 +54,6 @@ router.get("/dashboard", (req, res) => {
             return notice;
           });
 
-          // Modified query for search functionality in students
           const query = schoolId
             ? `SELECT users.*, positions.position AS user_position, roles.role AS user_role, auth.username, 
               COALESCE(juniorHighClasses.class_name, seniorHighClasses.class_name) AS class_name
@@ -84,7 +82,6 @@ router.get("/dashboard", (req, res) => {
               return res.status(500).send("Error getting all users");
             }
 
-            // Convert profile pictures to base64
             allusers = allusers.map((alluser) => {
               if (alluser.profile_picture) {
                 alluser.profile_picture =
@@ -93,7 +90,6 @@ router.get("/dashboard", (req, res) => {
               return alluser;
             });
 
-            // Split users by their roles
             const students = allusers.filter(
               (user) => user.user_role === "Student"
             );
@@ -103,7 +99,6 @@ router.get("/dashboard", (req, res) => {
             const administrators = allusers.filter(
               (user) => user.user_role === "Administrator"
             );
-            // If a search query is provided, filter instructors by name, email, or phone
             const filteredInstructors = instructors.filter((instructor) => {
               const fullName = instructor.fullName
                 ? instructor.fullName.toLowerCase()
@@ -121,7 +116,6 @@ router.get("/dashboard", (req, res) => {
               );
             });
 
-            // Fetch periods
             db.all("SELECT * FROM periods", (err, periods) => {
               if (err) {
                 return res.status(500).send("Error getting periods");
@@ -135,7 +129,6 @@ router.get("/dashboard", (req, res) => {
                     return res.status(500).send("Error fetching auth record");
                   }
 
-                  // Fetch sponsors for the user's class
                   db.get(
                     `
                 SELECT sponsors.*, 
@@ -221,7 +214,6 @@ router.get("/dashboard", (req, res) => {
                                           "Error getting schools data"
                                         );
                                       }
-                                      // Render the dashboard with all data
                                       return res.render("dashboard", {
                                         users,
                                         userID: authRows,

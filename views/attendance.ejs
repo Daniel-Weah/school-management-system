@@ -1,32 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mark Attendance - School Management</title>
-  <link rel="stylesheet" href="/css/style.css">
+<%- include('layouts/header')%>
+<link rel="stylesheet" href="/css/dashboard.css" />
+
+<style>
+  .breadcrumb-item + .breadcrumb-item::before {
+      content: " > ";
+    }
+</style>
 </head>
+
 <body>
-  <header>
-    <h1>School Management System</h1>
-    <nav>
-      <ul>
-        <li><a href="/subjects">Subjects</a></li>
-        <li><a href="/grades">Grades</a></li>
-        <li><a href="/attendance">Attendance</a></li>
-      </ul>
-    </nav>
-  </header>
+ 
+ <header>
+  <%- include('layouts/sidebar')%>
+ </header>
   
-  <main>
-    <h2>Mark Student Attendance for Week Starting: <%= weekStartDate %></h2>
+  <main style="margin-top: 58px;">
+    <div class="container pt-4">
+    <nav aria-label="breadcrumb" class="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+         <a href="/">Home</a>
+        </li> 
+        <li class="breadcrumb-item">
+          <a href="/dashboard">Dashboard</a>
+         </li> 
+        <li class="breadcrumb-item active" aria-current="page">Attendance</li>
+      </ol>
+    </nav>
+    <h5 class="pt-4">Student Attendance for Week Starting: <%= weekStartDate %></h5>
     
     <form action="/attendance" method="post" id="attendanceForm">
         
         <label for="weekStart">Week Starting:</label>
         <input type="date" id="weekStart" name="date" value="<%= weekStartDate %>" required>
         
-        <table>
+        <select class="form-select" aria-label="Default select example" style="width: 30%">
+          <option disabled selected>Select Class</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+
+        <table class="table align-middle mb-0 bg-white">
           <thead>
             <tr>
               <th>Student</th>
@@ -40,7 +55,7 @@
           <tbody>
             <% students.forEach(function(student) { %>
               <tr>
-                <td><%= student.fullName %></td>
+                <td style="font-size: 1rem; font-weight: 600;"><%= student.fullName %></td>
                 <td>
                   <select name="attendance[monday][<%= student.user_id %>]" class="attendance-day" data-day="monday">
                     <option value="Present">Present</option>
@@ -81,34 +96,27 @@
           </tbody>
         </table>
         
-        <button type="submit">Save Attendance</button>
+        <button type="submit" class="btn btn-primary mt-4" id="button_save">Save Attendance</button>
       </form>
-      
+      <br>
     
-    <a href="/attendance">Back to Attendance List</a>
+    <a href="/attendance" >Back to Attendance List</a>
   </main>
-
-  <footer>
-    <p>&copy; 2024 School Management System</p>
-  </footer>
+</div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Get the current day based on the week start date
       const weekStartDate = new Date('<%= weekStartDate %>');
       const currentDate = new Date();
       
-      // Determine the current day (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
       const dayOfWeek = currentDate.getDay();
       const daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
       
-      // Disable all days first
       document.querySelectorAll('.attendance-day').forEach(select => {
         select.disabled = true;
       });
-      
-      // Enable the current day (for comparison, the start of the week is Monday)
-      const currentDay = daysOfWeek[(dayOfWeek - 1 + 7) % 7]; // Adjust based on the start of the week (Monday)
+     
+      const currentDay = daysOfWeek[(dayOfWeek - 1 + 7) % 7]; 
       const enabledSelects = document.querySelectorAll(`.attendance-day[data-day="${currentDay}"]`);
       enabledSelects.forEach(select => {
         select.disabled = false;
@@ -116,5 +124,4 @@
     });
   </script>
   
-</body>
-</html>
+<%- include('layouts/footer') %>

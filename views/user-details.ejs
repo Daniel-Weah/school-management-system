@@ -68,7 +68,6 @@
             </li>
           </ul>
         </div>
-        <!-- Container wrapper -->
       </nav>
    
   
@@ -79,11 +78,12 @@
      <div class="header">
          <div class="cover-picture">
              <img src="/images/cover.png" alt="cover picture">
+             <% if (user.user_id === users.user_id) { %>
              <div class="camera-icon cover-camera">
                  <i class="fa fa-camera"></i>
-                 <!-- Hidden input field for cover picture upload -->
                  <input type="file" id="cover-picture-upload" name="coverPicture" accept="image/*" style="display:none;" onchange="handleCoverPictureChange(event)">
                 </div>
+                <% } %>
             </div>
         </div>
         <div class="contents">
@@ -99,12 +99,14 @@
           <% } else { %>
             <img src="data:image/jpeg;base64,<%= user.profile_picture %>" alt="Profile Picture" style="width: 45px; height: 45px" class="rounded-circle" />
           <% } %>
+          <% if (user.user_id === users.user_id) { %>
+
         <div class="camera-icon profile-camera">
           <i class="fa fa-camera"></i>
-          <!-- Hidden input field for profile picture upload -->
           <input type="file" id="profile-picture-upload" name="profilePicture" accept="image/*" style="display:none;" onchange="handleProfilePictureChange(event)">
           
         </div>
+        <% } %>
     </div>
     <div class="info">
      <h4><%= user.fullName %></h4>
@@ -151,11 +153,14 @@
                 <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body">
                         <p>English focuses on developing strong reading, writing, and critical thinking skills.</p>
+                        <% if (user.user_id === users.user_id) { %>
+
                         <ul>
                             <li><a href="/grades/english" target="_blank">View Grades</a></li>
                             <li><a href="/activities/english" target="_blank">View Activities</a></li>
                             <li><a href="/instructors/english" target="_blank">View Instructor</a></li>
                         </ul>
+                        <% } %>
                     </div>
                 </div>
             </div>
@@ -168,11 +173,14 @@
                 <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body">
                         <p>Mathematics covers areas such as algebra, geometry, and calculus, essential for logical reasoning.</p>
-                        <ul>
-                            <li><a href="/grades/mathematics" target="_blank">View Grades</a></li>
-                            <li><a href="/activities/mathematics" target="_blank">View Activities</a></li>
-                            <li><a href="/instructors/mathematics" target="_blank">View Instructor</a></li>
-                        </ul>
+                        <% if (user.user_id === users.user_id) { %>
+
+                          <ul>
+                              <li><a href="/grades/english" target="_blank">View Grades</a></li>
+                              <li><a href="/activities/english" target="_blank">View Activities</a></li>
+                              <li><a href="/instructors/english" target="_blank">View Instructor</a></li>
+                          </ul>
+                          <% } %>
                     </div>
                 </div>
             </div>
@@ -185,11 +193,14 @@
                 <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body">
                         <p>Physics explores the principles of motion, energy, and the fundamental forces of nature.</p>
-                        <ul>
-                            <li><a href="/grades/physics" target="_blank">View Grades</a></li>
-                            <li><a href="/activities/physics" target="_blank">View Activities</a></li>
-                            <li><a href="/instructors/physics" target="_blank">View Instructor</a></li>
-                        </ul>
+                        <% if (user.user_id === users.user_id) { %>
+
+                          <ul>
+                              <li><a href="/grades/english" target="_blank">View Grades</a></li>
+                              <li><a href="/activities/english" target="_blank">View Activities</a></li>
+                              <li><a href="/instructors/english" target="_blank">View Instructor</a></li>
+                          </ul>
+                          <% } %>
                     </div>
                 </div>
             </div>
@@ -198,7 +209,9 @@
 
     <div id="about" class="tab-content">
         <h3>About</h3>
-        <button class="btn btn-primary">Add Bio</button>
+        <% if (user.user_id === users.user_id) { %>
+          <button class="btn btn-primary">Add Bio</button>
+          <% } %>
         <div class="row">
             <div class="col-12 col-md-6">
                 <ul class="list-unstyled" >

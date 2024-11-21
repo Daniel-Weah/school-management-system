@@ -19,10 +19,11 @@ router.get('/attendance', (req, res) => {
     return res.redirect('/');
   }
 
-  db.get('SELECT * FROM users WHERE user_id = ?', [req.session.userID], (err, user) => {
+  db.get('SELECT * FROM users WHERE user_id = ?', [req.session.userID], (err, users) => {
     if (err) {
       return res.status(500).send("Error fetching user's record");
     }
+    
 
     db.get('SELECT * FROM auth WHERE user_id = ?', [req.session.userID], (err, authRows) => {
       if (err) {
@@ -73,7 +74,8 @@ router.get('/attendance', (req, res) => {
                   LEFT JOIN juniorHighClasses ON users.class = juniorHighClasses.class_id
                   LEFT JOIN seniorHighClasses ON users.class = seniorHighClasses.class_id
                   JOIN auth ON users.user_id = auth.user_id
-                `, (err, allusers) => {
+                  WHERE school_id = ?
+                `,[users.school_id], (err, allusers) => {
                   if (err) {
                     console.error(err);
                     return res.status(500).send('Error retrieving students');
@@ -99,7 +101,8 @@ router.get('/attendance', (req, res) => {
                       instructorUsers,
                       attendance,
                       weekStartDate,
-                      students
+                      students,
+                      users
                     });
                   });
                 });
