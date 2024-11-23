@@ -50,6 +50,8 @@
 
 <link rel="stylesheet" href="/css/index.css">
 <link rel="stylesheet" href="/css/bootstrap.css" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 <title>BrainWave School Management System</title>
 </head>
@@ -70,7 +72,8 @@
                         <div class="navbar-nav" style="margin-top: -10px;">
                             <a href="/" class="nav-item nav-link active">Home</a>
                             <a href="#feedback" class="nav-item nav-link active">Feedback</a>
-                           
+                            <a href="#" class="nav-item nav-link active" data-bs-toggle="modal" data-bs-target="#transcriptModal" >Request Transcript</a>
+
                         </div>
                         <div class="navbar-nav ms-auto">
                          <div class="nav-item dropdown">
@@ -131,7 +134,56 @@
  </div>
 </div>
 
-      
+      <!-- Transcript Modal -->
+  
+  
+  <!-- Modal -->
+  <div class="modal fade" id="transcriptModal" tabindex="-1" aria-labelledby="transcriptModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="transcriptModalLabel">Request a Transcript</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="/request-transcript" method="post" id="transcriptForm" autocomplete="off">
+                 
+                  
+                <div class="mb-4">
+                  <label class="form-label" for="fullname">Full Name</label>
+                  <input type="text" id="name" name="name" class="form-control" autocomplete="off" placeholder="e.g. provide your name for clearification" />
+                </div>
+
+                <div class="mb-4">
+                  <label class="form-label" for="email">Email</label>
+                  <input type="text" id="email" name="email" class="form-control" autocomplete="off" placeholder="e.g. provide your email for communication" />
+                </div>
+
+                <div class="mb-4">
+                  <label class="form-label" for="schoolname">School Name</label>
+                  <input type="text" id="school" name="school" class="form-control" autocomplete="off" placeholder="e.g. Rosa Allen School System" />
+                </div>
+
+                <div class="mb-4">
+                  <label class="form-label" for="year">Year of Graduation</label>
+                   <select name="year" id="year" class="form-control">
+                   </select>
+                </div>
+
+                <textarea class="form-control" name="message" id="message" cols="30" rows="10" placeholder="Why are you requesting a transcript?" style="height: 150px;" required></textarea>
+
+                <div class="text-center pt-1 ">
+                  <button class="btn btn-primary btn-lg btn-block mb-3" type="submit" style="width: 100%;" id="transcript_btn">Send Request <i class="fa fa-arrow-right" id="right-arrow"></i></button>
+                 </div>
+
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
          <!-- start most popular features -->
          <h2 style="text-align: center;padding: 2rem;">Awesome Features</h2>
@@ -176,7 +228,7 @@
                         <input type="text" class="form-control" name="name" placeholder="Name" required><br>
                         <input type="email" class="form-control" name="email" placeholder="E-mail" required><br>
                         <textarea class="form-control" name="message" id="message" cols="30" rows="10" placeholder="How can we help you?" style="height: 150px;" required></textarea><br>
-                        <input type="submit" class="btn btn-primary" value="Send Feedback" style="width: 100%;" ><br><br>
+                        <button type="submit" class="btn btn-primary" value="Send Feedback" style="width: 100%;">Send Feedback</button><br><br>
                     </form>
                 </div>
           </div>
@@ -269,75 +321,8 @@
   
     </div>
    
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        let year = document.getElementById('year');
-        let currentYear = new Date().getFullYear();
-        year.textContent = currentYear;
-    
-        document.getElementById('feedbackForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-    
-            const formData = new FormData(e.target); // Collect form data
-            const email = formData.get('email'); // Get the email from the form
-    
-            // Validate the email before submitting the form
-            if (!validateEmail(email)) {
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'Please enter a valid email address.',
-                    icon: 'error',
-                    showConfirmButton: false,
-                    timer: 2000
-                });
-                return; 
-            }
-    
-            // Proceed to send the form data if the email is valid
-            fetch('/feedback', {
-                method: 'POST',
-                body: formData // Send form data
-            })
-            .then(response => response.json()) // Convert the response to JSON
-            .then(data => {
-                if (data.ok) {
-                    Swal.fire({
-                        title: 'Success!',
-                        text: 'Feedback sent successfully!',
-                        icon: 'success',
-                        showConfirmButton: false,
-                        timer: 2000
-                    }).then(() => {
-                        document.getElementById('feedbackForm').reset(); // Clear the form
-                    });
-                } else {
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'An error occurred in sending your feedback',
-                        icon: 'error',
-                        showConfirmButton: false,
-                        timer: 2000
-                    });
-                }
-            })
-            .catch(error => {
-                Swal.fire({
-                    title: 'Error',
-                    text: 'There was a problem sending your feedback. Please try again later.',
-                    icon: 'error',
-                    showConfirmButton: false,
-                    timer: 2000
-                });
-                console.error('Error:', error);
-            });
-        });
-    
-        // Function to validate email format
-        function validateEmail(email) {
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
-            return re.test(String(email).toLowerCase());
-        }
-    </script>
+   
+   <script src="/js/index.js"></script> 
     <script src="/js/bootstrap.min.js"></script>
 
     

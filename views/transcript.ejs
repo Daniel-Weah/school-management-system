@@ -1,10 +1,18 @@
 <%- include('layouts/header')%>
 <link rel="stylesheet" href="/css/student.css" />
+<style>
+   .breadcrumb-item + .breadcrumb-item::before {
+      content: " > ";
+    }
+    .breadcrumb{
+      font-family: 'Ubuntu', sans-serif;
+      font-weight: 500;
+      margin-top: -1.2pc;
+    }
+</style>
 </head>
 <body>
- <header>
-  <%- include('layouts/sidebar')%>
- </header>
+
  <section class="h-100" style="background-color: #fff;">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -55,7 +63,7 @@
                   <textarea class="form-control" name="message" id="message" cols="30" rows="10" placeholder="Why are you requesting a transcript?" style="height: 150px;" required></textarea>
 
                   <div class="text-center pt-1 ">
-                    <button class="btn btn-primary btn-lg btn-block mb-3" type="submit" style="width: 100%;" id="student_btn">Send Request <i class="fa fa-arrow-right" id="right-arrow"></i></button>
+                    <button class="btn btn-primary btn-lg btn-block mb-3" type="submit" style="width: 100%;" id="transcript_btn">Send Request <i class="fa fa-arrow-right" id="right-arrow"></i></button>
                    </div>
 
                 </form>
@@ -74,22 +82,26 @@
   </div>
 </section>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
   const selectElement = document.getElementById('year');
   const currentYear = new Date().getFullYear();
   const startYear = 1990;
+  const btn = document.getElementById('transcript_btn');
+  console.log(btn);
 
-  for(let year = startYear; year <= currentYear; year++ ) {
+  for(let year = currentYear; year >= startYear; year++ ) {
     let option = document.createElement('option');
     option.value = year;
     option.text = year;
     selectElement.appendChild(option);
   }
-</script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
+
+
     document.getElementById('transcriptForm').addEventListener('submit', (e) => {
         e.preventDefault();
+
+        btn.disable;
 
         const formData = new FormData(e.target); 
 

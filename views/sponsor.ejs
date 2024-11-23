@@ -1,5 +1,14 @@
 <%- include('layouts/header')%>
 <link rel="stylesheet" href="/css/student.css" />
+<style>
+  .breadcrumb-item + .breadcrumb-item::before {
+      content: " > ";
+    }
+    .breadcrumb{
+      font-family: 'Ubuntu', sans-serif;
+      font-weight: 500;
+    }
+</style>
 </head>
 <body>
  <header>
@@ -32,13 +41,24 @@
                  
                   <div class="mb-4">
                     <label class="form-label" for="school">School</label>
-                     <select name="school" id="school" class="form-control">
-                      <option value="" disabled selected> Select School</option>
-                      <% schools.forEach(school => { %> 
-                      <option value="<%= school.school_id %>"><%= school.school_name %> </option>
-                      <% }) %>
-                     </select>
+                    <!-- Visible input to display the school name -->
+                    <input 
+                      type="text" 
+                      id="school" 
+                      class="form-control" 
+                      value="<%= users.user_school %>" 
+                      placeholder="School Name" 
+                      disabled 
+                    >
+                    
+                    <!-- Hidden input to store the school ID for database saving -->
+                    <input 
+                      type="hidden" 
+                      name="school" 
+                      value="<%= users.school_id %>"
+                    >
                   </div>
+                  
 
                   <div class="mb-4">
                     <label class="form-label" for="instructor">Instructor</label>

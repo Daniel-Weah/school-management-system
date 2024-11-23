@@ -19,10 +19,20 @@ router.get('/attendance', (req, res) => {
     return res.redirect('/');
   }
 
-  db.get('SELECT * FROM users WHERE user_id = ?', [req.session.userID], (err, users) => {
-    if (err) {
-      return res.status(500).send("Error fetching user's record");
-    }
+  db.get(
+    `SELECT users.*, roles.role AS user_role
+      FROM users
+      JOIN roles ON users.role = roles.role_id
+      WHERE users.user_id = ?`,
+    [req.session.userID],
+    (err, users) => {
+      if (err) {
+        return res.status(500).send("Error fetching user's record");
+      }
+
+      if (!users) {
+        return res.status(404).send("User not found");
+      }
     
 
     db.get('SELECT * FROM auth WHERE user_id = ?', [req.session.userID], (err, authRows) => {

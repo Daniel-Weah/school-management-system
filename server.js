@@ -26,7 +26,9 @@ const logout = require('./routes/logoutRoute');
 const instructordashboard = require('./routes/instructorDashboardRoute');
 const userDetailsRouter = require('./routes/userDetails');
 const attendanceRoute = require('./routes/attendanceRoute');
-
+const createUserRoute = require('./routes/createUser');
+const adminLoginRoute = require('./routes/admin-login');
+const adminDashboardRoute = require('./routes/admin-dashboard');
 
 const app = express();
 
@@ -66,6 +68,9 @@ app.use(logout);
 app.use(instructordashboard);
 app.use(userDetailsRouter);
 app.use(attendanceRoute);
+app.use(createUserRoute);
+app.use(adminLoginRoute);
+app.use(adminDashboardRoute);
 
 app.listen(5000, () => {
  console.log('Server is running on http://localhost:5000');

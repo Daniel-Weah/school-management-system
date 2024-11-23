@@ -12,7 +12,7 @@ const sessionMiddleware = session({
 
 router.use(sessionMiddleware);
 
-router.get('/class-registration', (req, res) => {
+router.get('/app/admin/class-registration', (req, res) => {
  if(!req.session.userID){
  return res.redirect('/');
  }

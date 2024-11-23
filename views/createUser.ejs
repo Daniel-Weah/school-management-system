@@ -1,0 +1,180 @@
+<%- include('layouts/header')%>
+<link rel="stylesheet" href="/css/student.css" />
+</head>
+<body>
+  <header>
+    <%- include('layouts/sidebar')%>
+  </header>
+  <section class="h-100" style="background-color: #fff;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-xl-8">
+          <div class="card rounded-3 text-black">
+            <div class="row g-0">
+              <div class="col-lg-12">
+                <div class="card-body p-md-5 mx-md-4">
+                  <nav aria-label="breadcrumb" class="breadcrumb mt-2">
+                    <ol class="breadcrumb">
+                      <li class="breadcrumb-item">
+                        <a href="/">Home</a>
+                      </li> 
+                      <li class="breadcrumb-item">
+                        <a href="/dashboard">Dashboard</a>
+                      </li> 
+                      <li class="breadcrumb-item active" aria-current="page">Create User</li>
+                    </ol>
+                  </nav>
+                  <div class="text-center">
+                    <h4 class="mt-1 mb-3 pb-1">User Registration</h4>
+                  </div>
+
+                  <form action="/create/user" method="post" autocomplete="off">
+                    <div class="mb-4">
+                      <label class="form-label" for="full_name">Full Name</label>
+                      <input type="text" id="full_name" name="fullname" class="form-control" placeholder="e.g. John Doe" />
+                    </div>
+
+                    <div class="mb-4">
+                      <label class="form-label" for="email">Email</label>
+                      <input type="email" id="email" name="email" class="form-control" placeholder="e.g. johndoe@example.com" />
+                    </div>
+
+                    <div class="mb-4">
+                      <label class="form-label" for="phone">Phone</label>
+                      <input type="tel" id="phone" name="phone" class="form-control" placeholder="e.g. 077XXXXXXX / 088XXXXXXX" />
+                    </div>
+
+                    <div class="mb-4">
+                      <label class="form-label" for="location">Location</label>
+                      <input type="tel" id="location" name="location" class="form-control" placeholder="e.g. 12th street sinkor" />
+                    </div>
+
+                    <div class="mb-4">
+                      <label class="form-label" for="dob">DOB</label>
+                      <input type="date" id="dob" name="dob" class="form-control" placeholder="date of birth" />
+                    </div>
+
+                    <div class="mb-4">
+                      <label class="form-label" for="school">School</label>
+                      <select name="school" id="school" class="form-control">
+                        <option value="" disabled selected> Select School</option>
+                        <% schools.forEach(school => { %> 
+                          <option value="<%= school.school_id %>"><%= school.school_name %> </option>
+                        <% }) %>
+                      </select>
+                    </div>
+
+                    <div class="mb-4">
+                      <label class="form-label" for="role">Role</label>
+                      <select name="role" id="role" class="form-control">
+                        <% roles.forEach(role => { %>
+                          <option value="<%= role.role_id %>"><%= role.role %></option>
+                        <% }) %>
+                      </select>
+                    </div>
+
+                    <hr>
+
+                    <div class="mb-4">
+                      <label class="form-label" for="studentID">Username</label>
+                      <input type="text" id="username" name="username" class="form-control" placeholder="username e.g. @johndoe123" />
+                    </div>
+
+                    <div class="mb-4">
+                      <label class="form-label" for="password">Password</label>
+                      <input type="password" id="password" name="password" placeholder="password" class="form-control" />
+                    </div>
+
+                    <div class="text-center pt-1">
+                      <button class="btn btn-primary btn-lg btn-block mb-3" type="submit" style="width: 100%;" id="student_btn">Create Sponsor <i class="fa fa-arrow-right" id="right-arrow"></i></button>
+                    </div>
+                  </form>
+                </div>
+            </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+</section>
+<table class="table align-middle mb-0 bg-white" style="width: 70%; margin: 0 15pc; ">
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>School</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Jerome Pokolo</td>
+        <td>jeromepokolo@gmail.com</td>
+        <td>0880833232</td>
+        <td>Rosa Allen School System</td>
+        <td>
+          <button class="btn btn-link btn-sm">
+            <span>
+              <i class="fa fa-pen"></i>
+            </span> &nbsp;
+            <span class="delete_btn" style="color: red; cursor: pointer;"><i class="fa fa-trash"></i></span>
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Jane Doe</td>
+        <td>janedoe@example.com</td>
+        <td>0771234567</td>
+        <td>Greenwood School</td>
+        <td>
+          <button class="btn btn-link btn-sm">
+            <span>
+              <i class="fa fa-pen"></i>
+            </span> &nbsp;
+            <span class="delete_btn" style="color: red; cursor: pointer;"><i class="fa fa-trash"></i></span>
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>John Smith</td>
+        <td>johnsmith@example.com</td>
+        <td>0889876543</td>
+        <td>Sunrise Academy</td>
+        <td>
+          <button class="btn btn-link btn-sm">
+            <span>
+              <i class="fa fa-pen"></i>
+            </span> &nbsp;
+            <span class="delete_btn" style="color: red; cursor: pointer;"><i class="fa fa-trash"></i></span>
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Mary Johnson</td>
+        <td>maryjohnson@example.com</td>
+        <td>0777654321</td>
+        <td>Hope High School</td>
+        <td>
+          <button class="btn btn-link btn-sm">
+            <span>
+              <i class="fa fa-pen"></i>
+            </span> &nbsp;
+            <span class="delete_btn" style="color: red; cursor: pointer;"><i class="fa fa-trash"></i></span>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+
+
+
+  <%- include('layouts/footer')%>
+</body>
+</html>

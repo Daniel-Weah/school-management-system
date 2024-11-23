@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.use(bodyParser.urlencoded({ extended: true }));
 
-router.get('/position-registration', (req, res) => {
+router.get('/app/admin/position-registration', (req, res) => {
     if (!req.session.userID) {
         return res.redirect('/');
       }

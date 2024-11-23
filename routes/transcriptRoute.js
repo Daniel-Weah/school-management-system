@@ -9,25 +9,10 @@ const router = express.Router();
 
 const upload = multer();
 router.get('/request-transcript', (req, res) => {
-  if (!req.session.userID) {
-    return res.redirect('/');
-  }
 
-  db.get('SELECT * FROM users WHERE user_id = ?', [req.session.userID], (err, users) => {
-    if (err) {
-      return res.status(500).send("Error fetching student's record");
-    }
+ res.render('transcript');
+})
 
-    db.get('SELECT * FROM auth WHERE user_id = ?', [req.session.userID], (err, authRows) => {
-      if (err) {
-        return res.status(500).send("Error fetching auth record");
-      }
-
- res.render('transcript', { users,
-  userID: authRows,});
-})
-})
-})
 
 router.post('/request-transcript', upload.none(), (req, res) => {
   const { name, email, school, year, message } = req.body;
@@ -76,5 +61,7 @@ router.post('/request-transcript', upload.none(), (req, res) => {
     }
   });
 });
+// });
+// });
 
 module.exports = router;

@@ -18,17 +18,24 @@ router.use(bodyParser.urlencoded({extended: true}));
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-router.get("/create-notice", (req, res) => {
+router.get("/app/admin/create-notice", (req, res) => {
   if (!req.session.userID) {
     return res.redirect("/");
   }
-
   db.get(
-    "SELECT * FROM users WHERE user_id = ?",
+    `SELECT admin_users.*, roles.role AS user_role, schools.school_name AS user_school
+        FROM admin_users
+        JOIN roles ON admin_users.role = roles.role_id
+        JOIN schools ON admin_users.school_id = schools.school_id
+        WHERE admin_users.user_id = ?`,
     [req.session.userID],
     (err, users) => {
       if (err) {
-        return res.status(500).send("Error fetching student's record");
+        return res.status(500).send("Error fetching user's record");
+      }
+
+      if (!users) {
+        return res.status(404).send("User not found");
       }
 
       db.get(

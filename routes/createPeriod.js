@@ -18,7 +18,7 @@ router.use(bodyParser.urlencoded({extended: true}));
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-router.get("/create-period", (req, res) => {
+router.get("/app/admin/create-period", (req, res) => {
   if (!req.session.userID) {
     return res.redirect("/");
   }

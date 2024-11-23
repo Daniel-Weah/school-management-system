@@ -18,8 +18,12 @@
       content: " > ";
     }
     .breadcrumb{
-  margin-top: -1.2pc;
-}
+      font-family: 'Ubuntu', sans-serif;
+      font-weight: 500;
+      margin-top: -1.2pc;
+    }
+
+
 </style>
 </head>
 <body>
@@ -109,14 +113,26 @@
                    </select>
                 </div>
 
-                 <div class="mb-4">
+                <div class="mb-4">
                   <label class="form-label" for="school">School</label>
-                   <select name="school" id="school" class="form-control">
-                    <% schools.forEach(school => { %> 
-                    <option value="<%= school.school_id%>"><%= school.school_name %> </option>
-                    <% }) %>
-                   </select>
+                  <!-- Visible input to display the school name -->
+                  <input 
+                    type="text" 
+                    id="school" 
+                    class="form-control" 
+                    value="<%= users.user_school %>" 
+                    placeholder="School Name" 
+                    disabled 
+                  >
+                  
+                  <!-- Hidden input to store the school ID for database saving -->
+                  <input 
+                    type="hidden" 
+                    name="school" 
+                    value="<%= users.school_id %>"
+                  >
                 </div>
+                
 
                 <div class="mb-4">
                   <label class="form-label" for="position">Position</label>

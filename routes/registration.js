@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.use(bodyParser.urlencoded({ extended: true }));
 
-router.get("/registration", (req, res) => {
+router.get("/app/admin/registration", (req, res) => {
   if (!req.session.userID) {
     return res.redirect("/");
   }
@@ -20,10 +20,21 @@ router.get("/registration", (req, res) => {
         return res.status(500).send("Error fetching auth record");
       }
 
-  db.get("SELECT * FROM users WHERE user_id = ?", [req.session.userID], (err, users) => {
-    if (err) {
-      return res.status(500).send("Error fetching user record");
-    }
+      db.get(
+        `SELECT admin_users.*, roles.role AS user_role, schools.school_name AS user_school
+        FROM admin_users
+        JOIN roles ON admin_users.role = roles.role_id
+        JOIN schools ON admin_users.school_id = schools.school_id
+        WHERE admin_users.user_id = ?`,
+        [req.session.userID],
+        (err, users) => {
+          if (err) {
+            return res.status(500).send("Error fetching user's record");
+          }
+    
+          if (!users) {
+            return res.status(404).send("User not found");
+          }
 
     db.get("SELECT * FROM auth WHERE user_id = ?", [req.session.userID], (err, authRows) => {
       if (err) {

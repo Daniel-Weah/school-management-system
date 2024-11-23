@@ -41,6 +41,18 @@ db.serialize(() => {
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   )`);
 
+  db.run(`CREATE TABLE IF NOT EXISTS admin_users (
+  user_id TEXT PRIMARY KEY,               
+  fullName TEXT NOT NULL,                  
+  email TEXT NOT NULL,                     
+  phone TEXT,                             
+  location TEXT,                           
+  DOB TEXT,                                
+  role INTEGER NOT NULL,                   
+  school_id INTEGER NOT NULL,              
+  profile_picture BLOB
+)`);
+
   db.run(`CREATE TABLE IF NOT EXISTS sponsors(
     sponsor_id TEXT PRIMARY KEY,
     school_id INTEGER,

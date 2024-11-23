@@ -1,0 +1,109 @@
+<%- include('layouts/header')%>
+<link rel="stylesheet" href="/css/dashboard.css" />
+
+<style>
+  .breadcrumb-item + .breadcrumb-item::before {
+      content: " > ";
+    }
+    .breadcrumb{
+      font-family: 'Ubuntu', sans-serif;
+      font-weight: 500;
+    }
+</style>
+</head>
+
+<body>
+ 
+ <header>
+  <%- include('layouts/sidebar')%>
+ </header>
+
+
+<main style="margin-top: 58px;">
+
+  
+ <div class="container pt-4">
+   <nav aria-label="breadcrumb" class="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+       <a href="/">Home</a>
+      </li> 
+      <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+    </ol>
+  </nav>
+
+   <h1 class="pt-4">Administrative Dashboard</h1>
+
+
+  
+  <div class="accordion accordion-flush" id="accordionFlushExample" style="width: 70%;margin-top: 10px;margin-left: 12px;">
+   <div class="accordion-item">
+     <h2 class="accordion-header" id="flush-headingOne">
+       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+         <h4>Activities</h4>
+       </button>
+     </h2>
+     <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+       <div class="accordion-body">
+        <h6>On-Going Activities</h6>
+        <p>No Activity at this moment</p>
+       </div>
+     </div>
+   </div>
+ </div>
+
+
+ 
+ <!-- ============== instructor CHARTS -->
+ <% if (users.user_role === 'Admin') { %>
+    <!-- <label class="form-label" for="school">School</label>
+    <select name="school" id="school" class="form-control" style="width: 40%;">
+        <% schools.forEach(school => { %> 
+         <option value="<%= school.school_id %>"><%= school.school_name %></option>
+
+         <% }) %>
+        </select> -->
+        <label class="form-label" for="school">School</label>
+    <select name="school" id="school" class="form-control" style="width: 40%;">
+        
+         <option value="<%= users.school_id %>"><%= users.user_school%></option>
+
+       
+        </select>
+        <br>
+        <div class="select_items_moderator">
+ <select class="form-select" name="period" id="period" style="width: 25%">
+  <option value="" disabled selected>Select Period</option>
+   <% periods.forEach(period => { %>
+    <option value="<%= period.period_id %>"><%= period.period %></option>
+    <% }) %>
+</select>
+
+<select class="form-select" name="period" id="period" style="width: 25%">
+ <option> ~~ Select Subject ~~</option>
+ <option value="geography">Geography</option>
+ <option value="history">student</option>
+</select>
+<i class="fas fa-filter ms-2 mt-2" style="cursor: pointer; font-size: 1.5rem;color: #FF6A88;" title="Apply Filter"></i>
+
+</div>
+
+<div class="moderator">
+  <div id="columnchart_performance" style="width: 750px; height: 500px;" class="shadow-lg"></div>
+  
+  <div id="piechart_performance" style="width: 900px; height: 500px;" class="shadow-lg"></div>
+</div>
+<% } %>
+<!-- ============== Instructor CHARTS ENDS-->
+ <%- include('./calendar') %>
+ <br><br><br><br>
+ <!--  -->
+
+ 
+ <p style="color: #666;flex-grow: 1;">&copy;BrainWave 2024. All Right Reserved.</p>
+ <%- include('layouts/noticeboard')%>
+</div>
+</main>
+
+<script src="/js/dashboard.js"></script>
+<%- include('layouts/footer')%>
