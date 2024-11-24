@@ -33,6 +33,9 @@ router.get('/app/admin/sponsor-registration', (req, res) => {
         return res.status(404).send("User not found");
       }
 
+      const loginAdminSchoolID = users.school_id
+
+
     db.get('SELECT * FROM auth WHERE user_id = ?', [req.session.userID], (err, authRows) => {
       if (err) {
         return res.status(500).send("Error fetching auth record");
@@ -66,7 +69,7 @@ router.get('/app/admin/sponsor-registration', (req, res) => {
               const instructorRoleId = roleData.role_id;
 
               // Fetch users where role matches "instructor"
-              db.all('SELECT * FROM users WHERE role = ?', [instructorRoleId], (err, instructorUsers) => {
+              db.all('SELECT * FROM users WHERE role = ? AND school_id = ?', [instructorRoleId, loginAdminSchoolID], (err, instructorUsers) => {
                 if (err) {
                   return res.status(500).send('Error fetching instructors');
                 }
@@ -126,7 +129,7 @@ router.post('/sponsor-registration', (req, res) => {
         return res.status(500).send('There was an error inserting into sponsors table')
       }
 
-      res.redirect('/dashboard');
+      res.redirect('/app/admin/dashboard');
     }
   )
 

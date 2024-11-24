@@ -24,7 +24,7 @@ function initializeEventListeners() {
     document.getElementById('transcriptForm').addEventListener('submit', handleTranscriptForm);
     const bwsmsBtn = document.getElementById("bwsms_btn");
     bwsmsBtn?.addEventListener("click", () => {
-        showAlert('success!', 'Welcome to BWSMS!, Discover our features and streamline school management today.', 'info', '5000');
+        showAlert('Hey!', 'Welcome to BWSMS!, Discover our features and streamline school management today.', 'info', '5000');
     });
 }
 

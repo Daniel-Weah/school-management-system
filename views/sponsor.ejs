@@ -63,7 +63,11 @@
                   <div class="mb-4">
                     <label class="form-label" for="instructor">Instructor</label>
                     <select name="instructor" id="instructor" class="form-control">
-                      <!-- Instructor options will be populated dynamically based on selected school -->
+                     <% instructorUsers.forEach(instructorUser => { %>
+                      <option value="<%= instructorUser.user_id%>"> 
+                        <%= instructorUser.fullName %>
+                      </option>
+                      <% }) %>
                     </select>
                   </div>
 

@@ -175,7 +175,7 @@ router.post("/registration", async (req, res) => {
               return res.status(500).send("Error registering user into Auth");
             }
             // Successful registration
-            res.redirect("/dashboard");
+            res.redirect("/app/admin/dashboard");
           });
         }
       );
