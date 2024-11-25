@@ -185,15 +185,18 @@ db.serialize(() => {
   )`);
 
   db.run(`CREATE TABLE IF NOT EXISTS attendance (
-  id TEXT PRIMARY KEY,
-  student_id TEXT,
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  student_id INTEGER,
+  sponsor_id INTEGER,
   week_start_date DATE,
-  monday BOOLEAN,
-  tuesday BOOLEAN,
-  wednesday BOOLEAN,
-  thursday BOOLEAN,
-  friday BOOLEAN,
+  monday TEXT,       
+  tuesday TEXT,      
+  wednesday TEXT,    
+  thursday TEXT,     
+  friday TEXT,       
+  UNIQUE(student_id, week_start_date),
   FOREIGN KEY(student_id) REFERENCES users(user_id)
+
 )
 `);
   db.run(`CREATE TABLE IF NOT EXISTS attendance_days (
@@ -203,6 +206,7 @@ db.serialize(() => {
   status BOOLEAN,
   FOREIGN KEY(attendance_id) REFERENCES attendance(id)
 )`);
+
 
 });
 

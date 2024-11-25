@@ -20,6 +20,10 @@
   
   <main style="margin-top: 58px;">
     <div class="container pt-4">
+      
+      <!-- <div id="notificationBox" class="notification-box">
+        <p id="notificationMessage"></p>
+      </div> -->
     <nav aria-label="breadcrumb" class="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
@@ -31,22 +35,25 @@
         <li class="breadcrumb-item active" aria-current="page">Attendance</li>
       </ol>
     </nav>
-    <h5 class="pt-4">Student Attendance for Week Starting: <%= weekStartDate %></h5>
+    <h5 class="pt-4">Student Attendance</h5>
+    <h5> <%= instructor.class_name %> </h5>
+
+    <p>Sponsor: <strong><%= users.fullName %></strong></p>
     
     <form action="/attendance" method="post" id="attendanceForm">
         
         <label for="weekStart">Week Starting:</label>
         <input type="date" id="weekStart" name="date" value="<%= weekStartDate %>" required>
         
-        <select name="classId" onchange="this.form.submit()">
+        <!-- <select name="classId" onchange="this.form.submit()">
           <option value="" selected disabled>Select Class</option>
           <% juniors.forEach(junior => { %>
-            <option value="<%= junior.class_id %>" <%= selectedClassId == junior.class_id ? 'selected' : '' %>><%= junior.class_name %></option>
+            <option value="<%= junior.class_id %>" ><%= junior.class_name %></option>
           <% }) %>
           <% seniors.forEach(senior => { %>
-            <option value="<%= senior.class_id %>" <%= selectedClassId == senior.class_id ? 'selected' : '' %>><%= senior.class_name %></option>
+            <option value="<%= senior.class_id %>" ><%= senior.class_name %></option>
           <% }) %>
-        </select>
+        </select> -->
 
         <table class="table align-middle mb-0 bg-white">
           <thead>
@@ -130,5 +137,7 @@
       });
     });
   </script>
+
+  
   
 <%- include('layouts/footer') %>
