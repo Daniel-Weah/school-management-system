@@ -1,0 +1,475 @@
+<%- include('layouts/header') %>
+<link rel="stylesheet" href="/css/student.css" />
+<style>
+  .breadcrumb-item + .breadcrumb-item::before {
+    content: " > ";
+  }
+
+  .breadcrumb {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 500;
+  }
+
+  .nav li a {
+    color: #666;
+    font-weight: bold;
+  }
+
+  .card img {
+    height: 80px;
+    width: 80px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    object-fit: cover;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .search-container {
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+
+  .search-input {
+    height: 50px;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 30px;
+    padding-left: 35px;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .search-icon {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: #888;
+  }
+
+  .nav.tabs {
+    margin-top: 20px;
+  }
+
+  .tabs .nav-link {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  .card-text {
+    font-size: 0.95rem;
+    color: #555;
+  }
+
+  /* Grid View Styles */
+  .grid-view .col {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  /* List View Styles */
+  .list-view .col {
+   display: flex;
+  }
+
+  .list-view .card img {
+    width: 60px;  
+    height: 60px; 
+    flex-shrink: 0;
+  }
+
+  .list-view .card-body {
+    text-align: left;
+  }
+
+  .list-view .card{
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    box-shadow: none;
+  }
+
+  .list_container ul li{
+    list-style: none;
+  }
+  .list_details{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .list_details img{
+    width: 50px;
+    height: 50px;
+  }
+  .grid-view {
+  display: block;
+}
+
+.list-view {
+  display: none;
+}
+
+</style>
+</head>
+<body>
+<header>
+  <%- include('layouts/sidebar') %>
+</header>
+<section class="h-100" style="background-color: #fff; margin-top: 3pc; margin-left: 15pc;">
+  <div class="container py-5 h-100">
+    <div class="col-xl-10">
+      <div class="row h-100">
+        <nav aria-label="breadcrumb" class="breadcrumb mt-3">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Subjects</li>
+          </ol>
+        </nav>
+
+        <div class="details">
+          <div class="header">
+            <h4>My Subjects</h4>
+            <!-- <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addSubject"><i class="fa fa-plus"></i> Add Subject</button> -->
+          </div>
+          <div class="search-container">
+            <input type="text" class="form-control search-input" placeholder="Search a Subject...">
+            <i class="fas fa-search search-icon"></i>
+          </div>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span></span>
+            <div>
+              <button class="btn btn-light toggle-view" data-view="grid" title="Grid View"><i class="fas fa-th"></i> Grid</button>
+              <button class="btn btn-light toggle-view" data-view="list" title="List View"><i class="fas fa-list"></i> List</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <nav class="mt-3">
+        <ul class="nav tabs">
+          <li class="nav-item"><a class="nav-link active" href="#subjects">Subjects</a></li>
+          <li class="nav-item"><a class="nav-link" href="#quiz">Quiz</a></li>
+          <li class="nav-item"><a class="nav-link" href="#assignments">Assignments</a></li>
+          <li class="nav-item"><a class="nav-link" href="#notes">Notes</a></li>
+        </ul>
+      </nav>
+      <hr>
+
+   <!-- Grid View Container -->
+   <% if (users.user_role == 'Student') { %> 
+
+   <div class="container mt-4 grid-view">
+    <% if (studentSubjects.length > 0) { %>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-4">
+        <% studentSubjects.forEach(student => { %> 
+          <div class="col">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body text-center">
+                <img src="/images/mathematics.png" alt="Mathematics">
+                <h5 class="card-title"><%= student.subject_name %></h5>
+                <p class="card-text" style="text-align: left;" title=" <%= student.subject_name %> Instructor - <%= student.fullName %>">
+                  <div class="d-flex align-items-center">
+                  <% if (student.profile_picture && student.profile_picture.length === 2) { %>
+                    <div class="initials-avatar rounded-circle bg-secondary text-white d-flex justify-content-center align-items-center" style="width: 45px; height: 45px; font-weight: bold;">
+                      <%= student.profile_picture %>
+                    </div>
+                  <% } else { %>
+                    <img src="data:image/jpeg;base64,<%= student.profile_picture %>" alt="Profile Picture" style="width: 45px; height: 45px" class="rounded-circle" />
+                  <% } %>
+                               &nbsp;       <strong><%= student.fullName %></strong>
+                  </div>
+                                      <br>
+                  <span class="text-muted small" data-time="<%= student.subject_created %>" id="relative-time" style="margin-left: -18pc;">
+                    Calculating time...
+                  </span>
+                </p>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <div class="alert alert-warning text-center mt-4">
+        No subjects available at the moment. Please check back later.
+      </div>
+    <% } %>
+  </div>
+  
+  <!-- List View Container -->
+  <div class="list_container list-view">
+    <% if (studentSubjects.length > 0) { %>
+      <ul>
+        <% studentSubjects.forEach(student => { %> 
+          <li>
+            <div class="list_details">
+              <img src="/images/mathematics.png" alt="Mathematics">
+              <div class="info">
+                <h5 class="card-title"><%= student.subject_name %></h5>
+                <p class="card-text" style="text-align: left;" title=" <%= student.subject_name %> Instructor - <%= student.fullName %>">
+                  <div class="d-flex align-items-center">
+                  <% if (student.profile_picture && student.profile_picture.length === 2) { %>
+                    <div class="initials-avatar rounded-circle bg-secondary text-white d-flex justify-content-center align-items-center" style="width: 45px; height: 45px; font-weight: bold;">
+                      <%= student.profile_picture %>
+                    </div>
+                  <% } else { %>
+                    <img src="data:image/jpeg;base64,<%= student.profile_picture %>" alt="Profile Picture" style="width: 45px; height: 45px" class="rounded-circle" />
+                  <% } %>
+                  &nbsp;
+                  <strong><%= student.fullName %></strong> <br>
+                </div>
+                  <span class="text-muted small" data-time="<%= student.subject_created %>" id="relative-time">
+                    Calculating time...
+                  </span>
+                </p>
+              </div>
+            </div>
+          </li>
+          <hr>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      <div class="alert alert-warning text-center mt-4">
+        No subjects available in list view at the moment. Please check back later.
+      </div>
+    <% } %>
+  </div>
+  <% } %>
+
+
+
+  <!-- ============================== INSTRUCTOR SUBJECTS SECTION ================= -->
+   <% if (users.user_role == 'Instructor') { %> 
+  <div class="container mt-4 grid-view">
+    <% if (instructorSubjects.length > 0) { %>
+      <h4>Subjects that I Teach</h4>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-4">
+        <% instructorSubjects.forEach(instructor => { %> 
+          <div class="col">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body text-center">
+                <img src="/images/mathematics.png" alt="Mathematics">
+                <h5 class="card-title"><%= instructor.subject_name %></h5>
+                <p class="card-text" style="text-align: left;" title=" <%= instructor.subject_name %> Instructor - <%= instructor.fullName %>">
+                  <div class="d-flex align-items-center">
+                  <% if (instructor.profile_picture && instructor.profile_picture.length === 2) { %>
+                    <div class="initials-avatar rounded-circle bg-secondary text-white d-flex justify-content-center align-items-center" style="width: 45px; height: 45px; font-weight: bold;">
+                      <%= instructor.profile_picture %>
+                    </div>
+                  <% } else { %>
+                    <img src="data:image/jpeg;base64,<%= instructor.profile_picture %>" alt="Profile Picture" style="width: 45px; height: 45px" class="rounded-circle" />
+                  <% } %>
+                               &nbsp;       <strong><%= instructor.fullName %></strong>
+                  </div>
+                                      <br>
+                  <span class="text-muted small" data-time="<%= instructor.subject_created %>" id="relative-time" style="margin-left: -18pc;">
+                    Calculating time...
+                  </span>
+                </p>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <div class="alert alert-warning text-center mt-4">
+        No subjects available at the moment. Please check back later.
+      </div>
+    <% } %>
+  </div>
+  
+  <!-- List View Container -->
+  <div class="list_container list-view">
+    <% if (instructorSubjects.length > 0) { %>
+      <h4>Subjects that I Teach</h4>
+
+      <ul>
+        <% instructorSubjects.forEach(instructor => { %> 
+          <li>
+            <div class="list_details">
+              <img src="/images/mathematics.png" alt="Mathematics">
+              <div class="info">
+                <h5 class="card-title"><%= instructor.subject_name %></h5>
+                <p class="card-text" style="text-align: left;" title=" <%= instructor.subject_name %> Instructor - <%= instructor.fullName %>">
+                  <div class="d-flex align-items-center">
+                  <% if (instructor.profile_picture && instructor.profile_picture.length === 2) { %>
+                    <div class="initials-avatar rounded-circle bg-secondary text-white d-flex justify-content-center align-items-center" style="width: 45px; height: 45px; font-weight: bold;">
+                      <%= instructor.profile_picture %>
+                    </div>
+                  <% } else { %>
+                    <img src="data:image/jpeg;base64,<%= instructor.profile_picture %>" alt="Profile Picture" style="width: 45px; height: 45px" class="rounded-circle" />
+                  <% } %>
+                  &nbsp;
+                  <strong><%= instructor.fullName %></strong> <br>
+                </div>
+                  <span class="text-muted small" data-time="<%= instructor.subject_created %>" id="relative-time">
+                    Calculating time...
+                  </span>
+                </p>
+              </div>
+            </div>
+          </li>
+          <hr>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      <div class="alert alert-warning text-center mt-4">
+        No subjects available in list view at the moment. Please check back later.
+      </div>
+    <% } %>
+  </div>
+
+  <% } %>
+    </div>
+  </div>
+
+  <!-- =========== ADDING SUBJECTS MODAL =============== -->
+  <!-- <div class="modal fade" id="addSubject" tabindex="-1" aria-labelledby="addSubjectLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addSubjectLabel">Request a Transcript</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="/subjects" method="post" id="subjectForm" autocomplete="off" enctype="multipart/form-data">
+                 
+                  
+              <div class="mb-4">
+                <label class="form-label" for="school">School</label>
+
+                <input 
+                  type="text" 
+                  id="school" 
+                  class="form-control" 
+                  value="<%= users.user_school %>" 
+                  placeholder="School Name" 
+                  disabled 
+                >
+                
+                <input 
+                  type="hidden" 
+                  name="school" 
+                  value="<%= users.school_id %>"
+                >
+              </div>
+
+                <div class="mb-4">
+                  <label class="form-label" for="division">Division</label>
+                  <select name="division" id="division" class="form-control">
+                    <option value="" selected disabled>Select Division</option>
+                    <option value="junior-high">Junior High Level</option>
+                    <option value="senior-high">Senior High Level</option>
+                  </select>
+                </div>
+                
+                <div class="mb-4">
+                  <label class="form-label" for="instructor">Instructor</label>
+                  <select name="instructor" id="instructor" class="form-control">
+                   <% instructorUsers.forEach(instructorUser => { %>
+                    <option value="<%= instructorUser.user_id%>"> 
+                      <%= instructorUser.fullName%>
+                    </option>
+                    <% }) %>
+                  </select>
+                </div>
+
+                <div class="mb-4">
+                  <label class="form-label" for="subject">Subject</label>
+                  <input type="text" id="subject" name="subject" class="form-control" autocomplete="off" placeholder="e.g. Language Arts" required/>
+                </div>
+
+                <div class="mb-4">
+                  <label class="form-label" for="Subject_img">Subject Image</label>
+                  <input type="file" id="subjectImg" name="subjectImg" class="form-control" autocomplete="off" placeholder="e.g. Choose an image.." />
+                </div>
+
+                <div class="text-center pt-1 ">
+                  <button class="btn btn-primary btn-lg btn-block mb-3" type="submit" style="width: 100%;" id="subject_btn">Add Subject <i class="fa fa-arrow-right" id="right-arrow"></i></button>
+                 </div>
+
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div> -->
+    <!-- =========== ADDING SUBJECTS MODAL END =============== -->
+
+
+</section>
+<script>
+ document.addEventListener("DOMContentLoaded", function () {
+  const gridView = document.querySelector(".grid-view");
+  const listView = document.querySelector(".list-view");
+  const toggleButtons = document.querySelectorAll(".toggle-view");
+
+  toggleButtons.forEach(button => {
+    button.addEventListener("click", function () {
+      const view = this.dataset.view;
+
+      if (view === "grid") {
+        gridView.style.display = "block";
+        listView.style.display = "none";
+      } else if (view === "list") {
+        gridView.style.display = "none";
+        listView.style.display = "block";
+      }
+    });
+  });
+});
+
+
+
+  // Update relative time for all elements
+  const timeElements = document.querySelectorAll("[data-time]");
+
+  function updateRelativeTimes() {
+    const now = new Date();
+
+    timeElements.forEach(element => {
+      const timestamp = new Date(element.getAttribute("data-time"));
+      const diffInSeconds = Math.floor((now - timestamp) / 1000);
+
+      let relativeTime;
+      if (diffInSeconds < 60) {
+        relativeTime = `${diffInSeconds}s ago`;
+      } else if (diffInSeconds < 3600) {
+        const minutes = Math.floor(diffInSeconds / 60);
+        relativeTime = `${minutes}m ago`;
+      } else if (diffInSeconds < 86400) {
+        const hours = Math.floor(diffInSeconds / 3600);
+        relativeTime = `${hours}h ago`;
+      } else {
+        const days = Math.floor(diffInSeconds / 86400);
+        relativeTime = `${days}d ago`;
+      }
+
+      element.textContent = relativeTime;
+    });
+  }
+
+  // Initial update and periodic refresh
+  updateRelativeTimes();
+  setInterval(updateRelativeTimes, 60000); // Update every minute
+
+
+</script>
+
+
+<%- include('layouts/footer') %>

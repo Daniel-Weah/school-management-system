@@ -191,7 +191,7 @@ router.post('/attendance', (req, res) => {
       Promise.all(promises)
         .then(results => {
           console.log('Attendance processed:', results);
-          res.redirect('/attendance'); // Only send one response here
+          res.redirect('/attendance');
         })
         .catch(error => {
           console.error('Error processing attendance:', error);

@@ -25,7 +25,7 @@
         <a href="/dashboard" class="list-group-item list-group-item-action py-2 ripple active" aria-current="true" style="margin-top: -2.8pc;">
           <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Dashboard</span>
         </a>
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple">
+        <a href="/subjects" class="list-group-item list-group-item-action py-2 ripple">
           <i class="fas fa-book fa-fw me-3"></i><span>Subjects</span>
         </a>
         <a href="#" class="list-group-item list-group-item-action py-2 ripple">
@@ -45,7 +45,7 @@
           <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Dashboard</span>
         </a>
 
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple">
+        <a href="/subjects" class="list-group-item list-group-item-action py-2 ripple">
           <i class="fas fa-book fa-fw me-3"></i><span>Subjects</span>
         </a>
         <a href="#" class="list-group-item list-group-item-action py-2 ripple">
@@ -62,97 +62,7 @@
         <% } %>
         <!-- ================= INSTRUCTOR PART OF THE SIDEBAR ENDS ============= -->
 
-        <!-- ============= ADMIN PART OF THE SIDEBAR ============ -->
-        <% if (users.user_role == 'Admin') { %> 
-        <a href="/app/admin/dashboard" class="list-group-item list-group-item-action py-2 ripple active" aria-current="true" style="margin-top: -2.8pc;">
-          <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Dashboard</span>
-        </a>
-        <a href="/app/admin/student-registration" class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-user-graduate fa-fw me-3"></i><span title="Student Registration"> Student</span>
-        </a>
-        <a href="/app/admin/registration" class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-user-graduate fa-fw me-3"></i><span title="Instructor or Administrator Registration">Instructor</span>
-        </a>
-
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-book fa-fw me-3"></i><span>Subjects</span>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-graduation-cap fa-fw me-3"></i><span>Grades</span>
-        </a>
-        <a href="/attendance" class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-calendar-check fa-fw me-3"></i><span>Attendance</span>
-        </a>
-
-        <a href="/app/admin/sponsor-registration" class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-user fa-fw me-3"></i><span>Sponsor</span>
-        </a>
-
-        <a href="/app/admin/create-notice" class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-file fa-fw me-3"></i><span>Notice</span>
-        </a>
-
-        <!-- <a href="/request-transcript" class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-file-alt fa-fw me-3"></i><span>Transcript</span>
-        </a> -->
-        <a href="https://studyclass.me/" class="list-group-item list-group-item-action py-2 ripple" target="_blank">
-          <i class="fa-fw me-3"><img src="/images/studyClassLogo.png" alt="study class logo" style="width: 100px;"></i><span>Study Class</span>
-        </a>
-        <% } %>
-        <!-- ============= ADMIN PART OF THE SIDEBAR ENDS ========== -->
-
-        <!-- ============== SUPER ADMIN PART OF THE SIDEBAR ============== -->
-        <!-- <a href="/dashboard" class="list-group-item list-group-item-action py-2 ripple active" aria-current="true" style="margin-top: -2.8pc;">
-          <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Dashboard</span>
-        </a>
-        <a href="/student-registration" class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-user-graduate fa-fw me-3"></i><span title="Student Registration"> Student</span>
-        </a>
-        <a href="/registration" class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-user-graduate fa-fw me-3"></i><span title="Instructor or Administrator Registration">Instructor</span>
-        </a>
-
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-book fa-fw me-3"></i><span>Subjects</span>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-graduation-cap fa-fw me-3"></i><span>Grades</span>
-        </a>
-        <a href="/attendance" class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-calendar-check fa-fw me-3"></i><span>Attendance</span>
-        </a>
-        <a href="/role-registration" class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-user-tag fa-fw me-3"></i><span>Role</span>
-        </a>
-        <a href="/position-registration" class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-briefcase fa-fw me-3"></i><span>Position </span>
-        </a>
-        <a href="/school-registration" class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-home fa-fw me-3"></i><span>School </span>
-        </a>
-
-        <a href="/sponsor-registration" class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-user fa-fw me-3"></i><span>Sponsor</span>
-        </a>
-
-        <a href="/class-registration" class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-home fa-fw me-3"></i><span>Class</span>
-        </a>
-
-        <a href="/create-notice" class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-file fa-fw me-3"></i><span>Notice</span>
-        </a>
-        <a href="/create-period" class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-clock fa-fw me-3"></i><span>Period</span>
-        </a>
-        
-        <a href="/request-transcript" class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-file-alt fa-fw me-3"></i><span>Transcript</span>
-        </a>
-        <a href="https://studyclass.me/" class="list-group-item list-group-item-action py-2 ripple" target="_blank">
-          <i class="fa-fw me-3"><img src="/images/studyClassLogo.png" alt="study class logo" style="width: 100px;"></i><span>Study Class</span>
-        </a> -->
-        <!-- =============== SUPER ADMIN PART OF THE SIDEBAR ENDS ============= -->
+       
        <hr>
       </div>
     </div>

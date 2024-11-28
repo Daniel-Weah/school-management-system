@@ -22,11 +22,10 @@ router.get("/app/admin/create-user", (req, res) => {
         return res.status(500).send("Internal Server Error");
       }
       db.get(
-        `SELECT users.*, roles.role AS user_role, positions.position
-                  FROM users
-                  JOIN roles ON users.role = roles.role_id
-                  LEFT JOIN positions ON users.position = positions.position_id
-                  WHERE users.user_id = ?`,
+        `SELECT admin_users.*, roles.role AS user_role
+                  FROM admin_users
+                  JOIN roles ON admin_users.role = roles.role_id
+                  WHERE admin_users.user_id = ?`,
         [req.session.userID],
         (err, users) => {
           if (err) {

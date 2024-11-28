@@ -12,7 +12,7 @@
 </head>
 <body>
  <header>
-  <%- include('layouts/sidebar')%>
+  <%- include('layouts/adminSidebar')%>
  </header>
  <section class="h-100" style="background-color: #fff;">
   <div class="container py-5 h-100">
@@ -65,7 +65,7 @@
                     <select name="instructor" id="instructor" class="form-control">
                      <% instructorUsers.forEach(instructorUser => { %>
                       <option value="<%= instructorUser.user_id%>"> 
-                        <%= instructorUser.fullName %>
+                        <%= instructorUser.fullName%>
                       </option>
                       <% }) %>
                     </select>
