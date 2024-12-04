@@ -108,7 +108,7 @@ router.get("/subjects", (req, res) => {
                                       FROM subjects
                                       JOIN users ON subjects.instructor_id = users.user_id
                                       JOIN schools ON subjects.school_id = schools.school_id
-                                      WHERE subjects.division = ? AND subjects.school_id = ?
+                                      WHERE division = ? AND subjects.school_id = ?
                                       `;
 
                                    
@@ -155,31 +155,6 @@ router.get("/subjects", (req, res) => {
 });
 });
 
-// ================ Post route ============
 
-router.post("/subjects", upload.single("subjectImg"), (req, res) => {
-  const { school, division, instructor, subject } = req.body;
-  const subjectImg = req.file ? req.file.buffer : "/images/english.png";
-
-  const subjectID = uuidv4();
-
-  const query = `
-        INSERT INTO subjects (subject_id, subject_name, school_id, instructor_id, division, subject_Img)
-        VALUES (?, ?, ?, ?, ?, ?)
-      `;
-
-  db.run(
-    query,
-    [subjectID, subject, school, instructor, division, subjectImg],
-    (err) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).send("Error inserting into subjects table");
-      }
-
-      res.send("Subject inserted successfully!");
-    }
-  );
-});
 
 module.exports = router;

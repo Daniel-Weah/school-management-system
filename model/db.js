@@ -75,12 +75,13 @@ db.serialize(() => {
     subject_name TEXT NOT NULL,
     school_id TEXT NOT NULL,
     instructor_id TEXT NOT NULL,
-    division TEXT NOT NULL,
     subject_Img BLOB,
     subject_created DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (instructor_id) REFERENCES users(user_id),
     FOREIGN KEY (school_id) REFERENCES schools(school_id)
   )`);
+
+
 
   db.run(`CREATE TABLE IF NOT EXISTS grades(
     grade_id TEXT PRIMARY KEY,
@@ -209,7 +210,17 @@ db.serialize(() => {
   status BOOLEAN,
   FOREIGN KEY(attendance_id) REFERENCES attendance(id)
 )`);
-
+db.run(`CREATE TABLE IF NOT EXISTS schedules (
+    schedule_id TEXT PRIMARY KEY,
+    class_id TEXT NOT NULL,
+    instructor_id TEXT NOT NULL,
+    school_id TEXT NOT NULL,
+    day TEXT NOT NULL,
+    start_time TEXT NOT NULL,
+    end_time TEXT NOT NULL,
+    FOREIGN KEY (instructor_id) REFERENCES users (user_id)
+);
+`);
 
 });
 

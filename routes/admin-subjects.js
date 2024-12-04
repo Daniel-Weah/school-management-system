@@ -97,8 +97,9 @@ router.get("/app/admin/subjects", (req, res) => {
                                       `;
 
                         db.all(
-                          query, [loginAdminSchoolID],
-                          
+                          query,
+                          [loginAdminSchoolID],
+
                           (err, allInstructors) => {
                             if (err) {
                               console.error("Database error:", err.message);
@@ -109,7 +110,7 @@ router.get("/app/admin/subjects", (req, res) => {
                                 );
                             }
 
-                            console.log("All Instructors",allInstructors);
+                            console.log("All Instructors", allInstructors);
 
                             res.render("admin-subjects", {
                               users,
@@ -137,29 +138,30 @@ router.get("/app/admin/subjects", (req, res) => {
 
 // ================ Post route ============
 
-router.post("/subjects", upload.single("subjectImg"), (req, res) => {
-  const { school, division, instructor, subject } = req.body;
+router.post("/app/admin/subjects", upload.single("subjectImg"), (req, res) => {
+  const { school, instructor, subject } = req.body;
   const subjectImg = req.file ? req.file.buffer : "/images/english.png";
 
   const subjectID = uuidv4();
 
   const query = `
-        INSERT INTO subjects (subject_id, subject_name, school_id, instructor_id, division, subject_Img)
-        VALUES (?, ?, ?, ?, ?, ?)
+        INSERT INTO subjects (subject_id, subject_name, school_id, instructor_id, subject_Img)
+        VALUES (?, ?, ?, ?, ?)
       `;
 
   db.run(
     query,
-    [subjectID, subject, school, instructor, division, subjectImg],
+    [subjectID, subject, school, instructor, subjectImg],
     (err) => {
       if (err) {
         console.error(err);
         return res.status(500).send("Error inserting into subjects table");
       }
 
-      res.send("Subject inserted successfully!");
+      res.send("Instructor Subject inserted successfully!");
     }
   );
 });
+
 
 module.exports = router;

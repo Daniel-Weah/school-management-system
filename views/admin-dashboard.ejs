@@ -33,7 +33,46 @@
   </nav>
 
    <h1 class="pt-4">Administrative Dashboard</h1>
+   <div class="feed shadow-sm" style="text-align: center; margin-top: -1pc;">
 
+
+   <% if (users.user_role == 'Admin') { %>
+
+    
+   
+    <!-- Card 1: Level -->
+    <div class="card">
+      <i class="fas fa-graduation-cap fa-fw" style="font-size: 30px; color: #007bff;"></i> 
+      <h5 style="font-size: 15px;"> Students</h5>
+      <h5 style="text-transform: capitalize;">
+        <%= totalStudent < 10 ? '0' + totalStudent : totalStudent %>
+      </h5>
+          </div>
+
+    <div class="card">
+      <i class="fa fa-user" style="font-size: 30px; color: #007bff;"></i> 
+      <h5 style="font-size: 15px;"> Instructor</h5>
+      <h5 style="text-transform: capitalize;"> <%= totalInstructor < 10 ? '0' + totalInstructor : totalInstructor %></h5>
+    </div>
+  
+    
+    <!-- <div class="card">
+     <i class="fas fa-user fa-fw" style="font-size: 30px; color: #007bff;"></i> 
+      <h5 style="font-size: 15px;"> Admin</h5>
+      <h5>1</h5>
+    </div> -->
+    <div class="card">
+     <i class="fa fa-user" style="font-size: 30px; color: #007bff;"></i>
+     <h5 style="font-size: 15px;"> Parents</h5>
+   
+     <h5 style="text-transform: capitalize;"> 10 </h5>
+
+    <% } %>
+    </div>
+        
+   
+  </div>
+  <%- include('./calendar') %>
 
   
   <div class="accordion accordion-flush" id="accordionFlushExample" style="width: 70%;margin-top: 10px;margin-left: 12px;">
@@ -95,13 +134,13 @@
 </div>
 <% } %>
 <!-- ============== Instructor CHARTS ENDS-->
- <%- include('./calendar') %>
  <br><br><br><br>
  <!--  -->
 
  
  <p style="color: #666;flex-grow: 1;">&copy;BrainWave 2024. All Right Reserved.</p>
  <%- include('layouts/noticeboard')%>
+ </div>
 </div>
 </main>
 

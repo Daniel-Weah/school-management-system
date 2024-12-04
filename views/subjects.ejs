@@ -121,6 +121,12 @@
 .list-view {
   display: none;
 }
+.tab-content {
+  display: none;
+}
+.tab-content.active {
+  display: block;
+}
 
 </style>
 </head>
@@ -161,15 +167,17 @@
 
       <nav class="mt-3">
         <ul class="nav tabs">
-          <li class="nav-item"><a class="nav-link active" href="#subjects">Subjects</a></li>
-          <li class="nav-item"><a class="nav-link" href="#quiz">Quiz</a></li>
-          <li class="nav-item"><a class="nav-link" href="#assignments">Assignments</a></li>
-          <li class="nav-item"><a class="nav-link" href="#notes">Notes</a></li>
+          <li class="nav-item"><a class="nav-link active" data-tab="subjects" href="javascript:void(0);">Subjects</a></li>
+          <li class="nav-item"><a class="nav-link" data-tab="quiz" href="javascript:void(0);">Quiz</a></li>
+          <li class="nav-item"><a class="nav-link" data-tab="assignments" href="javascript:void(0);">Assignments</a></li>
+          <li class="nav-item"><a class="nav-link" data-tab="notes" href="javascript:void(0);">Notes</a></li>
         </ul>
       </nav>
       <hr>
 
    <!-- Grid View Container -->
+   <div id="subjects" class="tab-content active">
+
    <% if (users.user_role == 'Student') { %> 
 
    <div class="container mt-4 grid-view">
@@ -249,7 +257,20 @@
   </div>
   <% } %>
 
+   </div>
 
+   <div id="quiz" class="tab-content">
+    <h4>Quiz Content</h4>
+    <p>This is the content for the Quiz tab.</p>
+  </div>
+  <div id="assignments" class="tab-content">
+    <h4>Assignments Content</h4>
+    <p>This is the content for the Assignments tab.</p>
+  </div>
+  <div id="notes" class="tab-content">
+    <h4>Notes Content</h4>
+    <p>This is the content for the Notes tab.</p>
+  </div>
 
   <!-- ============================== INSTRUCTOR SUBJECTS SECTION ================= -->
    <% if (users.user_role == 'Instructor') { %> 
@@ -468,6 +489,22 @@
   updateRelativeTimes();
   setInterval(updateRelativeTimes, 60000); // Update every minute
 
+  const tabLinks = document.querySelectorAll(".nav-link");
+  const tabContents = document.querySelectorAll(".tab-content");
+
+  // Add event listeners to each tab link
+  tabLinks.forEach(link => {
+    link.addEventListener("click", function () {
+      // Remove the 'active' class from all tab links and contents
+      tabLinks.forEach(tab => tab.classList.remove("active"));
+      tabContents.forEach(content => content.classList.remove("active"));
+
+      // Add the 'active' class to the clicked tab link and its corresponding content
+      this.classList.add("active");
+      const tabId = this.getAttribute("data-tab");
+      document.getElementById(tabId).classList.add("active");
+    });
+  });
 
 </script>
 

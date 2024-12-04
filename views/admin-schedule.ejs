@@ -1,0 +1,228 @@
+<%- include('layouts/header')%>
+<link rel="stylesheet" href="/css/dashboard.css" />
+
+<style>
+  .breadcrumb-item + .breadcrumb-item::before {
+      content: " > ";
+    }
+    .breadcrumb{
+      font-family: 'Ubuntu', sans-serif;
+      font-weight: 500;
+    }
+    .search-container {
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+
+  .search-input {
+    height: 50px;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 30px;
+    padding-left: 35px;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .search-icon {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: #888;
+  }
+    
+</style>
+</head>
+
+<body>
+ 
+ <header>
+  <%- include('layouts/adminSidebar')%>
+ </header>
+
+ <main style="margin-top: 58px;">
+
+  
+    <div class="container pt-4">
+      <nav aria-label="breadcrumb" class="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item">
+          <a href="/">Home</a>
+         </li> 
+         <li class="breadcrumb-item">
+            <a href="/dashboard">Dashboard</a>
+           </li> 
+         <li class="breadcrumb-item active" aria-current="page">Schedule</li>
+       </ol>
+     </nav>
+   
+      <h1 class="pt-4">Class Schedule</h1>
+
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createSchedule" ><i class="fa fa-plus"></i> Create Schedule</button>
+
+      <div class="search-container">
+        <input type="text" class="form-control search-input" placeholder="Search a Class...">
+        <i class="fas fa-search search-icon"></i>
+      </div>
+      <table class="table table-striped table-hover mt-4">
+        <thead class="table-light ">
+          <tr>
+            <th>Day</th>
+            <th>Class</th>
+            <th>1st Period</th>
+            <th>2nd Period</th>
+            <th>3rd Period</th>
+            <th>4th Period</th>
+            <th>5th Period</th>
+            <th>6th Period</th>
+            <th>7th Period</th>
+            <th>8th Period</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (Object.keys(schedules).length > 0) { %>
+            <% Object.keys(schedules).forEach(key => { 
+                 const group = schedules[key];
+                 const day = group[0].day;
+                 const className = group[0].class_name;
+            %>
+              <tr>
+                <td><%= day %></td>
+                <td><%= className %></td>
+                <% group.forEach(schedule => { %>
+                  <td>
+                    <span style="font-weight: bold;"><%= schedule.subject_name %></span>
+                    <p class="text-muted small"><%= schedule.instructor_name %></p>
+                    <span class="text-muted small" style="font-weight: bold;"><%= schedule.start_time %> - <%= schedule.end_time %></span>
+                  </td>
+                <% }); %>
+                <% for (let i = group.length; i < maxPeriods; i++) { %>
+                  <td></td> 
+                <% } %>
+              </tr>
+            <% }); %>
+          <% } else { %>
+            <tr>
+              <td colspan="10" class="text-center"> <div class="alert alert-warning text-center mt-4">
+                No schedule available at the moment. Please check back later.
+              </div></td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+      
+
+    
+<!-- ==================== CREATING SCHEDULE MODAL ================== -->
+<div class="modal fade" id="createSchedule" tabindex="-1" aria-labelledby="createScheduleLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createScheduleLabel">Create Schedule</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="/app/admin/schedule" method="POST" class="p-4 border rounded shadow-sm bg-light">
+                <div class="mb-4">
+                    <label class="form-label" for="school">School</label>
+                    <!-- Visible input to display the school name -->
+                    <input 
+                      type="text" 
+                      id="school" 
+                      class="form-control" 
+                      value="<%= users.user_school %>" 
+                      placeholder="School Name" 
+                      disabled 
+                    >
+                    
+                    <input 
+                      type="hidden" 
+                      name="school" 
+                      value="<%= users.school_id %>"
+                    >
+                  </div>
+                <div class="mb-4">
+                  <label for="class_id" class="form-label">Select Class</label>
+                  <select id="class_id" name="class_id" class="form-select" required>
+                    <optgroup label="Juniors High">
+                      <% juniors.forEach(junior => { %> 
+                        <option value="<%= junior.class_id %>"><%= junior.class_name %></option>          
+                      <% }) %>
+                    </optgroup>
+                    <optgroup label="Seniors High">
+                      <% seniors.forEach(senior => { %> 
+                        <option value="<%= senior.class_id %>"><%= senior.class_name %></option>          
+                      <% }) %>
+                    </optgroup>
+                  </select>
+                </div>
+              
+                <div class="mb-4">
+                  <label for="instructor_id" class="form-label">Select Instructor</label>
+                  <select id="instructor_id" name="instructor_id" class="form-select" required>
+                    <% instructorUsers.forEach(instructor => { %>
+                      <option value="<%= instructor.user_id %>"><%= instructor.fullName %></option>
+                    <% }); %>
+                  </select>
+                </div>
+              
+                <div class="mb-4">
+                  <label for="day" class="form-label">Select Day</label>
+                  <select id="day" name="day" class="form-select" required>
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                  </select>
+                </div>
+              
+                <div class="mb-4">
+                  <label for="start_time" class="form-label">Start Time</label>
+                  <input type="time" id="start_time" name="start_time" class="form-control" required>
+                </div>
+              
+                <div class="mb-4">
+                  <label for="end_time" class="form-label">End Time</label>
+                  <input type="time" id="end_time" name="end_time" class="form-control" required>
+                </div>
+              
+                <div class="d-grid">
+                  <button type="submit" class="btn btn-primary">Add Schedule</button>
+                </div>
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+<footer>
+    <p style="color: #666;">&copy;BrainWave 2024. All Right Reserved.</p>
+  </footer>
+   </div>
+   </main>
+   
+    <script>
+
+    function calculatePeriods(startTime, endTime, periodLength) {
+        const start = new Date(`1970-01-01T${startTime}:00`);
+        const end = new Date(`1970-01-01T${endTime}:00`);
+        const periods = Math.floor((end - start) / (periodLength * 60 * 1000));
+        return periods > 0 ? periods : 0; // Return 0 if invalid or negative
+    }
+
+
+    </script>
+
+   <script src="/js/dashboard.js"></script>
+   <%- include('layouts/footer')%>
+
+
+
+
+

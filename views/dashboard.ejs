@@ -70,10 +70,15 @@
      <h5 style="font-size: 15px;">Sponsor</h5>
    
      <div class="progress-circle">
-        <h5 class="progress-text"><%= studentSponsor.instructor_name %></h5>
+      <% if (noStudentSponsorFound) { %>
+        <h5>No sponsor</h5>
+    <% } else { %>
+        
+            <h5><%= studentSponsor.instructor_name %></h5> 
+        <% } %>
+    <% } %>
     </div>
-    
- <% } %>
+        
    
   </div>
 
@@ -117,12 +122,6 @@
       <% } %>
   </div>
   
-    
-  
-  
-  
-    
-   
   
   <% } %>
   
@@ -130,6 +129,8 @@
    </div>
    
   </div>
+  <%- include('./calendar') %>
+
   
   <div class="accordion accordion-flush" id="accordionFlushExample" style="width: 70%;margin-top: 10px;margin-left: 12px;">
    <div class="accordion-item">
@@ -199,7 +200,6 @@
 </div>
 <% } %>
 <!-- ============== Instructor CHARTS ENDS-->
- <%- include('./calendar') %>
  <br><br><br><br>
  <!--  -->
 

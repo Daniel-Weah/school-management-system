@@ -38,7 +38,9 @@ router.get("/dashboard", (req, res) => {
       const schoolID = users.school_id;
 
       db.all(
-        "SELECT * FROM notice WHERE school_id = ?",
+        `SELECT * FROM notice 
+        WHERE school_id = ? 
+        ORDER BY created_at DESC`,
         [schoolID],
         (err, notices) => {
           if (err) {
@@ -151,6 +153,7 @@ router.get("/dashboard", (req, res) => {
                           "Error occurred in getting student sponsor"
                         );
                       }
+                      console.log('Student Sponsor Data:', studentSponsor);
 
                       db.get(
                         `SELECT users.*, juniorHighClasses.class_name AS junior_class_name
@@ -229,6 +232,7 @@ router.get("/dashboard", (req, res) => {
                                         schools,
                                         juniorClassName,
                                         seniorClassName,
+                                        noStudentSponsorFound: !studentSponsor,
                                         studentSponsor
                                       });
                                     }

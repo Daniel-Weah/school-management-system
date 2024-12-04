@@ -31,6 +31,9 @@ const adminLoginRoute = require('./routes/admin-login');
 const adminDashboardRoute = require('./routes/admin-dashboard');
 const subjectRoute = require('./routes/subjectRoute');
 const adminSubjectRoute = require('./routes/admin-subjects');
+const adminScheduleRoute = require('./routes/adminScheduleRoute');
+const schedule = require('./routes/schedule');
+
 const app = express();
 
 const sessionMiddleware = session({
@@ -74,6 +77,8 @@ app.use(adminLoginRoute);
 app.use(adminDashboardRoute);
 app.use(subjectRoute);
 app.use(adminSubjectRoute);
+app.use(adminScheduleRoute);
+app.use(schedule);
 
 app.listen(5000, () => {
  console.log('Server is running on http://localhost:5000');
