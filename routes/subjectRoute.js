@@ -43,6 +43,25 @@ router.get("/subjects", (req, res) => {
             return res.status(500).send("Error fetching auth record");
           }
 
+          db.all(
+            `SELECT * FROM notice 
+            WHERE school_id = ? 
+            ORDER BY created_at DESC`,
+            [loginAdminSchoolID],
+            (err, notices) => {
+              if (err) {
+                return res.send("Error getting notice data");
+              }
+    
+              const defaultImage = "/images/notice-placeholder.jpeg";
+    
+              const noticeIMG = notices.map((notice) => {
+                if (notice.image) {
+                  notice.image = notice.image.toString("base64");
+                }
+                return notice;
+              });
+
           db.all("SELECT * FROM schools", (err, schools) => {
             if (err) {
               return res.status(500).send("Error fetching schools record");
@@ -137,7 +156,9 @@ router.get("/subjects", (req, res) => {
                               seniors,
                               instructorUsers,
                               studentSubjects,
-                              instructorSubjects
+                              instructorSubjects,
+                              noticeIMG,
+                              notices
                             });
                           }
                         );
@@ -152,6 +173,7 @@ router.get("/subjects", (req, res) => {
       );
     }
   );
+});
 });
 });
 

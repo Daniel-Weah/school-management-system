@@ -168,6 +168,24 @@ router.get("/schedule", (req, res) => {
                           console.log("Grouped Instructor Classes Data:\n", groupedInstructorSchedules);
                       
                       
+                          db.all(
+                            `SELECT * FROM notice 
+                            WHERE school_id = ? 
+                            ORDER BY created_at DESC`,
+                            [loginAdminSchoolID],
+                            (err, notices) => {
+                              if (err) {
+                                return res.send("Error getting notice data");
+                              }
+                    
+                              const defaultImage = "/images/notice-placeholder.jpeg";
+                    
+                              const noticeIMG = notices.map((notice) => {
+                                if (notice.image) {
+                                  notice.image = notice.image.toString("base64");
+                                }
+                                return notice;
+                              });
 
                         res.render("schedule", {
                           juniors,
@@ -177,7 +195,9 @@ router.get("/schedule", (req, res) => {
                           userID: authRows,
                           schedules: groupedSchedules,
                           instructorSchedules: groupedInstructorSchedules,
-                          maxPeriods
+                          maxPeriods,
+                          noticeIMG,
+                          notices
                         });
                       });
                     }
@@ -190,6 +210,7 @@ router.get("/schedule", (req, res) => {
       });
     }
   );
+});
 });
 });
 

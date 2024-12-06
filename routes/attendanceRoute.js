@@ -127,6 +127,89 @@ router.get('/attendance', (req, res) => {
   );
 });
 
+
+router.get('/attendance/events', (req, res) => {
+  if (!req.session.userID) {
+      return res.redirect('/');
+  }
+
+  const instructorId = req.session.userID;
+
+  db.all(
+      `SELECT attendance.*, users.fullName AS student_name
+       FROM attendance
+       JOIN users ON attendance.student_id = users.user_id
+       WHERE users.class = (SELECT class FROM sponsors WHERE instructor_id = ?)`,
+      [instructorId],
+      (err, rows) => {
+          if (err) {
+              console.error(err);
+              return res.status(500).send('Error fetching attendance data');
+          }
+
+          const events = rows.flatMap(row => {
+              const startDate = new Date(row.week_start_date);
+              return ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'].map((day, index) => {
+                  if (row[day]) {
+                      const eventDate = new Date(startDate);
+                      eventDate.setDate(startDate.getDate() + index);
+                      return {
+                          title: `${row.student_name}: ${row[day]}`,
+                          start: eventDate.toISOString().split('T')[0],
+                          color: row[day] === 'Present' ? '#28a745' :
+                                 row[day] === 'Late' ? '#ffc107' :
+                                 '#dc3545',
+                      };
+                  }
+              }).filter(event => event); // Remove undefined events
+          });
+
+          res.json(events);
+      }
+  );
+});
+
+router.get('/student-attendance/events', (req, res) => {
+  if (!req.session.userID) {
+      return res.redirect('/');
+  }
+
+  const studentId = req.session.userID;
+
+  db.all(
+      `SELECT attendance.*, users.fullName AS student_name
+       FROM attendance
+       JOIN users ON attendance.student_id = users.user_id
+       WHERE attendance.student_id = ?`,
+      [studentId],
+      (err, rows) => {
+          if (err) {
+              console.error(err);
+              return res.status(500).send('Error fetching attendance data');
+          }
+
+          const events = rows.flatMap(row => {
+              const startDate = new Date(row.week_start_date);
+              return ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'].map((day, index) => {
+                  if (row[day]) {
+                      const eventDate = new Date(startDate);
+                      eventDate.setDate(startDate.getDate() + index);
+                      return {
+                          title: `${row[day]}`,
+                          start: eventDate.toISOString().split('T')[0],
+                          color: row[day] === 'Present' ? '#28a745' :
+                                 row[day] === 'Late' ? '#ffc107' :
+                                 '#dc3545',
+                      };
+                  }
+              }).filter(event => event); // Remove undefined events
+          });
+
+          res.json(events);
+      }
+  );
+});
+
 // POST /attendance
 router.post('/attendance', (req, res) => {
   const { date, attendance } = req.body;

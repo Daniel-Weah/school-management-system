@@ -129,9 +129,17 @@
    </div>
    
   </div>
+  <% if (users.user_role == 'Student') { %> 
+    
+    <%- include('./student-calendar') %>
+  
+    <% } %>
+
+  <% if (users.user_role == 'Instructor') { %> 
+
   <%- include('./calendar') %>
 
-  
+  <% } %>
   <div class="accordion accordion-flush" id="accordionFlushExample" style="width: 70%;margin-top: 10px;margin-left: 12px;">
    <div class="accordion-item">
      <h2 class="accordion-header" id="flush-headingOne">

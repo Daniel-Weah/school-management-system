@@ -1,5 +1,6 @@
 <%- include('layouts/header') %>
 <link rel="stylesheet" href="/css/student.css" />
+
 <style>
   .breadcrumb-item + .breadcrumb-item::before {
     content: " > ";
@@ -127,6 +128,76 @@
 .tab-content.active {
   display: block;
 }
+/* Notice Bar */
+.notice {
+ width: 180px;
+ position: fixed;
+ right: 0;
+ top: 50px;
+ height: calc(100vh - 50px);
+ overflow-y: auto;
+ background-color: #f9f9f9;
+ box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+ padding: 10px;
+}
+
+/* Notice Details */
+.notice_details {
+ display: flex;
+ align-items: center;
+ margin-bottom: 20px;
+ padding: 10px;
+ background-color: #fff;
+ border-radius: 8px;
+ box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Image inside Notice */
+.notice_details img {
+ width: 60px;
+ height: 60px;
+ border-radius: 20%;
+ margin-right: 10px;
+}
+
+/* Text inside Notice */
+.notice_text {
+ display: flex;
+ flex-direction: column;
+}
+
+.notice_text h4 {
+ margin: 0;
+ font-size: 16px;
+ color: #333;
+}
+
+.notice_text h6 {
+ margin-top: 5px;
+ font-size: 14px;
+ color: #888;
+}
+
+/* Custom Scrollbar for Notice */
+.notice::-webkit-scrollbar {
+ width: 8px;
+}
+
+.notice::-webkit-scrollbar-thumb {
+ background-color: #ccc;
+ border-radius: 4px;
+}
+
+.grid-view .col,
+.list-view li {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.grid-view .col[style*="display: none"],
+.list-view li[style*="display: none"] {
+  opacity: 0;
+  transform: scale(0.95);
+}
 
 </style>
 </head>
@@ -152,13 +223,13 @@
             <!-- <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addSubject"><i class="fa fa-plus"></i> Add Subject</button> -->
           </div>
           <div class="search-container">
-            <input type="text" class="form-control search-input" placeholder="Search a Subject...">
+            <input type="text" class="form-control search-input" id="searchInput" placeholder="Search a Subject...">
             <i class="fas fa-search search-icon"></i>
           </div>
           <div class="d-flex justify-content-between align-items-center mb-3">
             <span></span>
             <div>
-              <button class="btn btn-light toggle-view" data-view="grid" title="Grid View"><i class="fas fa-th"></i> Grid</button>
+              <button class="btn btn-light toggle-view" data-view="grid" title="Grid View" ><i class="fas fa-th"></i> Grid</button>
               <button class="btn btn-light toggle-view" data-view="list" title="List View"><i class="fas fa-list"></i> List</button>
             </div>
           </div>
@@ -184,7 +255,7 @@
     <% if (studentSubjects.length > 0) { %>
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-4">
         <% studentSubjects.forEach(student => { %> 
-          <div class="col">
+          <div class="col" data-search="<%= student.subject_name %> <%= student.fullName %>">
             <div class="card h-100 shadow-sm">
               <div class="card-body text-center">
                 <img src="/images/mathematics.png" alt="Mathematics">
@@ -222,7 +293,7 @@
     <% if (studentSubjects.length > 0) { %>
       <ul>
         <% studentSubjects.forEach(student => { %> 
-          <li>
+          <li data-search="<%= student.subject_name %> <%= student.fullName %>">
             <div class="list_details">
               <img src="/images/mathematics.png" alt="Mathematics">
               <div class="info">
@@ -279,7 +350,7 @@
       <h4>Subjects that I Teach</h4>
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-4">
         <% instructorSubjects.forEach(instructor => { %> 
-          <div class="col">
+          <div class="col" data-search="<%= instructor.subject_name %> <%= instructor.fullName %>">
             <div class="card h-100 shadow-sm">
               <div class="card-body text-center">
                 <img src="/images/mathematics.png" alt="Mathematics">
@@ -319,7 +390,7 @@
 
       <ul>
         <% instructorSubjects.forEach(instructor => { %> 
-          <li>
+          <li data-search="<%= instructor.subject_name %> <%= instructor.fullName %>">
             <div class="list_details">
               <img src="/images/mathematics.png" alt="Mathematics">
               <div class="info">
@@ -432,6 +503,7 @@
   </div> -->
     <!-- =========== ADDING SUBJECTS MODAL END =============== -->
 
+    <%- include('layouts/noticeboard')%>
 
 </section>
 <script>
@@ -441,18 +513,35 @@
   const toggleButtons = document.querySelectorAll(".toggle-view");
 
   toggleButtons.forEach(button => {
-    button.addEventListener("click", function () {
-      const view = this.dataset.view;
-
-      if (view === "grid") {
-        gridView.style.display = "block";
-        listView.style.display = "none";
-      } else if (view === "list") {
-        gridView.style.display = "none";
-        listView.style.display = "block";
-      }
+    button.addEventListener("click", () => {
+      const view = button.getAttribute("data-view");
+      gridView.style.display = view === "grid" ? "block" : "none";
+      listView.style.display = view === "list" ? "block" : "none";
     });
   });
+
+  const searchInput = document.getElementById('searchInput');
+  const gridItems = document.querySelectorAll('.grid-view .col');
+  const listItems = document.querySelectorAll('.list-view li');
+
+  const filterItems = () => {
+    const searchText = searchInput.value.toLowerCase();
+
+    gridItems.forEach(item => {
+      const searchData = item.getAttribute('data-search')?.toLowerCase() || '';
+      console.log(`Grid item searchData: ${searchData}, searchText: ${searchText}`);
+      item.style.display = searchData.includes(searchText) ? '' : 'none';
+    });
+
+    listItems.forEach(item => {
+      const searchData = item.getAttribute('data-search')?.toLowerCase() || '';
+      console.log(`List item searchData: ${searchData}, searchText: ${searchText}`);
+      item.style.display = searchData.includes(searchText) ? '' : 'none';
+    });
+  };
+
+  searchInput.addEventListener('input', filterItems);
+
 });
 
 
