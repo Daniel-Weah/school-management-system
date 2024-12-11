@@ -33,6 +33,10 @@ const subjectRoute = require('./routes/subjectRoute');
 const adminSubjectRoute = require('./routes/admin-subjects');
 const adminScheduleRoute = require('./routes/adminScheduleRoute');
 const schedule = require('./routes/schedule');
+const subjectDetailRoute = require('./routes/subject-details');
+const instructorQuizRoute = require('./routes/instructorQuizRoute');
+const studentQuizRoute = require('./routes/studentQuizRoute');
+const quizRoute = require('./routes/assessmentRoute');
 
 const app = express();
 
@@ -79,6 +83,11 @@ app.use(subjectRoute);
 app.use(adminSubjectRoute);
 app.use(adminScheduleRoute);
 app.use(schedule);
+app.use(subjectDetailRoute);
+app.use(instructorQuizRoute);
+app.use(studentQuizRoute);
+app.use(quizRoute);
+
 
 app.listen(5000, () => {
  console.log('Server is running on http://localhost:5000');

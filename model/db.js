@@ -75,6 +75,7 @@ db.serialize(() => {
     subject_name TEXT NOT NULL,
     school_id TEXT NOT NULL,
     instructor_id TEXT NOT NULL,
+    class_id TEXT NOT NULL,
     subject_Img BLOB,
     subject_created DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (instructor_id) REFERENCES users(user_id),
@@ -98,10 +99,20 @@ db.serialize(() => {
     instructor_id TEXT NOT NULL,
     quiz_title TEXT NOT NULL,
     quiz_type TEXT CHECK(quiz_type IN ('quiz', 'test')) NOT NULL,
+    quiz_duration INTEGER NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,        
     FOREIGN KEY (subject_id) REFERENCES subjects(subject_id),
-    FOREIGN KEY (instructor_id) REFERENCES instructors(instructor_id)
+    FOREIGN KEY (instructor_id) REFERENCES users(user_id)
   )`);
+
+  db.run(`CREATE TABLE IF NOT EXISTS student_quizzes (
+  id TEXT PRIMARY KEY,
+  quiz_id TEXT NOT NULL,
+  student_id TEXT NOT NULL,
+  FOREIGN KEY (quiz_id) REFERENCES quizzes(quiz_id),
+  FOREIGN KEY (student_id) REFERENCES users(user_id)
+);
+`);
 
   db.run(`CREATE TABLE IF NOT EXISTS questions(
     question_id TEXT PRIMARY KEY,
@@ -222,6 +233,7 @@ db.run(`CREATE TABLE IF NOT EXISTS schedules (
 );
 `);
 
+// db.run(`DROP TABLE subjects`);
 });
 
 module.exports = db;

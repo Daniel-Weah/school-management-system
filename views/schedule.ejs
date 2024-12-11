@@ -123,7 +123,7 @@
       <!-- <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createSchedule" ><i class="fa fa-plus"></i> Create Schedule</button> -->
 
       <div class="search-container">
-        <input type="text" class="form-control search-input" placeholder="Search a Class...">
+        <input type="text" class="form-control search-input" id="searchInput" placeholder="Search a Class...">
         <i class="fas fa-search search-icon"></i>
       </div>
       <% if (users.user_role == 'Student') { %> 
@@ -241,12 +241,34 @@
 </div>
    </main>
    
-   
+   <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.getElementById('searchInput');
+      const tableRows = document.querySelectorAll('tbody tr');
+
+      searchInput.addEventListener('input', () => {
+        const filter = searchInput.value.toLowerCase();
+
+        tableRows.forEach(row => {
+          const cells = Array.from(row.getElementsByTagName('td'));
+          const matches = cells.some(cell => cell.textContent.toLocaleLowerCase().includes(filter));
+
+          if (matches) {
+            row.style.display = '';
+          } else {
+            row.style.display = 'none';
+          }
+        });
+      });
+    });
+   </script>
 
    <script src="/js/dashboard.js"></script>
    <%- include('layouts/footer')%>
 
 
 
-
+<!-- 
+<script src="https://unpkg.com/@lottiefiles/lottie-player@2.0.8/dist/lottie-player.js"></script><lottie-player src="https://lottie.host/80da93d9-ff95-482a-8a70-7788087fd736/rC9cjKtXvJ.json" background="##ffffff" speed="1" style="width: 300px; height: 300px" loop controls autoplay direction="1" mode="normal"></lottie-player>   
+-->
 

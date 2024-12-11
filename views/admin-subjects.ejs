@@ -295,6 +295,22 @@
                 </select>
               </div>
 
+              <div class="mb-4">
+                <label class="form-label" for="instructor">Instructor</label>
+                <select name="class_id" id="class" class="form-control">
+                  <optgroup label="Junior">
+                    <% juniors.forEach(junior => { %>
+                      <option value="<%= junior.class_id %>"><%= junior.class_name %></option>
+                      <% }) %>
+                    </optgroup>
+                    <optgroup label="Senior">
+                      <% seniors.forEach(senior => { %>
+                        <option value="<%= senior.class_id %>"><%= senior.class_name %></option>
+                      <% }) %>
+                    </optgroup>
+                </select>
+                
+              </div>
              
                 <div class="mb-4">
                   <label class="form-label" for="subject">Subject</label>

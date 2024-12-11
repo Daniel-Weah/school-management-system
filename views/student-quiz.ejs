@@ -1,0 +1,175 @@
+<%- include('layouts/header')%>
+<link rel="stylesheet" href="/css/dashboard.css" />
+
+<style>
+  .breadcrumb {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+}
+
+.breadcrumb-item a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.breadcrumb-item.active {
+    color: #6c757d;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+      content: " > ";
+    }
+.subject_main {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+}
+
+.details {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 3rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.details h4 {
+    margin: 0;
+    font-weight: bold;
+    color: #333;
+}
+
+.details h6 {
+    margin-top: 5px;
+    font-size: 12px;
+}
+
+footer {
+    margin-top: 3rem;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+}
+
+footer p {
+    margin: 0;
+}
+
+.container h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+ 
+</style>
+</head>
+
+<body>
+ 
+ <header>
+  <%- include('layouts/subjectDetailSidebar')%>
+ </header>
+
+  
+  <main style="margin-top: 58px;">
+    <div class="container pt-4">
+      <!-- Breadcrumb Navigation -->
+      <nav aria-label="breadcrumb" class="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/">Home</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="/dashboard">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="/subject">Subjects</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Assessments</li>
+        </ol>
+      </nav>
+  
+      <!-- Page Title -->
+      <h1 class="pt-4"> </h1>
+
+      <!-- ======================= STUDENT'S SIDE ================ -->
+
+      <h1>Take the Quiz: Mathematics 2nd Period Test</h1>
+<form action="/assessment/submit" method="POST">
+    <% if (questions.length > 0) { %> 
+  <% questions.forEach((question, index) => { 
+    
+    %>
+    <div>
+      <p><%= question.question_text %></p>
+      <% if (question.question_type === 'multiple_choice') { %>
+        <% question.options.forEach(option => { %>
+          <input type="radio" name="question_<%= question.question_id %>" value="<%= option.option_text %>"><%= option.option_text %><br>
+        <% }); %>
+      <% } else { %>
+        <input type="text" name="question_<%= question.question_id %>"><br>
+      <% } %>
+    </div>
+  <% }); %>
+
+  <% } else { %> 
+    <p>There is no assessment avaliable</p>
+    
+<% } %>
+
+  <button type="submit">Submit Quiz</button>
+</form>
+
+
+      <!-- ===================== INSTRUCTOR'S SIDE ================== -->
+      <h1>Create a Quiz</h1>
+      <form action="/create/quiz" method="POST">
+        <label for="quiz_title">Quiz Title:</label>
+        <input type="text" name="quiz_title" required><br>
+      
+        <label for="quiz_type">Quiz Type:</label>
+        <select name="quiz_type">
+          <option value="quiz">Quiz</option>
+          <option value="test">Test</option>
+        </select><br>
+      
+        <label for="quiz_duration">Quiz Duration (in minutes):</label>
+        <input type="number" name="quiz_duration" min="1" required><br>
+      
+        <label for="students">Select Students:</label>
+        <select name="students[]" multiple>
+          <!-- Options will be populated dynamically based on your students table -->
+          <option value="student_id_1">Student 1</option>
+          <option value="student_id_2">Student 2</option>
+        </select><br>
+      
+        <label for="questions">Quiz Questions (JSON format):</label>
+        <textarea name="questions" required></textarea><br>
+      
+        <button type="submit">Create Quiz</button>
+      </form>
+      <!-- ========================= ENDS ======================== -->
+  
+          <hr>
+      <footer>
+        <p>&copy; BrainWave 2024. All Rights Reserved.</p>
+      </footer>
+    </div>
+  </main>
+  
+  <script>
+      document.getElementById('toggleSidebar').addEventListener('click', function () {
+    const sidebar = document.getElementById('sidebarMenu');
+    sidebar.classList.toggle('hidden');
+  });
+  </script>
+
+   <%- include('layouts/footer')%>
+
+
+
+

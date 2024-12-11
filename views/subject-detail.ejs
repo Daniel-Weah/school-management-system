@@ -1,0 +1,137 @@
+<%- include('layouts/header')%>
+<link rel="stylesheet" href="/css/dashboard.css" />
+
+<style>
+  .breadcrumb {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+}
+
+.breadcrumb-item a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.breadcrumb-item.active {
+    color: #6c757d;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+      content: " > ";
+    }
+.subject_main {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+}
+
+.details {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 3rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.details h4 {
+    margin: 0;
+    font-weight: bold;
+    color: #333;
+}
+
+.details h6 {
+    margin-top: 5px;
+    font-size: 12px;
+}
+
+footer {
+    margin-top: 3rem;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+}
+
+footer p {
+    margin: 0;
+}
+
+.container h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+ 
+</style>
+</head>
+
+<body>
+ 
+ <header>
+  <%- include('layouts/subjectDetailSidebar')%>
+ </header>
+
+  
+  <main style="margin-top: 58px;">
+    <div class="container pt-4">
+      <!-- Breadcrumb Navigation -->
+      <nav aria-label="breadcrumb" class="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/">Home</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="/dashboard">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="/subject">Subjects</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Subject Details</li>
+        </ol>
+      </nav>
+  
+      <!-- Page Title -->
+      <h1 class="pt-4"><%= user.subject_name %> </h1>
+  
+      <!-- Subject Details Section -->
+      <div class="details pt-5 shadow-sm">
+        <div class="subject_main">
+          <div class="main">
+            <h4><%= user.fullName %></h4>
+            <h6 class="text badge rounded-pill bg-secondary" style="color: #fff;">Instructor</h6>
+          </div>
+          <div class="main">
+            <h4> <%= user.subject_name %> </h4>
+            <h6 class="text badge rounded-pill bg-secondary" style="color: #fff;">Subject</h6>
+          </div>
+          <div class="main">
+            <h4><%= users.class_name %></h4>
+            <h6 class="text badge rounded-pill bg-secondary" style="color: #fff;">Class</h6>
+          </div>
+         
+        </div>
+      </div>
+  
+      <!-- Footer -->
+      <hr>
+      <footer>
+        <p>&copy; BrainWave 2024. All Rights Reserved.</p>
+      </footer>
+    </div>
+  </main>
+  
+  <script>
+      document.getElementById('toggleSidebar').addEventListener('click', function () {
+    const sidebar = document.getElementById('sidebarMenu');
+    sidebar.classList.toggle('hidden');
+  });
+  </script>
+
+   <%- include('layouts/footer')%>
+
+
+
+

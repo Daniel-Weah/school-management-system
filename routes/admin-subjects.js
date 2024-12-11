@@ -139,19 +139,19 @@ router.get("/app/admin/subjects", (req, res) => {
 // ================ Post route ============
 
 router.post("/app/admin/subjects", upload.single("subjectImg"), (req, res) => {
-  const { school, instructor, subject } = req.body;
+  const { school, instructor, class_id, subject } = req.body;
   const subjectImg = req.file ? req.file.buffer : "/images/english.png";
 
   const subjectID = uuidv4();
 
   const query = `
-        INSERT INTO subjects (subject_id, subject_name, school_id, instructor_id, subject_Img)
-        VALUES (?, ?, ?, ?, ?)
+        INSERT INTO subjects (subject_id, subject_name, school_id, instructor_id, class_id, subject_Img)
+        VALUES (?, ?, ?, ?, ?, ?)
       `;
 
   db.run(
     query,
-    [subjectID, subject, school, instructor, subjectImg],
+    [subjectID, subject, school, instructor, class_id, subjectImg],
     (err) => {
       if (err) {
         console.error(err);

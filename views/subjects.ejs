@@ -254,12 +254,17 @@
    <div class="container mt-4 grid-view">
     <% if (studentSubjects.length > 0) { %>
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-4">
-        <% studentSubjects.forEach(student => { %> 
+        <% studentSubjects.forEach(student => {
+          const subjectSlug = student.subject_name.toLowerCase().replace(/\s+/g, '-').replace(/[^\w\-]/g, ''); 
+          %> 
+
           <div class="col" data-search="<%= student.subject_name %> <%= student.fullName %>">
             <div class="card h-100 shadow-sm">
               <div class="card-body text-center">
                 <img src="/images/mathematics.png" alt="Mathematics">
-                <h5 class="card-title"><%= student.subject_name %></h5>
+
+               <a href="/subject-details/<%= subjectSlug %>"> <h5 class="card-title"><%= student.subject_name %></h5> </a>
+
                 <p class="card-text" style="text-align: left;" title=" <%= student.subject_name %> Instructor - <%= student.fullName %>">
                   <div class="d-flex align-items-center">
                   <% if (student.profile_picture && student.profile_picture.length === 2) { %>
@@ -292,12 +297,15 @@
   <div class="list_container list-view">
     <% if (studentSubjects.length > 0) { %>
       <ul>
-        <% studentSubjects.forEach(student => { %> 
+        <% studentSubjects.forEach(student => { 
+          const subjectSlug = student.subject_name.toLowerCase().replace(/\s+/g, '-').replace(/[^\w\-]/g, ''); 
+
+          %> 
           <li data-search="<%= student.subject_name %> <%= student.fullName %>">
             <div class="list_details">
               <img src="/images/mathematics.png" alt="Mathematics">
               <div class="info">
-                <h5 class="card-title"><%= student.subject_name %></h5>
+                <a href="/subject-details/<%= subjectSlug %>"> <h5 class="card-title"><%= student.subject_name %></h5> </a>
                 <p class="card-text" style="text-align: left;" title=" <%= student.subject_name %> Instructor - <%= student.fullName %>">
                   <div class="d-flex align-items-center">
                   <% if (student.profile_picture && student.profile_picture.length === 2) { %>
@@ -349,12 +357,15 @@
     <% if (instructorSubjects.length > 0) { %>
       <h4>Subjects that I Teach</h4>
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-4">
-        <% instructorSubjects.forEach(instructor => { %> 
+        <% instructorSubjects.forEach(instructor => { 
+          const subjectSlug = instructor.subject_name.toLowerCase().replace(/\s+/g, '-').replace(/[^\w\-]/g, ''); 
+
+          %> 
           <div class="col" data-search="<%= instructor.subject_name %> <%= instructor.fullName %>">
             <div class="card h-100 shadow-sm">
               <div class="card-body text-center">
                 <img src="/images/mathematics.png" alt="Mathematics">
-                <h5 class="card-title"><%= instructor.subject_name %></h5>
+                <a href="/subject-details/<%= subjectSlug %>"> <h5 class="card-title"><%= instructor.subject_name %></h5> </a>
                 <p class="card-text" style="text-align: left;" title=" <%= instructor.subject_name %> Instructor - <%= instructor.fullName %>">
                   <div class="d-flex align-items-center">
                   <% if (instructor.profile_picture && instructor.profile_picture.length === 2) { %>
@@ -389,12 +400,14 @@
       <h4>Subjects that I Teach</h4>
 
       <ul>
-        <% instructorSubjects.forEach(instructor => { %> 
+        <% instructorSubjects.forEach(instructor => { 
+          const subjectSlug = instructor.subject_name.toLowerCase().replace(/\s+/g, '-').replace(/[^\w\-]/g, ''); 
+          %> 
           <li data-search="<%= instructor.subject_name %> <%= instructor.fullName %>">
             <div class="list_details">
               <img src="/images/mathematics.png" alt="Mathematics">
               <div class="info">
-                <h5 class="card-title"><%= instructor.subject_name %></h5>
+                <a href="/subject-details/<%= subjectSlug %>"> <h5 class="card-title"><%= instructor.subject_name %></h5> </a>
                 <p class="card-text" style="text-align: left;" title=" <%= instructor.subject_name %> Instructor - <%= instructor.fullName %>">
                   <div class="d-flex align-items-center">
                   <% if (instructor.profile_picture && instructor.profile_picture.length === 2) { %>

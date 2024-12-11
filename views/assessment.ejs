@@ -1,0 +1,129 @@
+<%- include('layouts/header')%>
+<link rel="stylesheet" href="/css/dashboard.css" />
+
+<style>
+  .breadcrumb {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+}
+
+.breadcrumb-item a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.breadcrumb-item.active {
+    color: #6c757d;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+      content: " > ";
+    }
+
+footer {
+    margin-top: 3rem;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+}
+
+footer p {
+    margin: 0;
+}
+
+.container h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+.quiz_container ul li{
+  list-style: none;
+  padding: 1.2rem;
+}
+.quiz_container ul li a{
+  font-size: 1.1rem;
+}
+
+ 
+</style>
+</head>
+
+<body>
+ 
+ <header>
+  <%- include('layouts/subjectDetailSidebar')%>
+ </header>
+
+  
+  <main style="margin-top: 58px;">
+    <div class="container pt-4">
+      <!-- Breadcrumb Navigation -->
+      <nav aria-label="breadcrumb" class="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/">Home</a>
+          </li>
+          
+          <li class="breadcrumb-item">
+            <a href="/subject-details">Subjects Details</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Quiz Details</li>
+        </ol>
+      </nav>
+  
+      <!-- Page Title -->
+      <h1 class="pt-4"> MY ASSESSMENT</h1>
+      <h5 class="text-muted" style="font-size: 16px;">Pending Assessment</h5>
+
+      <div class="quiz_container shadow-lg">
+        <% if (quizData && quizData.length > 0) { %> 
+        <% quizData.forEach(quizData => { 
+          const assessmentSlug = quizData.quiz_title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w\-]/g, ''); 
+
+          %>
+
+        <ul>
+            <li>
+               <a href="/assessment/<%= assessmentSlug %>"> <%= quizData.quiz_title %></a>
+               <p> <input type="checkbox" name="mark" id="mark" style="width: 25px;height: 1.5pc;"><br>
+               <span class="text-muted">Completed</span>
+              </p>
+            </li>
+
+        </ul>
+        <%  }) %>
+
+        <% }  else {%>
+          
+          <div class="alert alert-warning text-center mt-4">
+            No assessment available at the moment. Please check back later.
+          </div>
+          <% } %>
+      </div>
+  
+    
+  
+      <!-- Footer -->
+      <hr>
+      <footer>
+        <p>&copy; BrainWave 2024. All Rights Reserved.</p>
+      </footer>
+    </div>
+  </main>
+  
+  <script>
+      document.getElementById('toggleSidebar').addEventListener('click', function () {
+    const sidebar = document.getElementById('sidebarMenu');
+    sidebar.classList.toggle('hidden');
+  });
+  </script>
+
+   <%- include('layouts/footer')%>
+
+
+
+
