@@ -96,15 +96,44 @@ footer p {
       <!-- Page Title -->
       <h1 class="pt-4"> </h1>
 
+        <!-- <h1>Create a Quiz</h1>
+        <form action="/create/quiz" method="POST">
+          <label for="quiz_title">Quiz Title:</label>
+          <input type="text" name="quiz_title" required><br>
+        
+          <label for="quiz_type">Quiz Type:</label>
+          <select name="quiz_type">
+            <option value="quiz">Quiz</option>
+            <option value="test">Test</option>
+          </select><br>
+        
+          <label for="quiz_duration">Quiz Duration (in minutes):</label>
+          <input type="number" name="quiz_duration" min="1" required><br>
+        
+          <label for="students">Select Students:</label>
+          <select name="students[]" multiple>
+            <option value="student_id_1">Student 1</option>
+            <option value="student_id_2">Student 2</option>
+          </select><br>
+        
+          <label for="questions">Quiz Questions (JSON format):</label>
+          <textarea name="questions" required></textarea><br>
+        
+          <button type="submit">Create Quiz</button>
+        </form> -->
+        <!-- ========================= ENDS ======================== -->
+  
+
       <!-- ======================= STUDENT'S SIDE ================ -->
 
-      <h1>Take the Quiz: Mathematics 2nd Period Test</h1>
-<form action="/assessment/submit" method="POST">
-    <% if (questions.length > 0) { %> 
-  <% questions.forEach((question, index) => { 
-    
-    %>
-    <div>
+      <% if (users.user_role == 'Student') { %> 
+      <form action="/assessment/submit" method="POST">
+        <% if (questions.length > 0) { %> 
+          <h1>Assessment: <%= quiz.quiz_title %></h1>
+          <% questions.forEach((question, index) => { 
+            
+            %>
+            <div>
       <p><%= question.question_text %></p>
       <% if (question.question_type === 'multiple_choice') { %>
         <% question.options.forEach(option => { %>
@@ -116,44 +145,20 @@ footer p {
     </div>
   <% }); %>
 
+  <button type="submit">Submit Quiz</button>
+  </form>
   <% } else { %> 
-    <p>There is no assessment avaliable</p>
+    <div class="alert alert-warning text-center mt-4">
+      No assessment question available at the moment. Please check back later.
+    </div>
     
 <% } %>
 
-  <button type="submit">Submit Quiz</button>
-</form>
+<% } %>
 
 
-      <!-- ===================== INSTRUCTOR'S SIDE ================== -->
-      <h1>Create a Quiz</h1>
-      <form action="/create/quiz" method="POST">
-        <label for="quiz_title">Quiz Title:</label>
-        <input type="text" name="quiz_title" required><br>
-      
-        <label for="quiz_type">Quiz Type:</label>
-        <select name="quiz_type">
-          <option value="quiz">Quiz</option>
-          <option value="test">Test</option>
-        </select><br>
-      
-        <label for="quiz_duration">Quiz Duration (in minutes):</label>
-        <input type="number" name="quiz_duration" min="1" required><br>
-      
-        <label for="students">Select Students:</label>
-        <select name="students[]" multiple>
-          <!-- Options will be populated dynamically based on your students table -->
-          <option value="student_id_1">Student 1</option>
-          <option value="student_id_2">Student 2</option>
-        </select><br>
-      
-        <label for="questions">Quiz Questions (JSON format):</label>
-        <textarea name="questions" required></textarea><br>
-      
-        <button type="submit">Create Quiz</button>
-      </form>
-      <!-- ========================= ENDS ======================== -->
-  
+      <!-- ===================== INSTRUCTOR'S SIDE ================== --> 
+    
           <hr>
       <footer>
         <p>&copy; BrainWave 2024. All Rights Reserved.</p>
@@ -161,12 +166,7 @@ footer p {
     </div>
   </main>
   
-  <script>
-      document.getElementById('toggleSidebar').addEventListener('click', function () {
-    const sidebar = document.getElementById('sidebarMenu');
-    sidebar.classList.toggle('hidden');
-  });
-  </script>
+    
 
    <%- include('layouts/footer')%>
 

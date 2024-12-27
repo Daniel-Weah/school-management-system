@@ -6,22 +6,42 @@ const router = express.Router();
 // GET route to fetch quiz for student
 router.get("/assessment/:assessmentSlug", (req, res) => {
 
+  if(!req.session.userID && !req.session.subjectName) {
+    return res.redirect('/');
+  }
+
   const assessmentSlug = req.params.assessmentSlug; 
+  const subjectSlugName = req.session.subjectName;
 
   
   const [firstName, ...lastName] = assessmentSlug.split("-");
   const name = [firstName, ...lastName].join(" "); 
 
   // Fetch quiz details
-  db.get("SELECT * FROM quizzes WHERE quiz_id = ?", [quiz_id], (err, quiz) => {
-    if (err || !quiz) {
-      return res.status(404).send("Quiz not found");
-    }
+  db.get(
+    `SELECT quizzes.*, subjects.subject_name AS subjectName
+    FROM quizzes
+    JOIN subjects ON quizzes.subject_id = subjects.subject_id
+`,
+    (err, quiz) => {
+      if (err) {
+        console.error("Error fetching quiz details:", err);
+      } else if (!quiz) {
+        console.warn(`Quiz not found for quiz_id:`);
+      } else {
+        console.warn(`Quiz found:`);
+
+      }
+      const quizID = quiz.quiz_id;
+
+      console.log('The quiz data::', quizID);
+
+      
 
     // Fetch questions for the quiz
     db.all(
       "SELECT * FROM questions WHERE quiz_id = ?",
-      [quiz_id],
+      [quizID],
       (err, questions) => {
         if (err || !questions) {
           return res.status(500).send("Error fetching questions");
@@ -65,9 +85,9 @@ router.get("/assessment/:assessmentSlug", (req, res) => {
 
                 console.log(users);
 
-                const subjectSlug = req.params.subjectSlug;
+                
 
-                const [firstName, ...lastName] = subjectSlug.split("-");
+                const [firstName, ...lastName] = subjectSlugName.split("-");
                 const name = [firstName, ...lastName].join(" ");
 
                 const firstLetter = name
@@ -81,7 +101,7 @@ router.get("/assessment/:assessmentSlug", (req, res) => {
                      FROM subjects
                      JOIN users ON subjects.instructor_id = users.user_id
                      WHERE LOWER(REPLACE(subjects.subject_name, ' ', '-')) = ?`,
-                  [subjectSlug.toLowerCase()],
+                  [subjectSlugName.toLowerCase()],
                   (err, user) => {
                     if (err) {
                       return res
@@ -109,7 +129,9 @@ router.get("/assessment/:assessmentSlug", (req, res) => {
                           users,
                           userID: authRows,
                           firstLetter,
-                          assessmentSlug
+                          assessmentSlug,
+                          quiz,
+                          subjectSlugName
                         });
                       }
                     );

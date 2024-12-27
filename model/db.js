@@ -109,8 +109,11 @@ db.serialize(() => {
   id TEXT PRIMARY KEY,
   quiz_id TEXT NOT NULL,
   student_id TEXT NOT NULL,
+  instructor_id TEXT NOT NULL,
   FOREIGN KEY (quiz_id) REFERENCES quizzes(quiz_id),
-  FOREIGN KEY (student_id) REFERENCES users(user_id)
+  FOREIGN KEY (student_id) REFERENCES users(user_id),
+  FOREIGN KEY (instructor_id) REFERENCES users(user_id)
+
 );
 `);
 
@@ -235,5 +238,7 @@ db.run(`CREATE TABLE IF NOT EXISTS schedules (
 
 // db.run(`DROP TABLE subjects`);
 });
-
+// 4e1f5edb-7bae-5dea-94c1-a5ab1d1a496e
+// 5e1f50db-7bae-4de0-9fc1-a6ab1d7a496e
+// de5333a4-ee07-4e56-a511-3caf06a7a59b
 module.exports = db;

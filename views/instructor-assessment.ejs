@@ -22,29 +22,6 @@
 .breadcrumb-item + .breadcrumb-item::before {
       content: " > ";
     }
-.subject_main {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-}
-
-.details {
-    background-color: #ffffff;
-    border-radius: 10px;
-    padding: 3rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.details h4 {
-    margin: 0;
-    font-weight: bold;
-    color: #333;
-}
-
-.details h6 {
-    margin-top: 5px;
-    font-size: 12px;
-}
 
 footer {
     margin-top: 3rem;
@@ -62,6 +39,13 @@ footer p {
     font-weight: bold;
     color: #333;
     margin-bottom: 20px;
+}
+.quiz_container ul li{
+  list-style: none;
+  padding: 1.2rem;
+}
+.quiz_container ul li a{
+  font-size: 1.1rem;
 }
 
  
@@ -83,35 +67,44 @@ footer p {
           <li class="breadcrumb-item">
             <a href="/">Home</a>
           </li>
+          
           <li class="breadcrumb-item">
-            <a href="/dashboard">Dashboard</a>
+            <a href="/subject-details">Subjects Details</a>
           </li>
-          <li class="breadcrumb-item">
-            <a href="/subject">Subjects</a>
-          </li>
-          <li class="breadcrumb-item active" aria-current="page">Subject Details</li>
+          <li class="breadcrumb-item active" aria-current="page">Quiz Details</li>
         </ol>
       </nav>
   
-      <h1 class="pt-4"><%= user.subject_name %> </h1>
-  
-      <div class="details pt-5 shadow-sm">
-        <div class="subject_main">
-          <div class="main">
-            <h4><%= user.fullName %></h4>
-            <h6 class="text badge rounded-pill bg-secondary" style="color: #fff;">Instructor</h6>
+      <h1 class="pt-4"> MY ASSESSMENT</h1>
+      <h5 class="text-muted" style="font-size: 16px;">Pending Assessment</h5>
+
+      <div class="quiz_container shadow-lg">
+        <% if (quizData && quizData.length > 0) { %> 
+        <% quizData.forEach(quizData => { 
+          const assessmentSlug = quizData.quiz_title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w\-]/g, ''); 
+
+          %>
+
+        <ul>
+            <li>
+               <a href="/assessment/<%= assessmentSlug %>"> <%= quizData.quiz_title %></a>
+               <p> <input type="checkbox" name="mark" id="mark" style="width: 25px;height: 1.5pc;"><br>
+               <span class="text-muted">Completed</span>
+              </p>
+            </li>
+
+        </ul>
+        <%  }) %>
+
+        <% }  else {%>
+          
+          <div class="alert alert-warning text-center mt-4">
+            No assessment available at the moment. Please check back later.
           </div>
-          <div class="main">
-            <h4> <%= user.subject_name %> </h4>
-            <h6 class="text badge rounded-pill bg-secondary" style="color: #fff;">Subject</h6>
-          </div>
-          <div class="main">
-            <h4><%= users.class_name %></h4>
-            <h6 class="text badge rounded-pill bg-secondary" style="color: #fff;">Class</h6>
-          </div>
-         
-        </div>
+          <% } %>
       </div>
+  
+    
   
       <hr>
       <footer>

@@ -89,43 +89,56 @@ footer p {
           <li class="breadcrumb-item">
             <a href="/subject">Subjects</a>
           </li>
-          <li class="breadcrumb-item active" aria-current="page">Subject Details</li>
+          <li class="breadcrumb-item active" aria-current="page">Assessments</li>
         </ol>
       </nav>
   
-      <h1 class="pt-4"><%= user.subject_name %> </h1>
+      <!-- Page Title -->
+      <h1 class="pt-4"> </h1>
+
+        <h1>Create a Quiz</h1>
+        <form action="/create/quiz" method="POST">
+          <label for="quiz_title">Quiz Title:</label>
+          <input type="text" name="quiz_title" required><br>
+        
+          <label for="quiz_type">Quiz Type:</label>
+          <select name="quiz_type">
+            <option value="quiz">Quiz</option>
+            <option value="test">Test</option>
+          </select><br>
+        
+          <label for="quiz_duration">Quiz Duration (in minutes):</label>
+          <input type="number" name="quiz_duration" min="1" required><br>
+        
+          <label for="students">Select Students:</label>
+          <select name="students[]" multiple>
+            <option value="student_id_1">Student 1</option>
+            <option value="student_id_2">Student 2</option>
+          </select><br>
+        
+          <label for="questions">Quiz Questions (JSON format):</label>
+          <textarea name="questions" required></textarea><br>
+        
+          <button type="submit">Create Quiz</button>
+        </form>
+        <!-- ========================= ENDS ======================== -->
   
-      <div class="details pt-5 shadow-sm">
-        <div class="subject_main">
-          <div class="main">
-            <h4><%= user.fullName %></h4>
-            <h6 class="text badge rounded-pill bg-secondary" style="color: #fff;">Instructor</h6>
-          </div>
-          <div class="main">
-            <h4> <%= user.subject_name %> </h4>
-            <h6 class="text badge rounded-pill bg-secondary" style="color: #fff;">Subject</h6>
-          </div>
-          <div class="main">
-            <h4><%= users.class_name %></h4>
-            <h6 class="text badge rounded-pill bg-secondary" style="color: #fff;">Class</h6>
-          </div>
-         
-        </div>
-      </div>
-  
-      <hr>
+
+      <!-- ======================= STUDENT'S SIDE ================ -->
+
+    
+
+
+      <!-- ===================== INSTRUCTOR'S SIDE ================== --> 
+    
+          <hr>
       <footer>
         <p>&copy; BrainWave 2024. All Rights Reserved.</p>
       </footer>
     </div>
   </main>
   
-  <script>
-      document.getElementById('toggleSidebar').addEventListener('click', function () {
-    const sidebar = document.getElementById('sidebarMenu');
-    sidebar.classList.toggle('hidden');
-  });
-  </script>
+    
 
    <%- include('layouts/footer')%>
 

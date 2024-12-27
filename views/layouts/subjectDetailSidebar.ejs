@@ -37,6 +37,8 @@
 
   
           <!-- ================= STUDENT PART OF THE SIDEBAR ===========-->
+
+          <% if (users.user_role == 'Student') {%> 
          
           <a href="/assessment" class="list-group-item list-group-item-action py-2 ripple">
             <i class="fas fa-book fa-fw me-3"></i><span>Assessment</span>
@@ -50,7 +52,23 @@
           <a href="https://studyclass.me/" class="list-group-item list-group-item-action py-2 ripple" target="_blank">
             <i class="fa-fw me-3"><img src="/images/studyClassLogo.png" alt="study class logo" style="width: 100px;"></i><span>Study Class</span>
           </a>
-        
+          <% } %>
+
+          <% if (users.user_role == 'Instructor') {%> 
+         
+            <a href="/instructor-assessment" class="list-group-item list-group-item-action py-2 ripple">
+              <i class="fas fa-book fa-fw me-3"></i><span>Assessment</span>
+            </a>
+            <a href="/assignment" class="list-group-item list-group-item-action py-2 ripple">
+              <i class="fas fa-graduation-cap fa-fw me-3"></i><span>Assignment</span>
+            </a>
+            <a href="/notes" class="list-group-item list-group-item-action py-2 ripple">
+              <i class="fas fa-file fa-fw me-3"></i><span>Notes</span>
+            </a>
+            <a href="https://studyclass.me/" class="list-group-item list-group-item-action py-2 ripple" target="_blank">
+              <i class="fa-fw me-3"><img src="/images/studyClassLogo.png" alt="study class logo" style="width: 100px;"></i><span>Study Class</span>
+            </a>
+            <% } %>
         </div>
       </div>
     </nav>
